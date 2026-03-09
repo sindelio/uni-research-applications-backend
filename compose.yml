@@ -1,0 +1,16 @@
+services:
+  db:
+    container_name: db
+    image: mongo:7-jammy
+    volumes:
+      - db_volume:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    # The docker-entrypoint.sh script inside the Mongo image will see the credentials set and switch --auth for Mongo automatically
+
+volumes:
+  db_volume: null
