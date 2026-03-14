@@ -18,11 +18,6 @@ const commonValidators = {
       password: formats.requiredPassword,
     }),
   }),
-  inputId: celebrate({
-    body: Joi.object({
-      id: formats.requiredLinkedinId,
-    }),
-  }),
 };
 
 export default commonValidators;

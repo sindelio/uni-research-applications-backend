@@ -1,12 +1,12 @@
 import Unauthorized from '../../../errors/unauthorized.js';
 
 const {
-  ADMIN_API_KEY,
+  SUPER_ADMIN_API_KEY,
 } = process.env;
 
 function apiKeyVerifier(req, _res, next) {
-  const adminApiKey = req.headers['admin-api-key'];
-  if (adminApiKey === ADMIN_API_KEY) {
+  const superAdminApiKey = req.headers['super-admin-api-key'];
+  if (superAdminApiKey === SUPER_ADMIN_API_KEY) {
     next();
   } else {
     throw new Unauthorized('Unauthorized API access');

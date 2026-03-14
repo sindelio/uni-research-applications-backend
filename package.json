@@ -1,7 +1,7 @@
 {
   "name": "uni-research-applications-backend",
   "version": "1.0.0",
-  "description": "Backend to manage submissions of research projects on events in a university",
+  "description": "Uni research application backend",
   "type": "module",
   "engines": {
     "bun": "1.3.x"
@@ -43,9 +43,11 @@
   },
   "contributors": [],
   "dependencies": {
+    "@date-fns/tz": "^1.4.1",
     "body-parser": "^2.2.2",
     "celebrate": "^15.0.3",
     "cors": "^2.8.6",
+    "crypto": "^1.0.1",
     "date-fns": "^4.1.0",
     "express": "^5.2.1",
     "helmet": "^8.1.0",

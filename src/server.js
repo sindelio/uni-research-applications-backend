@@ -1,26 +1,26 @@
-// Importing modules
+// Import modules
 import express from 'express';
 
-// Importing Express middleware
+// Import Express middleware
 import helmet from 'helmet';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-// Importing Express routers
-import adminRouter from './domains/admin/router.js';
+// Import Express routers
 import healthRouter from './domains/health/router.js';
+import superAdminRouter from './domains/super-admin/router.js';
 import userRouter from './domains/user/router.js';
 
-// Importing global error handler
+// Import global error handler
 import globalErrorHandler from './middlewares/error-handlers/global-error-handler.mid.js';
 
-// Importing handler for endpoints that are not available
+// Import handler for endpoints that are not available
 import routeNotFoundHandler from './middlewares/error-handlers/404-handler.mid.js';
 
-// Instantiating the app's HTTP server
+// Instantiate the app's HTTP server
 const server = express();
 
-// Setting middleware (order matters)
+// Set middleware (order matters)
 server.use(helmet()); // Middleware to set response headers securely
 const corsOptions = { origin: '*' };
 server.use(cors(corsOptions)); // Middleware to set Cross Origin Resource Sharing
@@ -30,14 +30,14 @@ server.use(bodyParser.json({ // Middleware to parse an incoming JSON body as an 
 }));
 
 // API routing
-server.use('/v1/admin', adminRouter);
 server.use('/v1/health', healthRouter);
+server.use('/v1/super-admin', superAdminRouter);
 server.use('/v1', userRouter);
 
-// Setting global error handler
+// Set global error handler
 server.use(globalErrorHandler);
 
-// Setting handler for endpoints that are not available (404 error handler)
+// Set handler for endpoints that are not available (404 error handler)
 server.use(routeNotFoundHandler);
 
 export default server;

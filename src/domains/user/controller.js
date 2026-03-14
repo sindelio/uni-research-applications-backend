@@ -2,8 +2,8 @@ import service from './service.js';
 
 const controller = {
   async create(req, res) {
-    const { email, password } = req.body;
-    const result = await service.create(email, password);
+    const userInfo = req.body;
+    const result = await service.create(userInfo);
     res.status(200).json(result);
   },
   async confirmEmail(req, res) {
@@ -65,48 +65,10 @@ const controller = {
     );
     res.status(200).json(result);
   },
-  async readRequest(req, res) {
-    const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.readRequest(email, id);
-    res.status(200).json(result);
-  },
-  async payInvoice(req, res) {
-    const { email } = req.user;
-    const { id } = req.body;
-    const result = await service.payInvoice(email, id);
-    res.status(200).json(result);
-  },
-  async readInvoice(req, res) {
-    const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.readInvoice(email, id);
-    res.status(200).json(result);
-  },
   async stats(req, res) {
     const { email } = req.user;
     const { year, month, day } = req.body;
     const result = await service.stats(email, year, month, day);
-    res.status(200).json(result);
-  },
-  async regenerateApiKey(req, res) {
-    const { email } = req.user;
-    const result = await service.regenerateApiKey(email);
-    res.status(200).json(result);
-  },
-  async requestSupport(req, res) {
-    const { email } = req.user;
-    const {
-      type,
-      message,
-      videoUrl,
-    } = req.body;
-    const result = await service.requestSupport(
-      email,
-      type,
-      message,
-      videoUrl,
-    );
     res.status(200).json(result);
   },
 };

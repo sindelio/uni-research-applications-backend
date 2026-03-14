@@ -1,41 +1,13 @@
 import express from 'express';
+import apiKeyVerifier from './middlewares/api-key-verifier.mid.js';
 import identityVerifier from '../../middlewares/auth/identity-verifier.mid.js';
-import controller from './controller.js';
 import validator from './middlewares/validator.mid.js';
+import controller from './controller.js';
 
 const router = express.Router();
 
-router.post(
-  '/',
-  validator.create,
-  async (req, res, _next) => {
-    await controller.create(req, res);
-  },
-);
-
-router.post(
-  '/confirm-email',
-  validator.confirmEmail,
-  async (req, res, _next) => {
-    await controller.confirmEmail(req, res);
-  },
-);
-
-router.post(
-  '/recover-password',
-  validator.recoverPassword,
-  async (req, res, _next) => {
-    await controller.recoverPassword(req, res);
-  },
-);
-
-router.post(
-  '/reset-password',
-  validator.resetPassword,
-  async (req, res, _next) => {
-    await controller.resetPassword(req, res);
-  },
-);
+// API key verification middleware for all admin routes
+router.use(apiKeyVerifier);
 
 router.post(
   '/signin',
@@ -63,10 +35,10 @@ router.patch(
   },
 );
 
-router.delete(
-  '/',
+router.get(
+  '/stats',
   async (req, res, _next) => {
-    await controller.delete(req, res);
+    await controller.stats(req, res);
   },
 );
 
@@ -79,10 +51,34 @@ router.post(
 );
 
 router.post(
-  '/stats',
-  validator.stats,
+  '/user',
+  validator.createUser,
   async (req, res, _next) => {
-    await controller.stats(req, res);
+    await controller.createUser(req, res);
+  },
+);
+
+router.get(
+  '/user',
+  validator.readUser,
+  async (req, res, _next) => {
+    await controller.readUser(req, res);
+  },
+);
+
+router.patch(
+  '/user',
+  validator.updateUser,
+  async (req, res, _next) => {
+    await controller.updateUser(req, res);
+  },
+);
+
+router.delete(
+  '/user',
+  validator.deleteUser,
+  async (req, res, _next) => {
+    await controller.deleteUser(req, res);
   },
 );
 

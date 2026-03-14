@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 import {
-  adminSchema,
+  superAdminSchema,
   userSchema,
   errorLogSchema,
 } from './schemas.js';
 
-const Admin = mongoose.model('Admin', adminSchema);
+const SuperAdmin = mongoose.model('SuperAdmin', superAdminSchema);
 const User = mongoose.model('User', userSchema);
 const ErrorLog = mongoose.model('ErrorLog', errorLogSchema);
 
 export {
+  SuperAdmin,
   User,
-  Admin,
   ErrorLog,
 };

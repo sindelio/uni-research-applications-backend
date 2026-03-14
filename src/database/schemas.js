@@ -11,19 +11,23 @@ const dateFields = {
   hour: Number,
 };
 
-const userBaseFields = {
+const superAdminSchema = new Schema({
   email: { type: String, index: true },
   password: String,
   name: String,
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
-};
-
-const adminSchema = new Schema(userBaseFields);
+});
 
 const userSchema = new Schema({
-  ...userBaseFields,
-  company: String,
+  email: { type: String, index: true },
+  password: String,
+  type: String, // admin, participant or examiner
+  phoneNumber: String,
+  name: String,
+  institution: String,
+  createdAt: dateFields,
+  lastUpdatedAt: dateFields,
   status: String,
   passwordRecoveryToken: String,
 });
@@ -42,7 +46,7 @@ const errorLogSchema = new Schema({
 });
 
 export {
-  adminSchema,
+  superAdminSchema,
   userSchema,
   errorLogSchema,
 };

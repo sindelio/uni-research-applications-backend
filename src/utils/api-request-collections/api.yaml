@@ -1,30 +1,64 @@
 type: collection.insomnia.rest/5.0
-name: Backend API
+name: Uni Research Applications API
 meta:
-  id: wrk_c3435eb9332348e5a29e9f72c11ddb50
-  created: 1691515672718
-  modified: 1746566412560
+  id: wrk_a628fbe739404167b2321ce24ddea99d
+  created: 1773078895273
+  modified: 1773078895273
 collection:
-  - name: Admins
+  - name: Super Admins
     meta:
-      id: fld_825df876b2bd4008979bb6acf8293c28
-      created: 1688504470481
-      modified: 1688504470481
+      id: fld_d8b03885aa324ee299711fa13399b237
+      created: 1773078895277
+      modified: 1773493073890
       sortKey: -1649354835601
     children:
       - name: User
         meta:
-          id: fld_a43c05fc062c4b06b03eaf859d507297
-          created: 1692725391830
-          modified: 1692725414203
+          id: fld_df098c132ec6476087711eb05edb3c8d
+          created: 1773078895277
+          modified: 1773078895277
           sortKey: -1620024919550.246
         children:
-          - url: "{{ BACKEND_URL }}/admin/user"
+          - url: "{{ BACKEND_URL }}/super-admin/user"
+            name: Read user
+            meta:
+              id: req_343e42f56eec462ab15078ee836fef74
+              created: 1773078895277
+              modified: 1773495108227
+              isPrivate: false
+              sortKey: -1656522245569
+            method: GET
+            parameters:
+              - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
+                name: email
+                value: "{{SUPER_ADMIN_EMAIL}}"
+            headers:
+              - id: pair_696eaa486ee74628941269b81162e3f1
+                name: Content-Type
+                value: application/json
+              - id: pair_d2b1242774b44c69abdf3bcbe8340496
+                name: Super-Admin-Api-Key
+                value: "{{SUPER_ADMIN_API_KEY}}"
+                disabled: false
+            authentication:
+              type: bearer
+              token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
+                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+              disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ BACKEND_URL }}/super-admin/user"
             name: Create user
             meta:
-              id: req_4550e611d48e4a60afdbe51604177036
-              created: 1688504470486
-              modified: 1750689890090
+              id: req_ef5caac7f4ba474d89336f89a363b5d8
+              created: 1773078895277
+              modified: 1773497041611
               isPrivate: false
               sortKey: -1656522245619
             method: POST
@@ -33,18 +67,23 @@ collection:
               text: |-
                 {
                 	"email": "{{USER_EMAIL}}",
-                	"password": "{{USER_PASSWORD}}"
+                	"password": "{{USER_PASSWORD}}",
+                	"phoneNumber": "+55 19 936180541",
+                	"type": "participant",
+                	"institution": "UNESP",
+                	"name": "Sid"
                 }
             headers:
               - name: Content-Type
                 value: application/json
                 id: pair_36f9aba222ce4fa7811cc5e1080142f0
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
+              - id: pair_95af402d9e9449a6a29dbdc32880ed88
+                name: Super-Admin-Api-Key
+                value: "{{SUPER_ADMIN_API_KEY}}"
+                disabled: false
             authentication:
               type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+              token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
                 'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
               disabled: false
             settings:
@@ -55,45 +94,12 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/user"
-            name: Read user
-            meta:
-              id: req_2e91d59dc4564eb78d2626154c98e214
-              created: 1688504470487
-              modified: 1750689896310
-              isPrivate: false
-              sortKey: -1656522245569
-            method: GET
-            parameters:
-              - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
-                name: email
-                value: patrick@recrut.ai
-            headers:
-              - id: pair_696eaa486ee74628941269b81162e3f1
-                name: Content-Type
-                value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/user"
+          - url: "{{ BACKEND_URL }}/super-admin/user"
             name: Update user
             meta:
-              id: req_2a8f79f280514daea72e924e1254ca5b
-              created: 1688504470489
-              modified: 1758995468289
+              id: req_11ed49924c7a41b48f722e1b6d20361e
+              created: 1773078895278
+              modified: 1773497029080
               isPrivate: false
               sortKey: -1656522245519
             method: PATCH
@@ -101,451 +107,11 @@ collection:
               mimeType: application/json
               text: |-
                 {
-                	"usage": {
-                		"warningEmails": [
-                			"marcelo@byintera.com",
-                			"marcelo@inhire.com.br",
-                			"augusto@inhire.com.br",
-                			"rodrigo.araujo@inhire.com.br",
-                			"andre@inhire.com.br"
-                		]
-                	}
-                }
-            parameters:
-              - id: pair_4d407e8f6aa34dfdafd67e2a8f9b50b3
-                name: email
-                value: marcelo@byintera.com
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_b9da754842304f2790149dfefef7fd79
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/user"
-            name: Delete user
-            meta:
-              id: req_0294174c1b044e0ba3b02dbdba501c7a
-              created: 1688504470490
-              modified: 1750689912957
-              isPrivate: false
-              sortKey: -1656522245469
-            method: DELETE
-            parameters:
-              - id: pair_d0a50f22eb684fa083eacdff724ff13b
-                name: email
-            headers:
-              - id: pair_48052cc5be034bc9a3f19a44935698ec
-                name: Content-Type
-                value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - name: Request
-        meta:
-          id: fld_61a1d413a819423586cd3dc69642b30d
-          created: 1692725421064
-          modified: 1692725430572
-          sortKey: -1619943116907.0264
-        children:
-          - url: "{{ BACKEND_URL }}/admin/request"
-            name: Read request
-            meta:
-              id: req_c1edec8195a44a53932295333fbf0186
-              created: 1688504470497
-              modified: 1750689919283
-              isPrivate: false
-              sortKey: -1619862862577.9922
-            method: GET
-            parameters:
-              - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
-                name: id
-                value: 64d168730feaf24b159cd65d
-            headers:
-              - id: pair_696eaa486ee74628941269b81162e3f1
-                name: Content-Type
-                value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/request"
-            name: Delete request
-            meta:
-              id: req_14dd468c7b2d41159dae417e41377a74
-              created: 1690832163639
-              modified: 1750689925543
-              isPrivate: false
-              sortKey: -1619862862527.9922
-            method: DELETE
-            parameters:
-              - id: pair_c92c265241c84eab8e515e9f864cda05
-                name: id
-                value: 64b9899266f6915e68d31bae
-            headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - name: Invoice
-        meta:
-          id: fld_1ddee2f2d9334f1aad9f583ac178e894
-          created: 1692725468409
-          modified: 1692725501417
-          sortKey: -1619879700505.6975
-        children:
-          - url: "{{ BACKEND_URL }}/admin/invoice"
-            name: Create invoice
-            meta:
-              id: req_69cc94058b014cf5ae7404c0355edddd
-              created: 1688504470494
-              modified: 1750689962111
-              isPrivate: false
-              sortKey: -1688200070346.4375
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                	"email": "danilo@growyx.com",
-                	"month": 5,
-                	"year": 2024
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_36f9aba222ce4fa7811cc5e1080142f0
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/invoices"
-            name: Create invoices
-            meta:
-              id: req_ac410de0c95d4e8b8805d085dae72ea6
-              created: 1688504470494
-              modified: 1750689969588
-              isPrivate: false
-              sortKey: -1688200070296.4375
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                	"month": 5,
-                	"year": 2024
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_36f9aba222ce4fa7811cc5e1080142f0
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/invoice/mark-as-paid"
-            name: Mark invoice as paid
-            meta:
-              id: req_e536eec431ad4771a995ba12cd7fb54a
-              created: 1688504470495
-              modified: 1759190880233
-              isPrivate: false
-              sortKey: -1688200070283.9375
-            method: POST
-            parameters:
-              - id: pair_c92c265241c84eab8e515e9f864cda05
-                name: id
-                value: 6863a390008992c5ff4ad20a
-            headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/invoice"
-            name: Delete invoice
-            meta:
-              id: req_4edbb7d5044d4e9abd7cec83aa5437ef
-              created: 1688504470496
-              modified: 1750689984403
-              isPrivate: false
-              sortKey: -1688200070271.4375
-            method: DELETE
-            parameters:
-              - id: pair_c92c265241c84eab8e515e9f864cda05
-                name: id
-                value: 665aff30463fb72c627ab463
-            headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/invoice"
-            name: Read invoice
-            meta:
-              id: req_49d2b22c3406418c99f38ab9010ddf11
-              created: 1689722488967
-              modified: 1750689979337
-              isPrivate: false
-              sortKey: -1688200070277.6875
-            method: GET
-            parameters:
-              - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
-                name: id
-                value: 64b9899266f6915e68d31bae
-            headers:
-              - id: pair_696eaa486ee74628941269b81162e3f1
-                name: Content-Type
-                value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - name: LinkedIn account
-        meta:
-          id: fld_aa5d08424d484e40a062e0115fb7c019
-          created: 1692725558310
-          modified: 1692725592899
-          sortKey: -1619879700455.6975
-        children:
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin"
-            name: Create LinkedIn account
-            meta:
-              id: req_c85b924ac5e244ac95792246f6a92ea8
-              created: 1692394291493
-              modified: 1758996381922
-              isPrivate: false
-              sortKey: -1656522328859.5
-            method: POST
-            body:
-              mimeType: application/json
-              text: >-
-                {
-                  "email": "johnny.lucassqo@gmail.com",
-                  "password": "bYJ1w4Of7VD*EM",
-                  "linkedinId": "johnnylsqo",
-                  "locale": "pt_BR",
-                	"action": "Copy",
-                  "cookies": {
-                    "LI_AT_VALUE": "AQEDASdi5nAAvq8OAAABklMauAoAAAGSdyc8Ck4AaKRfb04JGpp1I0DBVuPetNs8uvVCZVf-KQj5TbtoRiUAonqZPUNrgpXV8iYUjEhFJ7EQofdZwaMvvW8M3_PHp4_IUYet2wyGNqt0bol72Lv3z0td",
-                    "JSESSIONID_VALUE": "\"ajax:-3281400775695741105\"",
-                    "CSRF_VALUE": "ajax:-3281400775695741105"
-                  }
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_36f9aba222ce4fa7811cc5e1080142f0
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin/test"
-            name: Test LinkedIn account
-            meta:
-              id: req_fd5b8ebb89024ef2965acbe58d8d1ba1
-              created: 1692469063825
-              modified: 1758996393037
-              isPrivate: false
-              sortKey: -1656522328659.5
-            method: POST
-            parameters:
-              - id: pair_010fbb7d40b347a5b96a3871fd83606a
-                name: email
-                value: johnny.lucassqo@gmail.com
-                disabled: false
-            headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin"
-            name: Read LinkedIn account
-            meta:
-              id: req_6c9ecc38e1dd473099b6e53e67ec01d6
-              created: 1692480083515
-              modified: 1750691362548
-              isPrivate: false
-              sortKey: -1656522328809.5
-            method: GET
-            parameters:
-              - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
-                name: email
-            headers:
-              - id: pair_696eaa486ee74628941269b81162e3f1
-                name: Content-Type
-                value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin"
-            name: Update LinkedIn account
-            meta:
-              id: req_46efa12ac1b64426882350945a62a8d6
-              created: 1692480209477
-              modified: 1750691354960
-              isPrivate: false
-              sortKey: -1656522328759.5
-            method: PATCH
-            body:
-              mimeType: application/json
-              text: >-
-                {
-                  "password": "E}E5*}H7MLr&{h@L",
-                  "linkedinId": "sindeliohl",
-                  "locale": "pt_BR",
-                	"action": "Copy",
-                  "cookies": {
-                    "LI_AT_VALUE": "AQEDARJlqyAFZw9sAAABl51TQ_MAAAGXwV_H81YAWeWvoXa8zzu9MfV7F14qee5XZP41EZDTnmZNoXbsY_0UfuwHexwr1e9DkbmYSC2dN_nO9LLDhoxsaun9TUi92VRX8QNwLVVpepBjlWw5FQtI9ZJr",
-                    "JSESSIONID_VALUE": "\"ajax:9014382473762920066\"",
-                    "CSRF_VALUE": "ajax:9014382473762920066"
-                  }
+                	"password": "{{USER_PASSWORD}}",
+                	"phoneNumber": "+55 19 936180541",
+                	"type": "admin",
+                	"institution": "USP",
+                	"name": "Sidelius"
                 }
             parameters:
               - id: pair_4d407e8f6aa34dfdafd67e2a8f9b50b3
@@ -555,12 +121,13 @@ collection:
               - name: Content-Type
                 value: application/json
                 id: pair_b9da754842304f2790149dfefef7fd79
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
+              - id: pair_9d5ded8d5a9e4ccea51bf0517f9472d7
+                name: Super-Admin-Api-Key
+                value: "{{SUPER_ADMIN_API_KEY}}"
+                disabled: false
             authentication:
               type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+              token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
                 'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
               disabled: false
             settings:
@@ -571,53 +138,30 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin"
-            name: Delete LinkedIn account
+          - url: "{{ BACKEND_URL }}/super-admin/user"
+            name: Delete user
             meta:
-              id: req_e60c3abfe3454accb674a3260fd3c058
-              created: 1692480795440
-              modified: 1750690007311
+              id: req_af8d9f2285c84743bf11738aa17fd5a7
+              created: 1773078895278
+              modified: 1773495124632
               isPrivate: false
-              sortKey: -1656522328709.5
+              sortKey: -1656522245469
             method: DELETE
             parameters:
-              - id: pair_c92c265241c84eab8e515e9f864cda05
+              - id: pair_d0a50f22eb684fa083eacdff724ff13b
                 name: email
-                value: rurallegendo@outlook.com
+                value: "{{SUPER_ADMIN_EMAIL}}"
             headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin/test-all"
-            name: Test all LinkedIn accounts
-            meta:
-              id: req_9ffa6b0d2b0f4e0288d45ead76ac65c1
-              created: 1692548857011
-              modified: 1750690019303
-              isPrivate: false
-              sortKey: -1656522328609.5
-            method: POST
-            headers:
-              - name: Content-Type
+              - id: pair_48052cc5be034bc9a3f19a44935698ec
+                name: Content-Type
                 value: application/json
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
+              - id: pair_108e41731e3f4e7d8f94700ee8bf2bb5
+                name: Super-Admin-Api-Key
+                value: "{{SUPER_ADMIN_API_KEY}}"
+                disabled: false
             authentication:
               type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+              token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
                 'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
               disabled: false
             settings:
@@ -628,38 +172,12 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: "{{ BACKEND_URL }}/admin/account/linkedin/save-all-cookies"
-            name: Save all LinkedIn accounts cookies
-            meta:
-              id: req_cd5d868d2903486e936bec79fc700979
-              created: 1719008293170
-              modified: 1750690024102
-              isPrivate: false
-              sortKey: -1656522328559.5
-            method: POST
-            headers:
-              - name: Admin-Api-Key
-                value: "{{ADMIN_API_KEY}}"
-                id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-              disabled: false
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin/signin"
+      - url: "{{ BACKEND_URL }}/super-admin/signin"
         name: Sign in
         meta:
-          id: req_fc4167aea19f4a44abb900b436c12caf
-          created: 1688504470481
-          modified: 1719253862747
+          id: req_eaa29ab1157b4bb786ec539e4992bb8c
+          created: 1773078895285
+          modified: 1773492327174
           isPrivate: false
           sortKey: -1620319099408
         method: POST
@@ -667,8 +185,8 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"email": "{{ADMIN_EMAIL}}",
-            	"password": "{{ADMIN_PASSWORD}}"
+            	"email": "{{SUPER_ADMIN_EMAIL}}",
+            	"password": "{{SUPER_ADMIN_PASSWORD}}"
             }
         parameters:
           - id: pair_b63bb84020694157b261f71f7dd99ec5
@@ -676,9 +194,10 @@ collection:
           - name: Content-Type
             value: application/json
             id: pair_36f9aba222ce4fa7811cc5e1080142f0
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
+          - id: pair_041d180540674f8b9038970f891c217c
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
         authentication:
           type: bearer
           disabled: true
@@ -690,12 +209,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin"
+      - url: "{{ BACKEND_URL }}/super-admin"
         name: Read
         meta:
-          id: req_29fc2916fa914e6892120482588ee706
-          created: 1688504470483
-          modified: 1750689856911
+          id: req_bf8dd7956a53417e953f2eba0c1b4b92
+          created: 1773078895289
+          modified: 1773492477419
           isPrivate: false
           sortKey: -1620253037965.25
         method: GET
@@ -705,12 +224,13 @@ collection:
           - id: pair_25bc82508b9f4c57babcd70486658306
             name: Content-Type
             value: application/json
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
+          - id: pair_32fef73c5f2d4ceda0caffb0848d93d3
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
         authentication:
           type: bearer
-          token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+          token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
             'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
           disabled: false
         settings:
@@ -721,12 +241,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin"
+      - url: "{{ BACKEND_URL }}/super-admin"
         name: Update
         meta:
-          id: req_d391a43002ea4899a9c488cb11817b81
-          created: 1688504470485
-          modified: 1750689864768
+          id: req_8e9b1de88b2c4679a8197968f2a57b15
+          created: 1773078895294
+          modified: 1773492651943
           isPrivate: false
           sortKey: -1620220007243.875
         method: PATCH
@@ -734,19 +254,20 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"password": "{{ADMIN_PASSWORD}}",
-            	"name": "{{ADMIN_NAME}}"
+            	"password": "{{SUPER_ADMIN_PASSWORD}}",
+            	"name": "Sidelius"
             }
         headers:
           - name: Content-Type
             value: application/json
             id: pair_36f9aba222ce4fa7811cc5e1080142f0
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
+          - id: pair_4082ba0f950c4305aea2a261b8d36c45
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
         authentication:
           type: bearer
-          token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+          token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
             'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
           disabled: false
         settings:
@@ -757,12 +278,42 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin/paginated-find"
+      - url: "{{ BACKEND_URL }}/super-admin/stats"
+        name: Stats
+        meta:
+          id: req_1f7f78ba31e340e1863eae4dca05cf7b
+          created: 1773078895295
+          modified: 1773493028770
+          isPrivate: false
+          sortKey: -1620186976522.5
+        method: GET
+        headers:
+          - id: pair_25bc82508b9f4c57babcd70486658306
+            name: Content-Type
+            value: application/json
+          - id: pair_9c5f0ab5bcb94d41be34e7ed909eca4d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/super-admin/paginated-find"
         name: Find
         meta:
-          id: req_abe7a66d9d8b4a64bc6b788c57b69fe7
-          created: 1688504470488
-          modified: 1759180001768
+          id: req_ab7e575b95d843eca5018faf575e32f1
+          created: 1773078895295
+          modified: 1773493649299
           isPrivate: false
           sortKey: -1620105948036.373
         method: POST
@@ -770,9 +321,9 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"type": "Invoice",
+            	"type": "User",
             	"query": {
-            		"email": "danilo@growyx.com"
+            		
             	},
             	"page": 1
             }
@@ -784,70 +335,13 @@ collection:
           - id: pair_5e7943ad97b345a28f2711abf2524d6b
             name: Content-Type
             value: application/json
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-          disabled: false
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin/stats"
-        name: Stats
-        meta:
-          id: req_9d04de95c05145f68eb2580837fb08fc
-          created: 1688504470492
-          modified: 1750689872328
-          isPrivate: false
-          sortKey: -1620186976522.5
-        method: GET
-        headers:
-          - id: pair_25bc82508b9f4c57babcd70486658306
-            name: Content-Type
-            value: application/json
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-          disabled: false
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/admin/newsletter"
-        name: Newsletter
-        meta:
-          id: req_15c613f9e9594cf0ae4620cf2a9ce90b
-          created: 1750690728734
-          modified: 1750690789638
-          isPrivate: false
-          sortKey: -1620065433793.3096
-        method: POST
-        parameters:
-          - id: pair_9c201493cf7d41feab049aa07530a383
+          - id: pair_932eb1e9a4da460d95ae325cd2d2751d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
             disabled: false
-        headers:
-          - name: Admin-Api-Key
-            value: "{{ADMIN_API_KEY}}"
-            id: pair_961191b61a7e45c1adfe1e9a405f6ebd
         authentication:
           type: bearer
-          token: "{% response 'body', 'req_fc4167aea19f4a44abb900b436c12caf',
+          token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
             'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
           disabled: false
         settings:
@@ -860,600 +354,17 @@ collection:
           rebuildPath: true
   - name: Users
     meta:
-      id: fld_42b02cdcf3714c878c80997fd0ce229e
-      created: 1688504470500
-      modified: 1688504470500
+      id: fld_a392a112ab5840988cbe0fc3faf20cf6
+      created: 1773078895296
+      modified: 1773078895296
       sortKey: -1625505747524
     children:
-      - name: LinkedIn
-        meta:
-          id: fld_de7fd4e4faa148589fda7f479f25bcb3
-          created: 1688504470500
-          modified: 1688504470500
-          sortKey: -1619790607901.746
-        children:
-          - url: "{{ BACKEND_URL }}/search/linkedin/person"
-            name: Search people
-            meta:
-              id: req_603b3bae6a2049328330957b50bdd7df
-              created: 1688504470501
-              modified: 1750690596009
-              isPrivate: false
-              sortKey: -1619790607901.1013
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "searchName": "Desenvolvedor fullstack",
-                  "location": {
-                    "country": "Brasil",
-                    "countryCode": "br",
-                    "city": "Salvador"
-                  },
-                  "jobTitle": "Desenvolvedor fullstack",
-                  "keywords": [
-                    "Full-stack",
-                    "Vue",
-                    "PHP",
-                    "Laravel"
-                  ],
-                  "unwantedKeywords": [
-                    
-                  ],
-                  "flags": {
-                    "returnAllProfiles": true,
-                    "returnFirstTenProfiles": false,
-                    "multiSearch": true
-                  }
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/copy/linkedin/person"
-            name: Copy person profile
-            meta:
-              id: req_175817adfa0e462aae0e4b9a41fdab39
-              created: 1688504470502
-              modified: 1750690531436
-              isPrivate: false
-              sortKey: -1619790607901.2883
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "sindeliohl"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/ai-search/linkedin/person"
-            name: AI search people
-            meta:
-              id: req_4ab9086f35744f9fb055d9cba3602b8e
-              created: 1688504829552
-              modified: 1750690617536
-              isPrivate: false
-              sortKey: -1619790607900.204
-            method: POST
-            body:
-              mimeType: application/json
-              text: >-
-                {
-                	"phrase": "Nascemos para democratizar os serviços bancários e de pagamentos! Pioneirismo, tecnologia, inovação e resultados sustentáveis são constantes da nossa trajetória. Lançamos a primeira maquininha de cartão sem aluguel do Brasil e ao longo dos anos seguimos evoluindo para ampliar nosso ecossistema de soluções financeiras. Somos o 2º maior banco digital do país e a fintech mais rentável do segmento, resultado do trabalho de um time formado por pessoas talentosas e criativas, que atuam com dedicação, paixão e vontade de fazer acontecer. Se você ama tecnologia, curte um bom desafio e acredita no poder da colaboração para fazer grandes entregas, o Pags é pra você! Então, confira essa oportunidade e vem pintar o Brasil de amarelo com a gente💛! No PagBank todas as pessoas são bem-vindas 😊, sem distinção de gênero, orientação sexual, etnia, cultura, religião, deficiência etc. O importante é você gostar de desafios, trabalhar bem em equipe, vivenciar nossa cultura e nossa missão de transformar e democratizar os serviços bancários e de pagamentos no Brasil. #VemProPags RESPONSABILIDADES E ATRIBUIÇÕES\n   * Construir software de qualidade, que seja escalável para um alto volume de dados e aplicações de alto risco.\n   * Participar da concepção de todo ciclo de vida de uma nova funcionalidade/produto e ser responsável pela entrega e acompanhamento.\n   * Definir a arquitetura de aplicações.\n   * Criar soluções que tornem a vida de nossos clientes mais simples e produtiva.\n   * Planejar, estimar e analisar impactos e riscos em mudanças de aplicações.\n   * Criar e acompanhar métricas de qualidade e monitoramento das aplicações desenvolvidas.\n   * Garantir a confiabilidade da plataforma junto ao time Segurança.\n   * Participar nas melhorias do processo de desenvolvimento técnico do time. \n\n\nREQUISITOS E QUALIFICAÇÕES\n   * Superior em Ciências da Computação, Engenharia, Sistemas da Informação ou áreas correlatas.\n   * Experiência com linguagem de programação Java.\n   * Conhecimento em estrutura de dados, algoritmos e análise de complexidade.\n   * Conhecimento em programação orientada a objetos e Design Patterns.\n   * Experiência com modelagem e integração de bancos de dados relacionais.\n   * Domínio de modelagem, documentação e implementação de APIs.\n   * Experiência com testes unitários.\n   * Experiência com ferramentas e práticas de observabilidade e troubleshooting de aplicações.\n   * Experiência em CI/CD.\n   * Experiência com melhores práticas de qualidade de software, como testes automatizados, segurança, monitoração e documentação.\n   * Experiência com uso de Cloud e IAAS.\n   * Experiência com desenvolvimento de arquitetura distribuídas, resilientes, escaláveis e de alta performance.\n   * Experiência com uso de filas MQ/mensagerias.\n   * Experiência com sistemas monolitos – Java.\n   * Experiência com aplicações containerizadas utilizando Docker.\n   * Experiência com o uso do orquestrador Kubernetes.\n   * Conhecimento em pesquisas e análise de problemas via Splunk.\n   * Experiência com sistemas distribuídos e padrões transacionais.\n   * Conhecimento em processamento de eventos via Kafka.\n\n\nSOBRE NÓSNascemos em 2006 para revolucionar o mercado de meios de pagamento e democratizar o acesso aos serviços financeiros.\nFoi com a gente que os consumidores passaram a comprar e vender – dentro e fora da internet – de forma rápida, simples e segura. Fizemos história lançando a 1ª maquininha de cartão sem aluguel, possibilitando as pessoas venderem mais e em qualquer lugar 💳.\nEm 2019 expandimos e criamos o nosso banco digital, reforçando a nossa crença no potencial transformador da tecnologia.\nHoje somos um dos maiores bancos digitais do país e uma das fintechs mais rentáveis do segmento, resultado do trabalho de um time de mais de 7 mil profissionais. Aqui no Pags, a pesquisa e a inovação fazem parte do nosso DNA. Compartilhamos experiências com profissionais talentosos e criativos em um ambiente colaborativo, onde o aprendizado é garantido. Quer fazer parte dessa história? Confira nossas vagas e #VemProPags, o banco completo."
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/copy/linkedin/company"
-            name: Copy company profile
-            meta:
-              id: req_6f37b0a700ea458b8dcf0768f763cf1c
-              created: 1689208302084
-              modified: 1750690537631
-              isPrivate: false
-              sortKey: -1619790607901.2695
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "https://www.linkedin.com/company/microsoft/about/"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/copy/linkedin/job"
-            name: Copy job profile
-            meta:
-              id: req_86a66283cff94ef297499204e0ed94cc
-              created: 1689618561079
-              modified: 1750690544154
-              isPrivate: false
-              sortKey: -1619790607901.251
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "3830142738"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/list/linkedin/job"
-            name: List jobs in company
-            meta:
-              id: req_ef14192c966d4f86862f7f850733842a
-              created: 1689633205318
-              modified: 1750690586348
-              isPrivate: false
-              sortKey: -1619790607901.1763
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "https://www.linkedin.com/company/destaxa"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/health/linkedin"
-            name: Health
-            meta:
-              id: req_381cf38809a745fdb0b9b9684fe55691
-              created: 1693933360896
-              modified: 1750690525691
-              isPrivate: false
-              sortKey: -1619790607901.3257
-            method: GET
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/search/linkedin/job"
-            name: Search jobs
-            meta:
-              id: req_294d6082adc04b2783fce9060dc855ea
-              created: 1701275107689
-              modified: 1750690608870
-              isPrivate: false
-              sortKey: -1619790607900.6528
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "keywords": "Software engineer",
-                  "experience": "associate",
-                  "jobType": "full-time",
-                  "location": "brasil"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/copy/linkedin/post"
-            name: Copy posts
-            meta:
-              id: req_ff870d24d03c48d39075f35a34544e4b
-              created: 1706633892513
-              modified: 1750690557378
-              isPrivate: false
-              sortKey: -1619790607901.2136
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "patrickgouy"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - name: GitHub
-        meta:
-          id: fld_22052366d8be48618ac19639d4dc5969
-          created: 1688504470503
-          modified: 1688504470503
-          sortKey: -1619790607901.748
-        children:
-          - url: "{{ BACKEND_URL }}/copy/github/person"
-            name: Copy person profile
-            meta:
-              id: req_b4ff0f3acd0b4261b52981f74208f03f
-              created: 1688504470504
-              modified: 1750690508000
-              isPrivate: false
-              sortKey: -1619790607861.5078
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "sindelio"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/search/github/person"
-            name: Search people
-            meta:
-              id: req_86de471030a243199cdc22c68322b628
-              created: 1688504470505
-              modified: 1750690518228
-              isPrivate: false
-              sortKey: -1619790607849.0078
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "searchName": "Test",
-                  "location": "",
-                  "language": "JavaScript",
-                  "keywords": [
-                    "React"
-                  ],
-                  "repos": "",
-                  "followers": "",
-                  "sort": "Best match",
-                  "returnFirstPage": true
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/health/github"
-            name: Health
-            meta:
-              id: req_89b2616846ff47fcac2d59c438ef26f1
-              created: 1694105038542
-              modified: 1750690499264
-              isPrivate: false
-              sortKey: -1619790607874.0078
-            method: GET
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - name: Dribbble
-        meta:
-          id: fld_a7d8d57ed3d344a38e168fd44b384cb4
-          created: 1689879312906
-          modified: 1689879317828
-          sortKey: -1619790607901.749
-        children:
-          - url: "{{ BACKEND_URL }}/copy/dribbble/person"
-            name: Copy person profile
-            meta:
-              id: req_f7c07f5454384019b1e53131eec32985
-              created: 1689879326520
-              modified: 1694105232003
-              isPrivate: false
-              sortKey: -1619790607901.6182
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "MilonAhmed"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_e9e8ccabb93d4424b1ee51a2e15e7e0c',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/search/dribbble/person"
-            name: Search people
-            meta:
-              id: req_7df1b784fac347619645a441612b6855
-              created: 1690242241882
-              modified: 1750690447617
-              isPrivate: false
-              sortKey: -1619790607851.749
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "keywords": [
-                    "Figma"
-                  ],
-                  "location": "",
-                  "returnFirstPage": false
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/copy/dribbble/company"
-            name: Copy company profile
-            meta:
-              id: req_3210a29375c441298945c55d61e34c32
-              created: 1693000655545
-              modified: 1750690434754
-              isPrivate: false
-              sortKey: -1619790607901.5747
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "id": "ueno"
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/search/dribbble/company"
-            name: Search companies
-            meta:
-              id: req_459ceefe9f854b07aea0082e2e5e86fd
-              created: 1693000712774
-              modified: 1750690485543
-              isPrivate: false
-              sortKey: -1619790607850.3784
-            method: POST
-            body:
-              mimeType: application/json
-              text: |-
-                {
-                  "keywords": [
-                    "Figma"
-                  ],
-                  "location": "",
-                  "returnFirstPage": false
-                }
-            headers:
-              - name: Content-Type
-                value: application/json
-                id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-          - url: "{{ BACKEND_URL }}/health/dribbble"
-            name: Health
-            meta:
-              id: req_b2c941ae119740309415a805b4eab6e4
-              created: 1694105228297
-              modified: 1750690423189
-              isPrivate: false
-              sortKey: -1619790607901.6619
-            method: GET
-            authentication:
-              type: bearer
-              token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-                'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-            settings:
-              renderRequestBody: true
-              encodeUrl: true
-              followRedirects: global
-              cookies:
-                send: true
-                store: true
-              rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
-        name: Read
-        meta:
-          id: req_2d9ee9180e964a07862d787b378befca
-          created: 1688504470506
-          modified: 1750690236145
-          isPrivate: false
-          sortKey: -1619790607951.9375
-        method: GET
-        headers:
-          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
       - url: "{{ BACKEND_URL }}/signin"
         name: Sign in
         meta:
-          id: req_778214c2c8ab4ec9bebea0e690b9f03b
-          created: 1688504470508
-          modified: 1708203021976
+          id: req_7b96a575618f48fea3b6466d7104bf8f
+          created: 1773078895314
+          modified: 1773078895314
           isPrivate: false
           sortKey: -1619790607966
         method: POST
@@ -1479,9 +390,9 @@ collection:
       - url: "{{ BACKEND_URL }}"
         name: Update
         meta:
-          id: req_99cc53d055e746828f73c44fdcdd9b28
-          created: 1688504470508
-          modified: 1758988115045
+          id: req_896629cd0c304bcab1d7dd5ae23280ba
+          created: 1773078895314
+          modified: 1773507659374
           isPrivate: false
           sortKey: -1619790607909.75
         method: PATCH
@@ -1489,18 +400,10 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"name": "Sidis",
-            	"company": "TalentSourcery",
-            	"billing": {
-            		"currency": "USD",
-            		"financeExecutive": "sindelio@gmail.com"
-            	},
-            	"usage": {
-            		"warningEmails": [
-            			"sindelio@gmail.com",
-            			"support@talentsourcery.io"
-            		]
-            	}
+            	"password": "{{USER_PASSWORD}}",
+            	"phoneNumber": "+55 19 936180541",
+            	"institution": "USP",
+            	"name": "Sidelius"
             }
         headers:
           - name: Content-Type
@@ -1508,7 +411,57 @@ collection:
             id: pair_80cff757a79d4a23a47cadc1d3a8e95a
         authentication:
           type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}"
+        name: Read
+        meta:
+          id: req_95b5b98abc834c2983180289b44a32c1
+          created: 1773078895314
+          modified: 1773507401402
+          isPrivate: false
+          sortKey: -1619790607951.9375
+        method: GET
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}"
+        name: Delete
+        meta:
+          id: req_4d8b5872f7934369ad0714bdd489d94c
+          created: 1773078895315
+          modified: 1773507427441
+          isPrivate: false
+          sortKey: -1619790607901.9375
+        method: DELETE
+        headers:
+          - id: pair_69c313acc5534784b8b6aad723ef10e0
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
             'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
         settings:
           renderRequestBody: true
@@ -1521,9 +474,9 @@ collection:
       - url: "{{ BACKEND_URL }}"
         name: Sign up
         meta:
-          id: req_16103f44c6814ef2b233df1027110752
-          created: 1688504470512
-          modified: 1692396468052
+          id: req_5639cd4f212841ff936af2dcbdabcece
+          created: 1773078895315
+          modified: 1773507333381
           isPrivate: false
           sortKey: -1619790607984.75
         method: POST
@@ -1532,59 +485,11 @@ collection:
           text: |-
             {
             	"email": "{{USER_EMAIL}}",
-            	"password": "{{USER_PASSWORD}}"
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
-        name: Delete
-        meta:
-          id: req_8237edccc81342448759e9080596e355
-          created: 1688504470513
-          modified: 1750690282027
-          isPrivate: false
-          sortKey: -1619790607901.9375
-        method: DELETE
-        headers:
-          - id: pair_69c313acc5534784b8b6aad723ef10e0
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/recover-password"
-        name: Recover password
-        meta:
-          id: req_6d0093dee0f541fd88afca4690b7a1e2
-          created: 1688504470514
-          modified: 1690214359175
-          isPrivate: false
-          sortKey: -1619790607978.5
-        method: POST
-        body:
-          mimeType: application/json
-          text: |-
-            {
-            	"email": "{{USER_EMAIL}}"
+            	"password": "{{USER_PASSWORD}}",
+            	"phoneNumber": "+55 19 936180541",
+            	"type": "participant",
+            	"institution": "UNESP",
+            	"name": "Sid"
             }
         headers:
           - name: Content-Type
@@ -1601,9 +506,9 @@ collection:
       - url: "{{ BACKEND_URL }}/confirm-email"
         name: Confirm email
         meta:
-          id: req_ed74082053324a469c83fce565f9dd16
-          created: 1688504470514
-          modified: 1694042059852
+          id: req_16836d33e8d14d449dfd84a5842f7656
+          created: 1773078895316
+          modified: 1773078895316
           isPrivate: false
           sortKey: -1619790607981.625
         method: POST
@@ -1628,9 +533,9 @@ collection:
       - url: "{{ BACKEND_URL }}/reset-password"
         name: Reset password
         meta:
-          id: req_00c7803777424857828e6a9bcbb5cec9
-          created: 1688504470515
-          modified: 1690214362462
+          id: req_464bacb7316b462b92486eac4293948a
+          created: 1773078895316
+          modified: 1773507728615
           isPrivate: false
           sortKey: -1619790607972.25
         method: POST
@@ -1639,7 +544,7 @@ collection:
           text: |-
             {
             	"email": "{{USER_EMAIL}}",
-            	"passwordRecoveryToken": "",
+            	"passwordRecoveryToken": "c17b5753a11cf25e",
             	"newPassword": "{{USER_PASSWORD}}"
             }
         headers:
@@ -1654,233 +559,25 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/invoice/pay"
-        name: Pay invoice
+      - url: "{{ BACKEND_URL }}/recover-password"
+        name: Recover password
         meta:
-          id: req_340e6bf364084cbb86b3c2c7fa23b760
-          created: 1688504470516
-          modified: 1750690363935
+          id: req_5908572777864e638247a193a43668fc
+          created: 1773078895316
+          modified: 1773078895316
           isPrivate: false
-          sortKey: -1619790607901.791
+          sortKey: -1619790607978.5
         method: POST
         body:
           mimeType: application/json
           text: |-
             {
-            	"id": "6643e76bb4a6193999c7ddba"
+            	"email": "{{USER_EMAIL}}"
             }
         headers:
           - name: Content-Type
             value: application/json
             id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/request"
-        name: Read request
-        meta:
-          id: req_baf156f2f7f64753bbaddb30cb269dcb
-          created: 1688504470517
-          modified: 1750690368272
-          isPrivate: false
-          sortKey: -1619790607901.8643
-        method: GET
-        parameters:
-          - id: pair_af4296730cab4a87847e5d369783cc22
-            name: id
-            value: 64b71a56e12e785c7552a022
-        headers:
-          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/paginated-find"
-        name: Find
-        meta:
-          id: req_add8e0e33a8d4fcf8c36653f5a774968
-          created: 1688504470518
-          modified: 1750691148856
-          isPrivate: false
-          sortKey: -1619790607901.7544
-        method: POST
-        body:
-          mimeType: application/json
-          text: |-
-            {
-            	"type": "Invoice",
-            	"query": {
-            		
-            	},
-            	"page": 1
-            }
-        headers:
-          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/stats"
-        name: Stats
-        meta:
-          id: req_d7740a5a32b44e48a34681df92247c79
-          created: 1688504470519
-          modified: 1750690388913
-          isPrivate: false
-          sortKey: -1619790607901.753
-        method: GET
-        headers:
-          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/regenerate-api-key"
-        name: Regenerate API key
-        meta:
-          id: req_cf38a89e01d64c61bbc43a6714da358a
-          created: 1688504470520
-          modified: 1750690398584
-          isPrivate: false
-          sortKey: -1619790607901.7515
-        method: POST
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/invoice"
-        name: Read invoice
-        meta:
-          id: req_61fc17f47c6c41569e6820335fff2113
-          created: 1688504470521
-          modified: 1750690360643
-          isPrivate: false
-          sortKey: -1619790607901.7788
-        method: GET
-        parameters:
-          - id: pair_af4296730cab4a87847e5d369783cc22
-            name: id
-            value: 64d1719ec33660a1e573adb8
-        headers:
-          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
-            name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/support"
-        name: Request support
-        meta:
-          id: req_fe5c5472abbf43efbb304f654b5460b6
-          created: 1688504470521
-          modified: 1750690412815
-          isPrivate: false
-          sortKey: -1619790607901.75
-        method: POST
-        body:
-          mimeType: application/json
-          text: |-
-            {
-              "type": "support",
-              "message": "I need help",
-              "videoUrl": ""
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: "{{ BACKEND_URL }}/parse-resume"
-        name: Parse resume
-        meta:
-          id: req_bead41c022914ae38380fbdaa0384517
-          created: 1719445209468
-          modified: 1750690366299
-          isPrivate: false
-          sortKey: -1619790607901.901
-        method: POST
-        body:
-          mimeType: application/json
-          text: >-
-            {
-              "questions": [
-                "Is this person a software developer"
-              ],
-              "resumeEncoded": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9UaXRsZSA8RkVGRjAwNDMwMDc1MDA3MjAwNzIwMEVEMDA2MzAwNzUwMDZDMDA2Rj4KL1Byb2R1Y2VyIChTa2lhL1BERiBtMTI0IEdvb2dsZSBEb2NzIFJlbmRlcmVyKT4+CmVuZG9iagozIDAgb2JqCjw8L2NhIDEKL0JNIC9Ob3JtYWw+PgplbmRvYmoKOSAwIG9iago8PC9DQSAxCi9jYSAxCi9MQyAwCi9MSiAwCi9MVyAxLjMzMzMzMzM3Ci9NTCAxMAovU0EgdHJ1ZQovQk0gL05vcm1hbD4+CmVuZG9iagoxMCAwIG9iago8PC9UeXBlIC9Bbm5vdAovU3VidHlwZSAvTGluawovRiA0Ci9Cb3JkZXIgWzAgMCAwXQovUmVjdCBbNDA5LjE5OTk4IDcxOC42NTAwMiA1MjMuODIyNTEgNzI5LjQ1MDAxXQovQSA8PC9UeXBlIC9BY3Rpb24KL1MgL1VSSQovVVJJIChtYWlsdG86amhvbm5rb25vcHBAZ21haWwuY29tKT4+Pj4KZW5kb2JqCjExIDAgb2JqCjw8L1R5cGUgL0Fubm90Ci9TdWJ0eXBlIC9MaW5rCi9GIDQKL0JvcmRlciBbMCAwIDBdCi9SZWN0IFs0MDkuMTk5OTggNzA1LjkwMDAyIDU0OC45NTQ4MyA3MTYuNzAwMDFdCi9BIDw8L1R5cGUgL0FjdGlvbgovUyAvVVJJCi9VUkkgKGh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS9pbi9qaG9uYXRhbi1rb25vcHApPj4+PgplbmRvYmoKMTIgMCBvYmoKPDwvVHlwZSAvQW5ub3QKL1N1YnR5cGUgL0xpbmsKL0YgNAovQm9yZGVyIFswIDAgMF0KL1JlY3QgWzQwOS4xOTk5OCA2OTMuMTUwMDIgNTA2LjM0OTg4IDcwMy45NTAwMV0KL0EgPDwvVHlwZSAvQWN0aW9uCi9TIC9VUkkKL1VSSSAoaHR0cHM6Ly9naXRodWIuY29tL0pob25uSzA4KT4+Pj4KZW5kb2JqCjEzIDAgb2JqCjw8L0ZpbHRlciAvRmxhdGVEZWNvZGUKL0xlbmd0aCA0MzU0Pj4gc3RyZWFtCnic7V1Lj+S2Eb7Pr+hjYmBpsvgGFgZmZnd8ysHJAj4b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osCzljHX/yGxujNkU5SP0789utdgCmVuZHN0cmVhbQplbmRvYmoKMiAwIG9iago8PC9UeXBlIC9QYWdlCi9SZXNvdXJjZXMgPDwvUHJvY1NldCBbL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSV0KL0V4dEdTdGF0ZSA8PC9HMyAzIDAgUgovRzkgOSAwIFI+PgovRm9udCA8PC9GNCA0IDAgUgovRjUgNSAwIFIKL0Y2IDYgMCBSCi9GNyA3IDAgUgovRjggOCAwIFI+Pj4+Ci9NZWRpYUJveCBbMCAwIDYxMiA3OTJdCi9Bbm5vdHMgWzEwIDAgUiAxMSAwIFIgMTIgMCBSXQovQ29udGVudHMgMTMgMCBSCi9TdHJ1Y3RQYXJlbnRzIDAKL1BhcmVudCAxNiAwIFI+PgplbmRvYmoKMTQgMCBvYmoKPDwvVHlwZSAvUGFnZQovUmVzb3VyY2VzIDw8L1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9FeHRHU3RhdGUgPDwvRzMgMyAwIFI+PgovRm9udCA8PC9GNCA0IDAgUgovRjUgNSAwIFIKL0Y2IDYgMCBSCi9GNyA3IDAgUgovRjggOCAwIFI+Pj4+Ci9NZWRpYUJveCBbMCAwIDYxMiA3OTJdCi9Db250ZW50cyAxNSAwIFIKL1N0cnVjdFBhcmVudHMgMQovUGFyZW50IDE2IDAgUj4+CmVuZG9iagoxNiAwIG9iago8PC9UeXBlIC9QYWdlcwovQ291bnQgMgovS2lkcyBbMiAwIFIgMTQgMCBSXT4+CmVuZG9iagoxNyAwIG9iago8PC9oLng4Zm0xdW9ya2JhdyBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNzQyLjIwMDAxIDBdCi9oLnltaTA4OWxpYWdlYyBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNjkyLjcwMDAxIDBdCi9oLnk3ZDN4ZHhucjQ0bSBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNjYxLjk1MDAxIDBdCi9oLnJmZ3ZrZzJpZmhmZCBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNjIxLjQ1MDAxIDBdCi9oLm42NGZnenUzbHd1eSBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNTkyLjIwMDAxIDBdCi9oLndqMHB1aDYxa3hzciBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNDcyLjIwMDAxIDBdCi9oLjhoazU5M2ZzM3NhZyBbMiAwIFIgL1hZWiA1MC42OTk5OTcgNDQyLjk1MDAxIDBdCi9oLjFoeGNwc2MxaGNvMiBbMiAwIFIgL1hZWiA1MC42OTk5OTcgMzIyLjk0OTk4IDBdCi9oLnlieXBkbWVkNDE4bSBbMiAwIFIgL1hZWiA1MC42OTk5OTcgMjkzLjY5OTk4IDBdCi9oLjY2MXlibTJhdWw1IFsyIDAgUiAvWFlaIDUwLjY5OTk5NyAyMDIuMTk5OTUgMF0KL2guMWQ2NGhhY2kycXZhIFsyIDAgUiAvWFlaIDUwLjY5OTk5NyAxNzIuOTQ5OTUgMF0KL2guaGt0OGxkYmE0NzB1IFsyIDAgUiAvWFlaIDUwLjY5OTk5NyA5NS42OTk5NTEgMF0KL2guY2EwYXdqODAyMmUyIFsyIDAgUiAvWFlaIDQwOS4xOTk5OCA2NjEuOTUwMDEgMF0KL2guY3h4a2VzMjViMjYgWzIgMCBSIC9YWVogNDA5LjE5OTk4IDQ5OS45NTAwMSAwXQovaC55azhsdWZsa3B3aWogWzE0IDAgUiAvWFlaIDUwLjY5OTk5NyA3NTUuNjk5OTUgMF0KL2guNnd5bW5oaW54OXE1IFsxNCAwIFIgL1hZWiA1MC42OTk5OTcgNzE1LjE5OTk1IDBdCi9oLjZ3eW1uaGlueDlxNSBbMTQgMCBSIC9YWVogNTAuNjk5OTk3IDY4NS45NDk5NSAwXQovaC43dnRjeXplY3pqb3QgWzE0IDAgUiAvWFlaIDUwLjY5OTk5NyA2NzIuNDQ5OTUgMF0+PgplbmRvYmoKMTggMCBvYmoKPDwvVHlwZSAvQ2F0YWxvZwovUGFnZXMgMTYgMCBSCi9EZXN0cyAxNyAwIFIKL1ZpZXdlclByZWZlcmVuY2VzIDw8L1R5cGUgL1ZpZXdlclByZWZlcmVuY2VzCi9EaXNwbGF5RG9jVGl0bGUgdHJ1ZT4+Pj4KZW5kb2JqCjE5IDAgb2JqCjw8L0xlbmd0aDEgMTU3MzYKL0ZpbHRlciAvRmxhdGVEZWNvZGUKL0xlbmd0aCA2ODIzPj4gc3RyZWFtCnic7XsJdBvXdeh7b2Yw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MDAwMDA0MzYgMDAwMDAgbiAKMDAwMDAwMDYzMyAwMDAwMCBuIAowMDAwMDAwODE0IDAwMDAwIG4gCjAwMDAwMDY2MzAgMDAwMDAgbiAKMDAwMDAwNTI0MCAwMDAwMCBuIAowMDAwMDA2ODgxIDAwMDAwIG4gCjAwMDAwMDY5NDQgMDAwMDAgbiAKMDAwMDAwNzg4NCAwMDAwMCBuIAowMDAwMDA4MDE3IDAwMDAwIG4gCjAwMDAwMTQ5MjcgMDAwMDAgbiAKMDAwMDAxNTEzMSAwMDAwMCBuIAowMDAwMDE1NjE4IDAwMDAwIG4gCjAwMDAwMTYyMTIgMDAwMDAgbiAKMDAwMDAyNDU4OCAwMDAwMCBuIAowMDAwMDI0ODQwIDAwMDAwIG4gCjAwMDAwMjU0NDYgMDAwMDAgbiAKMDAwMDAyNjAxNiAwMDAwMCBuIAowMDAwMDM1NjY4IDAwMDAwIG4gCjAwMDAwMzU5MTcgMDAwMDAgbiAKMDAwMDAzNjYyNiAwMDAwMCBuIAowMDAwMDM3MTg1IDAwMDAwIG4gCjAwMDAwNDY5NzUgMDAwMDAgbiAKMDAwMDA0NzE4MiAwMDAwMCBuIAowMDAwMDQ3ODQ5IDAwMDAwIG4gCjAwMDAwNDg1NTkgMDAwMDAgbiAKMDAwMDA1NTIyMSAwMDAwMCBuIAowMDAwMDU1NDI5IDAwMDAwIG4gCjAwMDAwNTU4OTYgMDAwMDAgbiAKdHJhaWxlcgo8PC9TaXplIDM5Ci9Sb290IDE4IDAgUgovSW5mbyAxIDAgUj4+CnN0YXJ0eHJlZgo1NjQ2OAolJUVPRgo="
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-        authentication:
-          type: bearer
-          token: "{% response 'body', 'req_778214c2c8ab4ec9bebea0e690b9f03b',
-            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -1891,17 +588,17 @@ collection:
           rebuildPath: true
   - name: Health
     meta:
-      id: fld_04cc0d87382a41db9eb4a07a66f08a02
-      created: 1688504470523
-      modified: 1746566412534
-      sortKey: -1649354835576
+      id: fld_d743d958612f4ff385088fcb24d77268
+      created: 1773078895329
+      modified: 1773493067057
+      sortKey: -1649354835701
     children:
       - url: "{{ BACKEND_URL }}/health"
         name: Health
         meta:
-          id: req_6cb8347d4b2f413f859172a70e27460d
-          created: 1688504470523
-          modified: 1749825424455
+          id: req_b01a49892aed41fcafe95e7e54a3334c
+          created: 1773078895329
+          modified: 1773078895329
           isPrivate: false
           sortKey: -1642193515344
         method: GET
@@ -1917,118 +614,87 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - name: Webhooks
-    meta:
-      id: fld_d06d2e59723544c78dea205c795b4edf
-      created: 1688504470525
-      modified: 1688504470525
-      sortKey: -1625505747474
-    children:
-      - url: "{{ BACKEND_URL }}/webhook/payment"
-        name: Payments
-        meta:
-          id: req_bd0b579c1fd74eac84f51724f8842daa
-          created: 1688504470525
-          modified: 1688504470525
-          isPrivate: false
-          sortKey: -1625505747461.5
-        method: POST
-        body:
-          mimeType: application/json
-          text: "{}"
-        headers:
-          - name: Content-Type
-            value: application/json
-            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_26c2c3edc1cf6a7c14ae470b629f2a6e5aaa1116
-    created: 1746566412661
-    modified: 1746566412661
+    id: jar_93ca5a128de74edcb477a6a1eef27838
+    created: 1773078895276
+    modified: 1773078895276
 environments:
   name: Base Environment
   meta:
-    id: env_762db8dfa0264e1d954c5979f13345de
-    created: 1688504470473
-    modified: 1746566412533
+    id: env_8b3999bb9b194812a02de503ec4b96e4
+    created: 1773078895274
+    modified: 1773078895274
     isPrivate: false
   subEnvironments:
-    - name: Development
-      meta:
-        id: env_1a4e36815c2c445d84a0cf07233b8b5e
-        created: 1688504470474
-        modified: 1758985951941
-        isPrivate: false
-        sortKey: 1649351180105
-      data:
-        FRONTEND_URL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'FRONTEND_URL' %}"
-        BACKEND_URL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'BACKEND_URL' %}"
-        ADMIN_EMAIL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'ADMIN_EMAIL' %}"
-        ADMIN_PASSWORD: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'ADMIN_PASSWORD' %}"
-        ADMIN_NAME: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'ADMIN_NAME' %}"
-        USER_EMAIL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'USER_EMAIL' %}"
-        USER_PASSWORD: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'USER_PASSWORD' %}"
-        USER_NAME: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'USER_NAME' %}"
-        ADMIN_API_KEY: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/.env',
-          'ADMIN_API_KEY' %}"
     - name: Production
       meta:
-        id: env_228a5233cc1b4cc7a49fbc4c41be1c4f
-        created: 1688504470476
-        modified: 1759150494348
+        id: env_5965855125d340eb92e70ef1c9abbe19
+        created: 1773078895275
+        modified: 1773081808123
         isPrivate: false
         sortKey: 1649351195018
       data:
         FRONTEND_URL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'FRONTEND_URL' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'FRONTEND_URL' %}"
         BACKEND_URL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'BACKEND_URL' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'BACKEND_URL' %}"
         ADMIN_EMAIL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'ADMIN_EMAIL' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'ADMIN_EMAIL' %}"
         ADMIN_PASSWORD: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'ADMIN_PASSWORD' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'ADMIN_PASSWORD' %}"
         ADMIN_NAME: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'ADMIN_NAME' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'ADMIN_NAME' %}"
         USER_EMAIL: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'USER_EMAIL' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'USER_EMAIL' %}"
         USER_PASSWORD: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'USER_PASSWORD' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'USER_PASSWORD' %}"
         USER_NAME: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'USER_NAME' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'USER_NAME' %}"
         ADMIN_API_KEY: "{% dotenv
-          '/home/sindelio/Desktop/Projects/talent-sourcery/backend/envs/prod.en\
-          v', 'ADMIN_API_KEY' %}"
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/prod.env', 'ADMIN_API_KEY' %}"
+    - name: Development
+      meta:
+        id: env_88acc474e4814071a66bae302265d4fa
+        created: 1773078895275
+        modified: 1773491900344
+        isPrivate: false
+        sortKey: 1649351180105
+      data:
+        FRONTEND_URL: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'FRONTEND_URL' %}"
+        BACKEND_URL: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'BACKEND_URL' %}"
+        SUPER_ADMIN_EMAIL: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/.e\
+          nv', 'SUPER_ADMIN_EMAIL' %}"
+        SUPER_ADMIN_PASSWORD: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'SUPER_ADMIN_PASSWORD' %}"
+        SUPER_ADMIN_NAME: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'SUPER_ADMIN_NAME' %}"
+        SUPER_ADMIN_API_KEY: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'SUPER_ADMIN_API_KEY' %}"
+        USER_EMAIL: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'USER_EMAIL' %}"
+        USER_PASSWORD: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'USER_PASSWORD' %}"
+        USER_NAME: "{% dotenv
+          '/home/sindelio/Desktop/Projects/uni-research-applications/backend/en\
+          vs/dev.env', 'USER_NAME' %}"
