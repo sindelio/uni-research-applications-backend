@@ -15,6 +15,7 @@ const validator = {
       type: Joi.string().valid(
         'SuperAdmin',
         'User',
+        'Project',
         'ErrorLog',
       ),
       query: Joi.object(),

@@ -71,6 +71,31 @@ const controller = {
     const result = await service.stats(email, year, month, day);
     res.status(200).json(result);
   },
+  async createProject(req, res) {
+    const { email } = req.user;
+    const projectInfo = req.body;
+    const result = await service.createProject(email, projectInfo);
+    res.status(200).json(result);
+  },
+  async readProject(req, res) {
+    const { email } = req.user;
+    const { id } = req.query;
+    const result = await service.readProject(email, id);
+    res.status(200).json(result);
+  },
+  async updateProject(req, res) {
+    const { email } = req.user;
+    const { id } = req.query;
+    const update = req.body;
+    const result = await service.updateProject(email, id, update);
+    res.status(200).json(result);
+  },
+  async deleteProject(req, res) {
+    const { email } = req.user;
+    const { id } = req.query;
+    const result = await service.deleteProject(email, id);
+    res.status(200).json(result);
+  },
 };
 
 export default controller;

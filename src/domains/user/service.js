@@ -1,5 +1,6 @@
 import {
   User,
+  Project,
 } from '../../database/models.js';
 import jsonWebToken from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -120,7 +121,7 @@ const service = {
     await user.updateOne(dotifiedUpdate);
     return {
       success: true,
-      data: null,
+      data: user,
       error: null,
     };
   },
@@ -158,6 +159,64 @@ const service = {
       data: {
         stats: null,
       },
+      error: null,
+    };
+  },
+  async createProject(email, projectInfo) {
+    const { name } = projectInfo;
+    let project = await findOne(Project, { name }, true);
+    project = new Project({
+      ...projectInfo,
+      participantEmail: email,
+      examinerEmail: null,
+      status: 'Pending review',
+    });
+    await setDate(project, 'createdAt');
+    await project.save();
+    return {
+      success: true,
+      data: {
+        project,
+      },
+      error: null,
+    };
+  },
+  async readProject(email, projectId) {
+    const project = await findOne(
+      Project,
+      { participantEmail: email, _id: projectId },
+    );
+    return {
+      success: true,
+      data: {
+        project,
+      },
+      error: null,
+    };
+  },
+  async updateProject(email, projectId, update) {
+    const project = await findOne(
+      Project,
+      { participantEmail: email, _id: projectId },
+    );
+    await setDate(update, 'lastUpdatedAt');
+    const dotifiedUpdate = await dotifyObject(update);
+    await project.updateOne(dotifiedUpdate);
+    return {
+      success: true,
+      data: project,
+      error: null,
+    };
+  },
+  async deleteProject(email, projectId) {
+    const project = await findOne(
+      Project,
+      { participantEmail: email, _id: projectId },
+    );
+    await project.deleteOne();
+    return {
+      success: true,
+      data: null,
       error: null,
     };
   },

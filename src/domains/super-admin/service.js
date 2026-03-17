@@ -1,6 +1,7 @@
 import {
   SuperAdmin,
   User,
+  Project,
   ErrorLog,
 } from '../../database/models.js';
 import jsonWebToken from 'jsonwebtoken';
@@ -88,6 +89,7 @@ const service = {
   async paginatedFind(type, query, page = 1) {
     let Model = SuperAdmin;
     if (type === 'User') Model = User;
+    if (type === 'Project') Model = Project;
     if (type === 'ErrorLog') Model = ErrorLog;
     const { 
       numberOfItems,

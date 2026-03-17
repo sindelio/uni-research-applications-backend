@@ -32,6 +32,17 @@ const userSchema = new Schema({
   passwordRecoveryToken: String,
 });
 
+const projectSchema = new Schema({
+  title: String,
+  areas: [String],
+  description: String,
+  participantEmail: String,
+  examinerEmail: String,
+  status: String, // Pending review, Approved or Rejected
+  createdAt: dateFields,
+  lastUpdatedAt: dateFields,
+});
+
 const errorLogSchema = new Schema({
   email: { type: String, index: true },
   errorType: String,
@@ -48,5 +59,6 @@ const errorLogSchema = new Schema({
 export {
   superAdminSchema,
   userSchema,
+  projectSchema,
   errorLogSchema,
 };

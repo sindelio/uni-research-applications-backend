@@ -86,4 +86,36 @@ router.post(
   },
 );
 
+router.post(
+  '/project',
+  validator.createProject,
+  async (req, res, _next) => {
+    await controller.createProject(req, res);
+  },
+);
+
+router.get(
+  '/project',
+  validator.readProject,
+  async (req, res, _next) => {
+    await controller.readProject(req, res);
+  },
+);
+
+router.patch(
+  '/project',
+  validator.updateProject,
+  async (req, res, _next) => {
+    await controller.updateProject(req, res);
+  },
+);
+
+router.delete(
+  '/project',
+  validator.deleteProject,
+  async (req, res, _next) => {
+    await controller.deleteProject(req, res);
+  },
+);
+
 export default router;

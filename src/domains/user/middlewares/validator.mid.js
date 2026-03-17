@@ -61,6 +61,32 @@ const validator = {
   stats: celebrate({
     body: Joi.object({}),
   }),
+  createProject: celebrate({
+    body: Joi.object({
+      title: Joi.string().max(128).required(),
+      areas: Joi.array()
+        .items(Joi.string().max(128))
+        .min(1)
+        .max(2)
+        .required(),
+      description: Joi.string().max(2048).required(),
+    }),
+  }),
+  readProject: commonValidators.queryId,
+  updateProject: celebrate({
+    query: Joi.object({
+      id: formats.requiredId,
+    }),
+    body: Joi.object({
+      title: Joi.string().max(128),
+      areas: Joi.array()
+        .items(Joi.string().max(128))
+        .min(1)
+        .max(2),
+      description: Joi.string().max(2048),
+    }),
+  }),
+  deleteProject: commonValidators.queryId,
 };
 
 export default validator;

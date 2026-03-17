@@ -1,6 +1,7 @@
 TODO:
 - Add images to emails
-- Create Project schema and routes
+- FInish delete update routes for project
+- Create project status logic
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
