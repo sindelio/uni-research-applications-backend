@@ -6,14 +6,6 @@ import validator from './middlewares/validator.mid.js';
 const router = express.Router();
 
 router.post(
-  '/',
-  validator.create,
-  async (req, res, _next) => {
-    await controller.create(req, res);
-  },
-);
-
-router.post(
   '/confirm-email',
   validator.confirmEmail,
   async (req, res, _next) => {

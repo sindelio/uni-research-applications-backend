@@ -11,6 +11,18 @@ const dateFields = {
   hour: Number,
 };
 
+const userBaseFields = {
+  email: { type: String, index: true },
+  password: String,
+  phoneNumber: String,
+  name: String,
+  institution: String,
+  status: String,
+  passwordRecoveryToken: String,
+  createdAt: dateFields,
+  lastUpdatedAt: dateFields,
+};
+
 const superAdminSchema = new Schema({
   email: { type: String, index: true },
   password: String,
@@ -19,17 +31,13 @@ const superAdminSchema = new Schema({
   lastUpdatedAt: dateFields,
 });
 
-const userSchema = new Schema({
-  email: { type: String, index: true },
-  password: String,
-  type: String, // admin, participant or examiner
-  phoneNumber: String,
-  name: String,
-  institution: String,
-  createdAt: dateFields,
-  lastUpdatedAt: dateFields,
-  status: String,
-  passwordRecoveryToken: String,
+const adminSchema = new Schema(userBaseFields);
+
+const participantSchema = new Schema(userBaseFields);
+
+const examinerSchema = new Schema({
+  ...userBaseFields,
+  areas: [String],
 });
 
 const projectSchema = new Schema({
@@ -58,7 +66,9 @@ const errorLogSchema = new Schema({
 
 export {
   superAdminSchema,
-  userSchema,
+  adminSchema,
+  participantSchema,
+  examinerSchema,
   projectSchema,
   errorLogSchema,
 };

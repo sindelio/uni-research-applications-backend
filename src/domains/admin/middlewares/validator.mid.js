@@ -3,19 +3,6 @@ import formats from '../../_common/validators/formats.js';
 import commonValidators from '../../_common/validators/validators.js';
 
 const validator = {
-  create: celebrate({
-    body: Joi.object({
-      email: formats.requiredEmail,
-      password: formats.requiredPassword,
-      phoneNumber: formats.requiredPhoneNumber,
-      type: Joi.string().valid(
-        'participant',
-        'examiner',
-      ).required(),
-      institution: formats.requiredInstitution,
-      name: formats.requiredName,
-    }),
-  }),
   confirmEmail: celebrate({
     body: Joi.object({
       email: formats.requiredEmail,
@@ -47,8 +34,8 @@ const validator = {
   }),
   paginatedFind: celebrate({
     body: Joi.object({
-      type: Joi.string()
-        .valid('Project'),
+      model: Joi.string()
+        .valid('Admin', 'Participant', 'Examiner', 'Project'),
       query: Joi.object({
         email: Joi.string()
           .forbidden(),

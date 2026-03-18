@@ -1,0 +1,79 @@
+import { celebrate, Joi } from 'celebrate';
+import formats from '../../_common/validators/formats.js';
+import commonValidators from '../../_common/validators/validators.js';
+
+const validator = {
+  confirmEmail: celebrate({
+    body: Joi.object({
+      email: formats.requiredEmail,
+    }),
+  }),
+  recoverPassword: celebrate({
+    body: Joi.object({
+      email: formats.requiredEmail,
+    }),
+  }),
+  resetPassword: celebrate({
+    body: Joi.object({
+      email: formats.requiredEmail,
+      passwordRecoveryToken: Joi.string()
+        .hex()
+        .length(16)
+        .required(),
+      newPassword: formats.requiredPassword,
+    }),
+  }),
+  authenticate: commonValidators.credentials,
+  update: celebrate({
+    body: Joi.object({
+      password: formats.password,
+      phoneNumber: formats.phoneNumber,
+      institution: formats.requiredInstitution,
+      name: formats.requiredName,
+    }),
+  }),
+  paginatedFind: celebrate({
+    body: Joi.object({
+      model: Joi.string()
+        .valid('Admin', 'Participant', 'Examiner', 'Project'),
+      query: Joi.object({
+        email: Joi.string()
+          .forbidden(),
+      }),
+      page: Joi.number()
+        .integer()
+        .positive(),
+    }),
+  }),
+  stats: celebrate({
+    body: Joi.object({}),
+  }),
+  createProject: celebrate({
+    body: Joi.object({
+      title: Joi.string().max(128).required(),
+      areas: Joi.array()
+        .items(Joi.string().max(128))
+        .min(1)
+        .max(2)
+        .required(),
+      description: Joi.string().max(2048).required(),
+    }),
+  }),
+  readProject: commonValidators.queryId,
+  updateProject: celebrate({
+    query: Joi.object({
+      id: formats.requiredId,
+    }),
+    body: Joi.object({
+      title: Joi.string().max(128),
+      areas: Joi.array()
+        .items(Joi.string().max(128))
+        .min(1)
+        .max(2),
+      description: Joi.string().max(2048),
+    }),
+  }),
+  deleteProject: commonValidators.queryId,
+};
+
+export default validator;

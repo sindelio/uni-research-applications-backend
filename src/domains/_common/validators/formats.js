@@ -1,6 +1,11 @@
 import { Joi } from 'celebrate';
 
 const formats = {
+  model: Joi.string()
+    .valid('Admin', 'Participant', 'Examiner'),
+  requiredModel: Joi.string()
+    .valid('Admin', 'Participant', 'Examiner')
+    .required(),
   email: Joi.string()
     .email({ minDomainSegments: 2 })
     .max(64),

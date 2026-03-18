@@ -1,11 +1,6 @@
 import service from './service.js';
 
 const controller = {
-  async create(req, res) {
-    const userInfo = req.body;
-    const result = await service.create(userInfo);
-    res.status(200).json(result);
-  },
   async confirmEmail(req, res) {
     const { email } = req.body;
     const result = await service.confirmEmail(email);
@@ -52,17 +47,9 @@ const controller = {
   },
   async paginatedFind(req, res) {
     const { email } = req.user;
-    const {
-      type,
-      query,
-      page,
-    } = req.body;
+    const { model, query, page } = req.body;
     query.email = email;
-    const result = await service.paginatedFind(
-      type,
-      query,
-      page,
-    );
+    const result = await service.paginatedFind(model, query, page);
     res.status(200).json(result);
   },
   async stats(req, res) {

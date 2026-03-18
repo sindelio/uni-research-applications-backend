@@ -1,6 +1,7 @@
 TODO:
+- Implement participant routes
 - Add images to emails
-- FInish delete update routes for project
+- Add areas property to examiner user
 - Create project status logic
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->

@@ -12,9 +12,11 @@ const validator = {
   }),
   paginatedFind: celebrate({
     body: Joi.object({
-      type: Joi.string().valid(
+      model: Joi.string().valid(
         'SuperAdmin',
-        'User',
+        'Admin',
+        'Participant',
+        'Examiner',
         'Project',
         'ErrorLog',
       ),
@@ -25,38 +27,42 @@ const validator = {
     }),
   }),
   createUser: celebrate({
+    query: Joi.object({
+      model: formats.requiredModel,
+    }),
     body: Joi.object({
       email: formats.requiredEmail,
       password: formats.requiredPassword,
       phoneNumber: formats.requiredPhoneNumber,
-      type: Joi.string().valid(
-        'admin',
-        'participant',
-        'examiner',
-      ).required(),
       institution: formats.requiredInstitution,
       name: formats.requiredName,
     }),
   }),
-  readUser: commonValidators.queryEmail,
+  readUser: celebrate({
+    query: Joi.object({
+      model: formats.requiredModel,
+      email: formats.requiredEmail,
+    }),
+  }),
   updateUser: celebrate({
     query: Joi.object({
+      model: formats.requiredModel,
       email: formats.requiredEmail,
     }),
     body: Joi.object({
       password: formats.password,
       phoneNumber: formats.phoneNumber,
-      type: Joi.string().valid(
-        'admin',
-        'participant',
-        'examiner',
-      ),
       institution: formats.requiredInstitution,
       name: formats.requiredName,
       status:formats.status,
     }),
   }),
-  deleteUser: commonValidators.queryEmail,
+  deleteUser: celebrate({
+    query: Joi.object({
+      model: formats.requiredModel,
+      email: formats.requiredEmail,
+    }),
+  }),
 };
 
 export default validator;

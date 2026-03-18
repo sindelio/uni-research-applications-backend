@@ -1,21 +1,18 @@
 import {
   SuperAdmin,
-  User,
+  Admin,
+  Participant,
+  Examiner,
   Project,
   ErrorLog,
 } from '../../database/models.js';
 import jsonWebToken from 'jsonwebtoken';
-import exists from '../../helpers/exists.js';
+import getModel from '../_common/helpers/get-model.js';
 import setDate from '../../helpers/set-date.js';
 import findOne from '../../helpers/find-one.js';
-import find from '../../helpers/find.js';
 import paginatedFind from '../../helpers/paginated-find.js';
-import generateUser from '../_common/helpers/generate-user.js';
 import dotifyObject from '../../helpers/dotify.js';
-import generateHtmlMessage from '../../helpers/generate-html-message.js';
-import notify from '../../functions/notify.js';
-import logger from '../../logs/logger.js';
-import NotFound from '../../errors/not-found.js';
+import commonService from '../_common/common-service.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const {
@@ -67,28 +64,17 @@ const service = {
     };
   },
   async stats() {
-    const users = await find(User, {});
-    const userStats = {
-      total: {
-        combined: users?.length,
-        type:{
-          admin: users?.filter((user) => user.type === 'admin').length,
-          participant: users?.filter((user) => user.type === 'participant').length,
-          examiner: users?.filter((user) => user.type === 'examiner').length,
-        },
-      },
-    };
     return {
       success: true,
-      data: {
-        users: userStats,
-      },
+      data: null,
       error: null,
     };
   },
   async paginatedFind(type, query, page = 1) {
     let Model = SuperAdmin;
-    if (type === 'User') Model = User;
+    if (type === 'Admin') Model = Admin;
+    if (type === 'Participant') Model = Participant;
+    if (type === 'Examiner') Model = Examiner;
     if (type === 'Project') Model = Project;
     if (type === 'ErrorLog') Model = ErrorLog;
     const { 
@@ -108,36 +94,41 @@ const service = {
       error: null,
     };
   },
-  async createUser(userInfo) {
-    const user = await generateUser(userInfo);
+  async createUser(model, userInfo) {
+    const Model = await getModel(model);
+    const user = await commonService.createUser(Model, userInfo);
     return {
       success: true,
       data: user,
       error: null,
     };
   },
-  async readUser(email) {
-    const user = await findOne(User, { email });
+  async readUser(model, email) {
+    const Model = await getModel(model);
+    const user = await findOne(Model, { email });
     return {
       success: true,
       data: user,
       error: null,
     };
   },
-  async updateUser(email, update) {
-    const user = await findOne(User, { email });
+  async updateUser(model, email, update) {
+    const Model = await getModel(model);
+    const user = await findOne(Model, { email });
     await setDate(update, 'lastUpdatedAt');
     const dotifiedUpdate = await dotifyObject(update);
     await user.updateOne(dotifiedUpdate);
     return {
       success: true,
-      data: null,
+      data: user,
       error: null,
     };
   },
-  async deleteUser(email) {
-    const user = await findOne( User, { email });
-    await User.deleteOne({ email });
+  async deleteUser(model, email) {
+    const Model = await getModel(model);
+    await findOne(Model, { email });
+    await Model.deleteOne({ email });
+    await Project.deleteMany({ participantEmail: email });
     return {
       success: true,
       data: null,

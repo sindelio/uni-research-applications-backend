@@ -1,19 +1,25 @@
 import mongoose from 'mongoose';
 import {
   superAdminSchema,
-  userSchema,
+  adminSchema,
+  participantSchema,
+  examinerSchema,
   projectSchema,
   errorLogSchema,
 } from './schemas.js';
 
 const SuperAdmin = mongoose.model('SuperAdmin', superAdminSchema);
-const User = mongoose.model('User', userSchema);
+const Admin = mongoose.model('Admin', adminSchema);
+const Participant = mongoose.model('Participant', participantSchema);
+const Examiner = mongoose.model('Examiner', examinerSchema);
 const Project = mongoose.model('Project', projectSchema);
 const ErrorLog = mongoose.model('ErrorLog', errorLogSchema);
 
 export {
   SuperAdmin,
-  User,
+  Admin,
+  Participant,
+  Examiner,
   Project,
   ErrorLog,
 };
