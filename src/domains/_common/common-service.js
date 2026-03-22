@@ -97,7 +97,6 @@ const commonService = {
     await setDate(update, 'lastUpdatedAt');
     const dotifiedUpdate = await dotifyObject(update);
     await user.updateOne(dotifiedUpdate);
-    return user;
   },
 };
 

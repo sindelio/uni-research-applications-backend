@@ -51,10 +51,10 @@ const service = {
     };
   },
   async update(email, update) {
-    const user = await commonService.updateUser(Admin, email, update);
+    await commonService.updateUser(Admin, email, update);
     return {
       success: true,
-      data: user,
+      data: null,
       error: null,
     };
   },

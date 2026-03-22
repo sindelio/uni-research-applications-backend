@@ -11,6 +11,10 @@ import commonService from '../_common/common-service.js';
 const service = {
   async create(userInfo) {
     const user = await commonService.createUser(Examiner, userInfo);
+    const { areas, maxProjects } = userInfo;
+    user.areas = areas;
+    user.maxProjects = maxProjects;
+    await user.save();
     return {
       success: true,
       data: user,
@@ -59,10 +63,10 @@ const service = {
     };
   },
   async update(email, update) {
-    const user = await commonService.updateUser(Examiner, email, update);
+    await commonService.updateUser(Examiner, email, update);
     return {
       success: true,
-      data: user,
+      data: null,
       error: null,
     };
   },

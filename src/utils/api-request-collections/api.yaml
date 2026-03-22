@@ -24,14 +24,18 @@ collection:
             meta:
               id: req_343e42f56eec462ab15078ee836fef74
               created: 1773078895277
-              modified: 1773495108227
+              modified: 1774199133111
               isPrivate: false
               sortKey: -1656522245569
             method: GET
             parameters:
+              - id: pair_55b9f8a273004d279a32f90ede5612c4
+                name: model
+                value: Admin
+                disabled: false
               - id: pair_35fa492bf4ad49b3bb38d41dd5f4ea7b
                 name: email
-                value: "{{SUPER_ADMIN_EMAIL}}"
+                value: "{{USER_EMAIL}}"
             headers:
               - id: pair_696eaa486ee74628941269b81162e3f1
                 name: Content-Type
@@ -58,7 +62,7 @@ collection:
             meta:
               id: req_ef5caac7f4ba474d89336f89a363b5d8
               created: 1773078895277
-              modified: 1773497041611
+              modified: 1774199131010
               isPrivate: false
               sortKey: -1656522245619
             method: POST
@@ -69,10 +73,14 @@ collection:
                 	"email": "{{USER_EMAIL}}",
                 	"password": "{{USER_PASSWORD}}",
                 	"phoneNumber": "+55 19 936180541",
-                	"type": "participant",
                 	"institution": "UNESP",
                 	"name": "Sid"
                 }
+            parameters:
+              - id: pair_81aed7981fa442058d576f351760da2a
+                name: model
+                value: Admin
+                disabled: false
             headers:
               - name: Content-Type
                 value: application/json
@@ -99,7 +107,7 @@ collection:
             meta:
               id: req_11ed49924c7a41b48f722e1b6d20361e
               created: 1773078895278
-              modified: 1773497029080
+              modified: 1774199135129
               isPrivate: false
               sortKey: -1656522245519
             method: PATCH
@@ -109,14 +117,17 @@ collection:
                 {
                 	"password": "{{USER_PASSWORD}}",
                 	"phoneNumber": "+55 19 936180541",
-                	"type": "admin",
                 	"institution": "USP",
                 	"name": "Sidelius"
                 }
             parameters:
+              - id: pair_bc16b2f817e44b6f9cf068469a4e34ce
+                name: model
+                value: Admin
+                disabled: false
               - id: pair_4d407e8f6aa34dfdafd67e2a8f9b50b3
                 name: email
-                value: sindelio@gmail.com
+                value: "{{USER_EMAIL}}"
             headers:
               - name: Content-Type
                 value: application/json
@@ -143,14 +154,18 @@ collection:
             meta:
               id: req_af8d9f2285c84743bf11738aa17fd5a7
               created: 1773078895278
-              modified: 1773495124632
+              modified: 1774199137197
               isPrivate: false
               sortKey: -1656522245469
             method: DELETE
             parameters:
+              - id: pair_c2d80acd9bf54c58bb0f383977cadb35
+                name: model
+                value: Participant
+                disabled: false
               - id: pair_d0a50f22eb684fa083eacdff724ff13b
                 name: email
-                value: "{{SUPER_ADMIN_EMAIL}}"
+                value: "{{USER_EMAIL}}"
             headers:
               - id: pair_48052cc5be034bc9a3f19a44935698ec
                 name: Content-Type
@@ -214,7 +229,7 @@ collection:
         meta:
           id: req_bf8dd7956a53417e953f2eba0c1b4b92
           created: 1773078895289
-          modified: 1773492477419
+          modified: 1774199148148
           isPrivate: false
           sortKey: -1620253037965.25
         method: GET
@@ -246,7 +261,7 @@ collection:
         meta:
           id: req_8e9b1de88b2c4679a8197968f2a57b15
           created: 1773078895294
-          modified: 1773492651943
+          modified: 1774199145553
           isPrivate: false
           sortKey: -1620220007243.875
         method: PATCH
@@ -283,7 +298,7 @@ collection:
         meta:
           id: req_1f7f78ba31e340e1863eae4dca05cf7b
           created: 1773078895295
-          modified: 1773493028770
+          modified: 1774199143577
           isPrivate: false
           sortKey: -1620186976522.5
         method: GET
@@ -313,7 +328,7 @@ collection:
         meta:
           id: req_ab7e575b95d843eca5018faf575e32f1
           created: 1773078895295
-          modified: 1773493649299
+          modified: 1774199141586
           isPrivate: false
           sortKey: -1620105948036.373
         method: POST
@@ -321,7 +336,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"type": "User",
+            	"model": "Participant",
             	"query": {
             		
             	},
@@ -352,19 +367,51 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - name: Users
+      - url: "{{ BACKEND_URL }}/super-admin"
+        name: Delete
+        meta:
+          id: req_a9a158bdfe7f4650a6def2ff09bc0459
+          created: 1774199926744
+          modified: 1774199957990
+          isPrivate: false
+          sortKey: -1620236522604.5625
+        method: DELETE
+        parameters:
+          - id: pair_1946b490e3ac40bb87d0626f0fc0448b
+        headers:
+          - id: pair_25bc82508b9f4c57babcd70486658306
+            name: Content-Type
+            value: application/json
+          - id: pair_32fef73c5f2d4ceda0caffb0848d93d3
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_eaa29ab1157b4bb786ec539e4992bb8c',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Participants
     meta:
       id: fld_a392a112ab5840988cbe0fc3faf20cf6
       created: 1773078895296
-      modified: 1773078895296
+      modified: 1773841231471
       sortKey: -1625505747524
     children:
-      - url: "{{ BACKEND_URL }}/signin"
+      - url: "{{ BACKEND_URL }}/participant/signin"
         name: Sign in
         meta:
           id: req_7b96a575618f48fea3b6466d7104bf8f
           created: 1773078895314
-          modified: 1773078895314
+          modified: 1774196086622
           isPrivate: false
           sortKey: -1619790607966
         method: POST
@@ -387,12 +434,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
+      - url: "{{ BACKEND_URL }}/participant"
         name: Update
         meta:
           id: req_896629cd0c304bcab1d7dd5ae23280ba
           created: 1773078895314
-          modified: 1773507659374
+          modified: 1774199053680
           isPrivate: false
           sortKey: -1619790607909.75
         method: PATCH
@@ -421,12 +468,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
+      - url: "{{ BACKEND_URL }}/participant"
         name: Read
         meta:
           id: req_95b5b98abc834c2983180289b44a32c1
           created: 1773078895314
-          modified: 1773507401402
+          modified: 1774206048174
           isPrivate: false
           sortKey: -1619790607951.9375
         method: GET
@@ -446,12 +493,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
+      - url: "{{ BACKEND_URL }}/participant"
         name: Delete
         meta:
           id: req_4d8b5872f7934369ad0714bdd489d94c
           created: 1773078895315
-          modified: 1773507427441
+          modified: 1774199056699
           isPrivate: false
           sortKey: -1619790607901.9375
         method: DELETE
@@ -471,12 +518,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}"
+      - url: "{{ BACKEND_URL }}/participant"
         name: Sign up
         meta:
           id: req_5639cd4f212841ff936af2dcbdabcece
           created: 1773078895315
-          modified: 1773507333381
+          modified: 1774195596232
           isPrivate: false
           sortKey: -1619790607984.75
         method: POST
@@ -487,7 +534,6 @@ collection:
             	"email": "{{USER_EMAIL}}",
             	"password": "{{USER_PASSWORD}}",
             	"phoneNumber": "+55 19 936180541",
-            	"type": "participant",
             	"institution": "UNESP",
             	"name": "Sid"
             }
@@ -503,12 +549,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/confirm-email"
+      - url: "{{ BACKEND_URL }}/participant/confirm-email"
         name: Confirm email
         meta:
           id: req_16836d33e8d14d449dfd84a5842f7656
           created: 1773078895316
-          modified: 1773078895316
+          modified: 1773850397446
           isPrivate: false
           sortKey: -1619790607981.625
         method: POST
@@ -530,12 +576,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/reset-password"
+      - url: "{{ BACKEND_URL }}/participant/reset-password"
         name: Reset password
         meta:
           id: req_464bacb7316b462b92486eac4293948a
           created: 1773078895316
-          modified: 1773507728615
+          modified: 1774195987843
           isPrivate: false
           sortKey: -1619790607972.25
         method: POST
@@ -544,7 +590,7 @@ collection:
           text: |-
             {
             	"email": "{{USER_EMAIL}}",
-            	"passwordRecoveryToken": "c17b5753a11cf25e",
+            	"passwordRecoveryToken": "37b0415321fd48a0",
             	"newPassword": "{{USER_PASSWORD}}"
             }
         headers:
@@ -559,12 +605,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/recover-password"
+      - url: "{{ BACKEND_URL }}/participant/recover-password"
         name: Recover password
         meta:
           id: req_5908572777864e638247a193a43668fc
           created: 1773078895316
-          modified: 1773078895316
+          modified: 1774195824032
           isPrivate: false
           sortKey: -1619790607978.5
         method: POST
@@ -578,6 +624,248 @@ collection:
           - name: Content-Type
             value: application/json
             id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/project"
+        name: Project
+        meta:
+          id: req_9db62e7f6bfa427baef36d9dfee7319a
+          created: 1773583904378
+          modified: 1774207595543
+          isPrivate: false
+          sortKey: -1619790607801.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"authors": [
+            		"Sid",
+            		"Giovanna"
+            	],
+            	"title": "title",
+            	"areas": [
+            		"Hematologia",
+            		"Citopatologia"
+            	],
+            	"description": "description"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/project"
+        name: Project
+        meta:
+          id: req_fbe7fdbbb0f34f2fa88cf2d13f8d8fda
+          created: 1773584286659
+          modified: 1774207686776
+          isPrivate: false
+          sortKey: -1619790607701.9375
+        method: GET
+        parameters:
+          - id: pair_cf8267b34a9146198f0df08d77d71b32
+            name: id
+            disabled: false
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/project"
+        name: Project
+        meta:
+          id: req_f8a1d28c72c54f0c92514d57aaf79f13
+          created: 1773788927987
+          modified: 1774207684003
+          isPrivate: false
+          sortKey: -1619790607601.9375
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"authors": [
+            		"Sid2"
+            	],
+            	"title": "title2",
+            	"areas": [
+            		"Hematologia",
+            		"Citopatologia"
+            	],
+            	"description": "description2"
+            }
+        parameters:
+          - id: pair_4a733b9c42264e14899c17e608f48a7c
+            name: id
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/project"
+        name: Project
+        meta:
+          id: req_d67f6127aada45b69d9852f7a49a8222
+          created: 1773789298780
+          modified: 1774207681103
+          isPrivate: false
+          sortKey: -1619790607551.9375
+        method: DELETE
+        parameters:
+          - id: pair_4a733b9c42264e14899c17e608f48a7c
+            name: id
+            disabled: false
+        headers:
+          - id: pair_69c313acc5534784b8b6aad723ef10e0
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/stats"
+        name: Stats
+        meta:
+          id: req_db7f55f51d8040f4b489a8a1fb225ec1
+          created: 1773841447172
+          modified: 1774199064843
+          isPrivate: false
+          sortKey: -1619790607876.9375
+        method: GET
+        headers:
+          - id: pair_25bc82508b9f4c57babcd70486658306
+            name: Content-Type
+            value: application/json
+          - id: pair_9c5f0ab5bcb94d41be34e7ed909eca4d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/paginated-find"
+        name: Find
+        meta:
+          id: req_39eac26715a2462dbdcea90c6fcd200f
+          created: 1774198054724
+          modified: 1774207245859
+          isPrivate: false
+          sortKey: -1619790607851.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"model": "Project",
+            	"query": {
+            		
+            	},
+            	"page": 1
+            }
+        parameters:
+          - id: pair_bb13a5c06b9e4bcfb35d69fa13708d35
+            name: page
+            value: "1"
+        headers:
+          - id: pair_5e7943ad97b345a28f2711abf2524d6b
+            name: Content-Type
+            value: application/json
+          - id: pair_932eb1e9a4da460d95ae325cd2d2751d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/projects"
+        name: Projects
+        meta:
+          id: req_cafb07cf92be4a2783000ea323c9fa20
+          created: 1774207189479
+          modified: 1774207199471
+          isPrivate: false
+          sortKey: -1619790607651.9375
+        method: GET
+        parameters:
+          - id: pair_3c2954f3d1304dd99c7579ef68842df7
+            disabled: false
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -606,6 +894,629 @@ collection:
           - id: pair_bce466d89de942caba04bba848a8ea7b
             name: Content-Type
             value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Admins
+    meta:
+      id: fld_da21182cc5ad4e0b83de129cba49e807
+      created: 1773841239275
+      modified: 1773841242984
+      sortKey: -1637430291562.5
+    children:
+      - url: "{{ BACKEND_URL }}/admin/signin"
+        name: Sign in
+        meta:
+          id: req_3fdbd183d9704db0830496106f75496a
+          created: 1773841239276
+          modified: 1773849607154
+          isPrivate: false
+          sortKey: -1619790607966
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}",
+            	"password": "{{USER_PASSWORD}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}"
+        name: Update
+        meta:
+          id: req_797aca4987fa4ecfb54c1c1734168125
+          created: 1773841239276
+          modified: 1774199017631
+          isPrivate: false
+          sortKey: -1619790607909.75
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"password": "{{USER_PASSWORD}}",
+            	"phoneNumber": "+55 19 936180541",
+            	"institution": "USP",
+            	"name": "Sidelius"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_3fdbd183d9704db0830496106f75496a',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin"
+        name: Delete
+        meta:
+          id: req_306644aed5e04f84941b7e5cb4d3702f
+          created: 1773841239277
+          modified: 1774200070495
+          isPrivate: false
+          sortKey: -1619790607901.9375
+        method: DELETE
+        headers:
+          - id: pair_69c313acc5534784b8b6aad723ef10e0
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_3fdbd183d9704db0830496106f75496a',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin"
+        name: Read
+        meta:
+          id: req_e6b4a39ffb9e41fc94a5ed16220ca17c
+          created: 1773841239277
+          modified: 1774199011133
+          isPrivate: false
+          sortKey: -1619790607951.9375
+        method: GET
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_3fdbd183d9704db0830496106f75496a',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin/confirm-email"
+        name: Confirm email
+        meta:
+          id: req_072e99145c4241f6b894bd1cdb009b8a
+          created: 1773841239279
+          modified: 1773845692154
+          isPrivate: false
+          sortKey: -1619790607981.625
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin/reset-password"
+        name: Reset password
+        meta:
+          id: req_cc3176134ba74022b5835d80cb642c34
+          created: 1773841239279
+          modified: 1773849362345
+          isPrivate: false
+          sortKey: -1619790607972.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}",
+            	"passwordRecoveryToken": "ebceef17540ed8a8",
+            	"newPassword": "{{USER_PASSWORD}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin/recover-password"
+        name: Recover password
+        meta:
+          id: req_c53816eb6e994566a7ae9e0dd962288c
+          created: 1773841239280
+          modified: 1773845904385
+          isPrivate: false
+          sortKey: -1619790607978.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin/paginated-find"
+        name: Find
+        meta:
+          id: req_2e6e55850744456abad7fe697081a2f8
+          created: 1773841419180
+          modified: 1774199038863
+          isPrivate: false
+          sortKey: -1619790607801.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"model": "Admin",
+            	"query": {
+            		
+            	},
+            	"page": 1
+            }
+        parameters:
+          - id: pair_bb13a5c06b9e4bcfb35d69fa13708d35
+            name: page
+            value: "1"
+        headers:
+          - id: pair_5e7943ad97b345a28f2711abf2524d6b
+            name: Content-Type
+            value: application/json
+          - id: pair_932eb1e9a4da460d95ae325cd2d2751d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_3fdbd183d9704db0830496106f75496a',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/admin/stats"
+        name: Stats
+        meta:
+          id: req_f7f83241e426446db9a7b9dd7929d3cd
+          created: 1774198417439
+          modified: 1774199033526
+          isPrivate: false
+          sortKey: -1619790607851.8433
+        method: GET
+        headers:
+          - id: pair_25bc82508b9f4c57babcd70486658306
+            name: Content-Type
+            value: application/json
+          - id: pair_9c5f0ab5bcb94d41be34e7ed909eca4d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_3fdbd183d9704db0830496106f75496a',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Examiners
+    meta:
+      id: fld_3c59275460c4420c801bb725897df4ec
+      created: 1774198519376
+      modified: 1774198519376
+      sortKey: -1625505747499
+    children:
+      - url: "{{ BACKEND_URL }}/examiner/signin"
+        name: Sign in
+        meta:
+          id: req_e97ef39012b3432a97219852cdad69a3
+          created: 1774198519377
+          modified: 1774198561839
+          isPrivate: false
+          sortKey: -1619790607966
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}",
+            	"password": "{{USER_PASSWORD}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner"
+        name: Update
+        meta:
+          id: req_c3c794da314d41f5a7c8a99abf683d82
+          created: 1774198519378
+          modified: 1774207973554
+          isPrivate: false
+          sortKey: -1619790607909.75
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"password": "{{USER_PASSWORD}}",
+            	"phoneNumber": "+55 19 936180541",
+            	"institution": "UNESP",
+            	"name": "Sid2",
+            	"areas": [
+            		"Hematologia",
+            		"Citopatologia"
+            	],
+            	"maxProjects": 6
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner"
+        name: Read
+        meta:
+          id: req_cdbdbf6969634ebfbb09e27c09eee2bc
+          created: 1774198519378
+          modified: 1774200177999
+          isPrivate: false
+          sortKey: -1619790607951.9375
+        method: GET
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner"
+        name: Delete
+        meta:
+          id: req_73ec92922f6c465d90e99fecde18dc4b
+          created: 1774198519379
+          modified: 1774200194311
+          isPrivate: false
+          sortKey: -1619790607901.9375
+        method: DELETE
+        headers:
+          - id: pair_69c313acc5534784b8b6aad723ef10e0
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner"
+        name: Sign up
+        meta:
+          id: req_98a07d7d5e9f4a19960191b74539f9bb
+          created: 1774198519379
+          modified: 1774207934849
+          isPrivate: false
+          sortKey: -1619790607984.75
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}",
+            	"password": "{{USER_PASSWORD}}",
+            	"phoneNumber": "+55 19 936180541",
+            	"institution": "UNESP",
+            	"name": "Sid",
+            	"areas": [
+            		"Hematologia",
+            		"Citopatologia"
+            	],
+            	"maxProjects": 5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/confirm-email"
+        name: Confirm email
+        meta:
+          id: req_1db74dc131f845ca8414b720fbf569f6
+          created: 1774198519380
+          modified: 1774198541446
+          isPrivate: false
+          sortKey: -1619790607981.625
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/reset-password"
+        name: Reset password
+        meta:
+          id: req_8fb8dc96cbf54e138745b523cdf6f8ad
+          created: 1774198519380
+          modified: 1774198556515
+          isPrivate: false
+          sortKey: -1619790607972.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}",
+            	"passwordRecoveryToken": "37b0415321fd48a0",
+            	"newPassword": "{{USER_PASSWORD}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/recover-password"
+        name: Recover password
+        meta:
+          id: req_553abdf2cf4b4ea8bd7752bdfb835df7
+          created: 1774198519381
+          modified: 1774198547599
+          isPrivate: false
+          sortKey: -1619790607978.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "{{USER_EMAIL}}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_80cff757a79d4a23a47cadc1d3a8e95a
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/project"
+        name: Project
+        meta:
+          id: req_56d03b4f21c248109fa4c14be6b51032
+          created: 1774198519381
+          modified: 1774198950746
+          isPrivate: false
+          sortKey: -1619790607701.9375
+        method: GET
+        parameters:
+          - id: pair_cf8267b34a9146198f0df08d77d71b32
+            name: id
+            value: 69b9e096bfe88283de1dd1fc
+            disabled: false
+        headers:
+          - id: pair_bd473bfb925c48c2a97353a4c1fbee35
+            name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/paginated-find"
+        name: Find
+        meta:
+          id: req_04a32b66355f4b74a8e196c1d71682ea
+          created: 1774198519382
+          modified: 1774198944572
+          isPrivate: false
+          sortKey: -1619790607851.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"model": "Examiner",
+            	"query": {
+            		
+            	},
+            	"page": 1
+            }
+        parameters:
+          - id: pair_bb13a5c06b9e4bcfb35d69fa13708d35
+            name: page
+            value: "1"
+        headers:
+          - id: pair_5e7943ad97b345a28f2711abf2524d6b
+            name: Content-Type
+            value: application/json
+          - id: pair_932eb1e9a4da460d95ae325cd2d2751d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/stats"
+        name: Stats
+        meta:
+          id: req_991281a400c94e84bf11be7c2c7d4968
+          created: 1774198519382
+          modified: 1774198934494
+          isPrivate: false
+          sortKey: -1619790607876.9375
+        method: GET
+        headers:
+          - id: pair_25bc82508b9f4c57babcd70486658306
+            name: Content-Type
+            value: application/json
+          - id: pair_9c5f0ab5bcb94d41be34e7ed909eca4d
+            name: Super-Admin-Api-Key
+            value: "{{SUPER_ADMIN_API_KEY}}"
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+          disabled: false
         settings:
           renderRequestBody: true
           encodeUrl: true

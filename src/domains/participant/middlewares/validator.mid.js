@@ -1,6 +1,7 @@
 import { celebrate, Joi } from 'celebrate';
 import formats from '../../_common/validators/formats.js';
 import commonValidators from '../../_common/validators/validators.js';
+import areas from '../../_common/helpers/areas.js';
 
 const validator = {
   create: celebrate({
@@ -47,7 +48,7 @@ const validator = {
   paginatedFind: celebrate({
     body: Joi.object({
       model: Joi.string()
-        .valid('Examiner', 'Project'),
+        .valid('Examiner'),
       query: Joi.object({
         email: Joi.string()
           .forbidden(),
@@ -59,9 +60,14 @@ const validator = {
   }),
   createProject: celebrate({
     body: Joi.object({
+      authors: Joi.array()
+        .items(Joi.string().max(128))
+        .min(1)
+        .max(20)
+        .required(),
       title: Joi.string().max(128).required(),
       areas: Joi.array()
-        .items(Joi.string().max(128))
+        .items(Joi.string().valid(...areas))
         .min(1)
         .max(2)
         .required(),
@@ -74,12 +80,18 @@ const validator = {
       id: formats.requiredId,
     }),
     body: Joi.object({
-      title: Joi.string().max(128),
-      areas: Joi.array()
+      authors: Joi.array()
         .items(Joi.string().max(128))
         .min(1)
-        .max(2),
-      description: Joi.string().max(2048),
+        .max(20)
+        .required(),
+      title: Joi.string().max(128).required(),
+      areas: Joi.array()
+        .items(Joi.string().valid(...areas))
+        .min(1)
+        .max(2)
+        .required(),
+      description: Joi.string().max(2048).required(),
     }),
   }),
   deleteProject: commonValidators.queryId,

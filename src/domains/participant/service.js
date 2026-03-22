@@ -60,10 +60,10 @@ const service = {
     };
   },
   async update(email, update) {
-    const user = await commonService.updateUser(Participant, email, update);
+    await commonService.updateUser(Participant, email, update);
     return {
       success: true,
-      data: user,
+      data: null,
       error: null,
     };
   },
@@ -104,8 +104,8 @@ const service = {
     };
   },
   async createProject(email, projectInfo) {
-    const { name } = projectInfo;
-    let project = await findOne(Project, { name }, true);
+    const { title } = projectInfo;
+    let project = await findOne(Project, { title }, true);
     project = new Project({
       ...projectInfo,
       participantEmail: email,
@@ -116,9 +116,7 @@ const service = {
     await project.save();
     return {
       success: true,
-      data: {
-        project,
-      },
+      data:  project,
       error: null,
     };
   },
@@ -129,9 +127,15 @@ const service = {
     );
     return {
       success: true,
-      data: {
-        project,
-      },
+      data: project,
+      error: null,
+    };
+  },
+  async readProjects(email) {
+    const projects = await Project.find({ participantEmail: email });
+    return {
+      success: true,
+      data: projects,
       error: null,
     };
   },

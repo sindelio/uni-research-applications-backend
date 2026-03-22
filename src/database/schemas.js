@@ -40,9 +40,11 @@ const participantSchema = new Schema(userBaseFields);
 const examinerSchema = new Schema({
   ...userBaseFields,
   areas: [String],
+  maxProjects: Number, // Minimum 3
 });
 
 const projectSchema = new Schema({
+  authors: [String],
   title: String,
   areas: [String],
   description: String,

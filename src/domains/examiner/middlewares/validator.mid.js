@@ -1,6 +1,7 @@
 import { celebrate, Joi } from 'celebrate';
 import formats from '../../_common/validators/formats.js';
 import commonValidators from '../../_common/validators/validators.js';
+import areas from '../../_common/helpers/areas.js';
 
 const validator = {
   create: celebrate({
@@ -10,6 +11,15 @@ const validator = {
       phoneNumber: formats.requiredPhoneNumber,
       institution: formats.requiredInstitution,
       name: formats.requiredName,
+      areas: Joi.array()
+        .min(1)
+        .items(Joi.string().valid(...areas))
+        .required(),
+      maxProjects: Joi.number()
+        .integer()
+        .min(3)
+        .max(100)
+        .required(),
     }),
   }),
   confirmEmail: celebrate({
@@ -39,6 +49,15 @@ const validator = {
       phoneNumber: formats.phoneNumber,
       institution: formats.requiredInstitution,
       name: formats.requiredName,
+      areas: Joi.array()
+        .min(1)
+        .items(Joi.string().valid(...areas))
+        .required(),
+      maxProjects: Joi.number()
+        .integer()
+        .min(3)
+        .max(100)
+        .required(),
     }),
   }),
   stats: celebrate({

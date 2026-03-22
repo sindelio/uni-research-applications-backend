@@ -101,6 +101,13 @@ router.get(
   },
 );
 
+router.get(
+  '/projects',
+  async (req, res, _next) => {
+    await controller.readProjects(req, res);
+  },
+);
+
 router.patch(
   '/project',
   validator.updateProject,

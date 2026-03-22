@@ -75,6 +75,11 @@ const controller = {
     const result = await service.readProject(email, id);
     res.status(200).json(result);
   },
+  async readProjects(req, res) {
+    const { email } = req.user;
+    const result = await service.readProjects(email);
+    res.status(200).json(result);
+  },
   async updateProject(req, res) {
     const { email } = req.user;
     const { id } = req.query;

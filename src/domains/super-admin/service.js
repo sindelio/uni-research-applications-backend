@@ -123,10 +123,10 @@ const service = {
   },
   async updateUser(model, email, update) {
     const Model = await getModel(model);
-    const user = await commonService.updateUser(Model, email, update);
+    await commonService.updateUser(Model, email, update);
     return {
       success: true,
-      data: user,
+      data: null,
       error: null,
     };
   },

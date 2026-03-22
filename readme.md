@@ -1,8 +1,8 @@
 TODO:
-- Implement participant routes
+- 
 - Add images to emails
-- Add areas property to examiner user
-- Create project status logic
+- Reuse validators
+- Reuse project/user statuses
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
