@@ -35,6 +35,14 @@ router.patch(
   },
 );
 
+router.delete(
+  '/',
+  async (req, res, _next) => {
+    await controller.delete(req, res);
+  },
+);
+
+
 router.get(
   '/stats',
   async (req, res, _next) => {

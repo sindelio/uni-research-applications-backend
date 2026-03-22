@@ -11,6 +11,7 @@ import healthRouter from './domains/health/router.js';
 import superAdminRouter from './domains/super-admin/router.js';
 import adminRouter from './domains/admin/router.js';
 import participantRouter from './domains/participant/router.js';
+import examinerRouter from './domains/examiner/router.js';
 
 // Import global error handler
 import globalErrorHandler from './middlewares/error-handlers/global-error-handler.mid.js';
@@ -35,6 +36,7 @@ server.use('/v1/health', healthRouter);
 server.use('/v1/super-admin', superAdminRouter);
 server.use('/v1/admin', adminRouter);
 server.use('/v1/participant', participantRouter);
+server.use('/v1/examiner', examinerRouter);
 
 // Set global error handler
 server.use(globalErrorHandler);

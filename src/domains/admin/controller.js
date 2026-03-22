@@ -45,17 +45,17 @@ const controller = {
     const result = await service.delete(email);
     res.status(200).json(result);
   },
+  async stats(req, res) {
+    const { email } = req.user;
+    const { year, month, day } = req.body;
+    const result = await service.stats(email, year, month, day);
+    res.status(200).json(result);
+  },
   async paginatedFind(req, res) {
     const { email } = req.user;
     const { model, query, page } = req.body;
     query.email = email;
     const result = await service.paginatedFind(model, query, page);
-    res.status(200).json(result);
-  },
-  async stats(req, res) {
-    const { email } = req.user;
-    const { year, month, day } = req.body;
-    const result = await service.stats(email, year, month, day);
     res.status(200).json(result);
   },
   async createProject(req, res) {

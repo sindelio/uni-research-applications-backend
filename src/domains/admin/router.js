@@ -63,18 +63,18 @@ router.delete(
 );
 
 router.post(
-  '/paginated-find',
-  validator.paginatedFind,
-  async (req, res, _next) => {
-    await controller.paginatedFind(req, res);
-  },
-);
-
-router.post(
   '/stats',
   validator.stats,
   async (req, res, _next) => {
     await controller.stats(req, res);
+  },
+);
+
+router.post(
+  '/paginated-find',
+  validator.paginatedFind,
+  async (req, res, _next) => {
+    await controller.paginatedFind(req, res);
   },
 );
 

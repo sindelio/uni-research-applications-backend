@@ -51,7 +51,7 @@ const service = {
     };
   },
   async update(email, update) {
-    const user = commonService.updateUser(Admin, email, update);
+    const user = await commonService.updateUser(Admin, email, update);
     return {
       success: true,
       data: user,
@@ -61,6 +61,13 @@ const service = {
   async delete(email) {
     await findOne(Admin, { email });
     await Admin.deleteOne({ email });
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async stats(email, year, month, day) {
     return {
       success: true,
       data: null,
@@ -83,13 +90,6 @@ const service = {
         numberOfItems,
         itemsInPage,
       },
-      error: null,
-    };
-  },
-  async stats(email, year, month, day) {
-    return {
-      success: true,
-      data: null,
       error: null,
     };
   },

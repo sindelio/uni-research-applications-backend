@@ -63,6 +63,15 @@ const service = {
       error: null,
     };
   },
+  async delete(email) {
+    await findOne(SuperAdmin, { email });
+    await SuperAdmin.deleteOne({ email });
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
   async stats() {
     return {
       success: true,
@@ -114,10 +123,7 @@ const service = {
   },
   async updateUser(model, email, update) {
     const Model = await getModel(model);
-    const user = await findOne(Model, { email });
-    await setDate(update, 'lastUpdatedAt');
-    const dotifiedUpdate = await dotifyObject(update);
-    await user.updateOne(dotifiedUpdate);
+    const user = await commonService.updateUser(Model, email, update);
     return {
       success: true,
       data: user,

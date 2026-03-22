@@ -1,9 +1,8 @@
 import {
   Participant,
+  Examiner,
   Project,
 } from '../../database/models.js';
-import setDate from '../../helpers/set-date.js';
-import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
@@ -11,7 +10,7 @@ import commonService from '../_common/common-service.js';
 
 const service = {
   async create(userInfo) {
-    const user = await commonService.createUser(Participant, userInfo);
+    const user = await commonService.createUser(Examiner, userInfo);
     return {
       success: true,
       data: user,
@@ -19,7 +18,7 @@ const service = {
     };
   },
   async confirmEmail(email) {
-    await commonService.confirmEmail(Participant, email);
+    await commonService.confirmEmail(Examiner, email);
     return {
       success: true,
       data: null,
@@ -27,7 +26,7 @@ const service = {
     };
   },
   async recoverPassword(email) {
-    await commonService.recoverPassword(Participant, email);
+    await commonService.recoverPassword(Examiner, email);
     return {
       success: true,
       data: null,
@@ -35,7 +34,7 @@ const service = {
     };
   },
   async resetPassword(email, passwordRecoveryToken, newPassword) {
-    await commonService.resetPassword(Participant, email, passwordRecoveryToken, newPassword);
+    await commonService.resetPassword(Examiner, email, passwordRecoveryToken, newPassword);
     return {
       success: true,
       data: null,
@@ -43,7 +42,7 @@ const service = {
     };
   },
   async authenticate(email, password) {
-    const jwt = await commonService.authenticate(Participant, email, password);
+    const jwt = await commonService.authenticate(Examiner, email, password);
     return {
       success: true,
       data: { jwt },
@@ -51,7 +50,7 @@ const service = {
     };
   },
   async read(email) {
-    const admin = await findOne(Participant, { email });
+    const admin = await findOne(Examiner, { email });
     admin.passwordRecoveryToken = '***';
     return {
       success: true,
@@ -60,7 +59,7 @@ const service = {
     };
   },
   async update(email, update) {
-    const user = await commonService.updateUser(Participant, email, update);
+    const user = await commonService.updateUser(Examiner, email, update);
     return {
       success: true,
       data: user,
@@ -68,9 +67,8 @@ const service = {
     };
   },
   async delete(email) {
-    await findOne(Participant, { email });
-    await Participant.deleteOne({ email });
-    await Project.deleteMany({ participantEmail: email });
+    await findOne(Examiner, { email });
+    await Examiner.deleteOne({ email });
     return {
       success: true,
       data: null,
@@ -103,25 +101,6 @@ const service = {
       error: null,
     };
   },
-  async createProject(email, projectInfo) {
-    const { name } = projectInfo;
-    let project = await findOne(Project, { name }, true);
-    project = new Project({
-      ...projectInfo,
-      participantEmail: email,
-      examinerEmail: null,
-      status: 'Pending review',
-    });
-    await setDate(project, 'createdAt');
-    await project.save();
-    return {
-      success: true,
-      data: {
-        project,
-      },
-      error: null,
-    };
-  },
   async readProject(email, projectId) {
     const project = await findOne(
       Project,
@@ -132,32 +111,6 @@ const service = {
       data: {
         project,
       },
-      error: null,
-    };
-  },
-  async updateProject(email, projectId, update) {
-    const project = await findOne(
-      Project,
-      { participantEmail: email, _id: projectId },
-    );
-    await setDate(update, 'lastUpdatedAt');
-    const dotifiedUpdate = await dotifyObject(update);
-    await project.updateOne(dotifiedUpdate);
-    return {
-      success: true,
-      data: project,
-      error: null,
-    };
-  },
-  async deleteProject(email, projectId) {
-    const project = await findOne(
-      Project,
-      { participantEmail: email, _id: projectId },
-    );
-    await project.deleteOne();
-    return {
-      success: true,
-      data: null,
       error: null,
     };
   },

@@ -17,6 +17,7 @@ const userBaseFields = {
   phoneNumber: String,
   name: String,
   institution: String,
+  type: String, // Admin, Participant, Examiner
   status: String,
   passwordRecoveryToken: String,
   createdAt: dateFields,
@@ -27,6 +28,7 @@ const superAdminSchema = new Schema({
   email: { type: String, index: true },
   password: String,
   name: String,
+  type: String, // SuperAdmin
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
 });

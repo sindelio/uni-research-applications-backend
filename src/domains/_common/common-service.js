@@ -7,6 +7,7 @@ import findOne from '../../helpers/find-one.js';
 import setDate from '../../helpers/set-date.js';
 import generateHtmlMessage from '../../helpers/generate-html-message.js';
 import notify from '../../functions/notify.js';
+import dotifyObject from '../../helpers/dotify.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const {
@@ -16,15 +17,10 @@ const {
 
 const commonService = {
   async createUser(Model, userInfo) {
-    const {
-      email,
-      password,
-      phoneNumber,
-      institution,
-      name,
-    } = userInfo;
+    const { email, password, phoneNumber, institution, name } = userInfo;
     let user = await findOne(Model, { email }, true);
     user = new Model({ email, password, phoneNumber, institution, name });
+    user.type = `${Model?.modelName}`;
     user.status = 'Pending email confirmation';
     await setDate(user, 'createdAt');
     await user.save();

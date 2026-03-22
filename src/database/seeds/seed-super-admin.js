@@ -25,6 +25,7 @@ if (exists(superAdmin)) {
     email,
     password,
     name,
+    type: SuperAdmin.modelName,
   });
   await setDate(superAdmin, 'createdAt');
   await superAdmin.save();

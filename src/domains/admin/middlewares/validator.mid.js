@@ -32,6 +32,9 @@ const validator = {
       name: formats.requiredName,
     }),
   }),
+  stats: celebrate({
+    body: Joi.object({}),
+  }),
   paginatedFind: celebrate({
     body: Joi.object({
       model: Joi.string()
@@ -44,9 +47,6 @@ const validator = {
         .integer()
         .positive(),
     }),
-  }),
-  stats: celebrate({
-    body: Joi.object({}),
   }),
   createProject: celebrate({
     body: Joi.object({
