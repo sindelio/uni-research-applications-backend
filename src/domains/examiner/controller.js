@@ -57,16 +57,8 @@ const controller = {
     res.status(200).json(result);
   },
   async paginatedFind(req, res) {
-    const { email } = req.user;
     const { model, query, page } = req.body;
-    query.email = email;
     const result = await service.paginatedFind(model, query, page);
-    res.status(200).json(result);
-  },
-  async createProject(req, res) {
-    const { email } = req.user;
-    const projectInfo = req.body;
-    const result = await service.createProject(email, projectInfo);
     res.status(200).json(result);
   },
   async readProject(req, res) {
@@ -75,17 +67,11 @@ const controller = {
     const result = await service.readProject(email, id);
     res.status(200).json(result);
   },
-  async updateProject(req, res) {
+  async reviewProject(req, res) {
     const { email } = req.user;
     const { id } = req.query;
-    const update = req.body;
-    const result = await service.updateProject(email, id, update);
-    res.status(200).json(result);
-  },
-  async deleteProject(req, res) {
-    const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.deleteProject(email, id);
+    const { acceptance } = req.body;
+    const result = await service.reviewProject(email, id, acceptance);
     res.status(200).json(result);
   },
 };

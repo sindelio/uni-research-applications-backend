@@ -85,14 +85,6 @@ router.post(
   },
 );
 
-router.post(
-  '/project',
-  validator.createProject,
-  async (req, res, _next) => {
-    await controller.createProject(req, res);
-  },
-);
-
 router.get(
   '/project',
   validator.readProject,
@@ -101,19 +93,11 @@ router.get(
   },
 );
 
-router.patch(
-  '/project',
-  validator.updateProject,
+router.post(
+  '/review-project',
+  validator.reviewProject,
   async (req, res, _next) => {
-    await controller.updateProject(req, res);
-  },
-);
-
-router.delete(
-  '/project',
-  validator.deleteProject,
-  async (req, res, _next) => {
-    await controller.deleteProject(req, res);
+    await controller.reviewProject(req, res);
   },
 );
 

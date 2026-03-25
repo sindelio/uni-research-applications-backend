@@ -118,6 +118,19 @@ const service = {
       error: null,
     };
   },
+  async reviewProject(email, projectId, acceptance) {
+    const project = await findOne(
+      Project,
+      { examinerEmail: email, _id: projectId },
+    );
+    project.status = acceptance;
+    await project.save();
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
 };
 
 export default service;

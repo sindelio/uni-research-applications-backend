@@ -1,5 +1,7 @@
 TODO:
-- 
+- Create project distribution logic in participant service
+- Add file to project
+- Cron job to allocate examiner to project
 - Add images to emails
 - Reuse validators
 - Reuse project/user statuses

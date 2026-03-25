@@ -52,9 +52,7 @@ const controller = {
     res.status(200).json(result);
   },
   async paginatedFind(req, res) {
-    const { email } = req.user;
     const { model, query, page } = req.body;
-    query.email = email;
     const result = await service.paginatedFind(model, query, page);
     res.status(200).json(result);
   },
