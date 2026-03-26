@@ -8,6 +8,7 @@ import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
+import allocateExaminer from '../_common/helpers/allocate-examiner.js';
 
 const service = {
   async create(userInfo) {
@@ -110,14 +111,10 @@ const service = {
       ...projectInfo,
       participantEmail: email,
       examinerEmail: null,
-      status: 'Pending review',
+      status: 'Waiting examiner',
     });
     await setDate(project, 'createdAt');
-
-    
-
-
-
+    await allocateExaminer(project);
     await project.save();
     return {
       success: true,

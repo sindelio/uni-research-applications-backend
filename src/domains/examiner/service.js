@@ -14,6 +14,7 @@ const service = {
     const { areas, maxProjects } = userInfo;
     user.areas = areas;
     user.maxProjects = maxProjects;
+    user.numProjects = 0;
     await user.save();
     return {
       success: true,

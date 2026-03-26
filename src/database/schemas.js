@@ -40,6 +40,7 @@ const participantSchema = new Schema(userBaseFields);
 const examinerSchema = new Schema({
   ...userBaseFields,
   areas: [String],
+  numProjects: Number,
   maxProjects: Number, // Minimum 3
 });
 
@@ -50,7 +51,7 @@ const projectSchema = new Schema({
   description: String,
   participantEmail: String,
   examinerEmail: String,
-  status: String, // Pending review, Approved or Rejected
+  status: String, // Waiting examiner, Pending review, Approved or Rejected
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
 });
