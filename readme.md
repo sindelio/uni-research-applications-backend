@@ -1,7 +1,5 @@
 TODO:
-- Send email when a project gets an examiner
 - Add file to project
-- Cron job to allocate examiner to project
 - Add images to emails
 - Reuse validators
 - Reuse project/user statuses
