@@ -14,7 +14,7 @@ const dateFields = {
 const userBaseFields = {
   email: { type: String, index: true },
   password: String,
-  phoneNumber: String,
+  phone: String,
   name: String,
   institution: String,
   type: String, // Admin, Participant, Examiner
@@ -35,7 +35,10 @@ const superAdminSchema = new Schema({
 
 const adminSchema = new Schema(userBaseFields);
 
-const participantSchema = new Schema(userBaseFields);
+const participantSchema = new Schema({
+  ...userBaseFields,
+  numProjects: Number,
+});
 
 const examinerSchema = new Schema({
   ...userBaseFields,

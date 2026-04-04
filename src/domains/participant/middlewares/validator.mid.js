@@ -8,7 +8,7 @@ const validator = {
     body: Joi.object({
       email: formats.requiredEmail,
       password: formats.requiredPassword,
-      phoneNumber: formats.requiredPhoneNumber,
+      phone: formats.requiredPhone,
       institution: formats.requiredInstitution,
       name: formats.requiredName,
     }),
@@ -37,7 +37,7 @@ const validator = {
   update: celebrate({
     body: Joi.object({
       password: formats.password,
-      phoneNumber: formats.phoneNumber,
+      phone: formats.phone,
       institution: formats.requiredInstitution,
       name: formats.requiredName,
     }),

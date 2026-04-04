@@ -17,9 +17,9 @@ const {
 
 const commonService = {
   async createUser(Model, userInfo) {
-    const { email, password, phoneNumber, institution, name } = userInfo;
+    const { email, password, phone, institution, name } = userInfo;
     let user = await findOne(Model, { email }, true);
-    user = new Model({ email, password, phoneNumber, institution, name });
+    user = new Model({ email, password, phone, institution, name });
     user.type = `${Model?.modelName}`;
     user.status = 'Pending email confirmation';
     await setDate(user, 'createdAt');
