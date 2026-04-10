@@ -24,12 +24,12 @@ const commonService = {
     user.status = 'Pending email confirmation';
     await setDate(user, 'createdAt');
     await user.save();
-    const subject = 'Email confirmation';
+    const subject = 'Confirmação de email';
     const htmlMessage = await generateHtmlMessage(
-      'Welcome!',
-      'Please confirm your email by clicking the link below:',
-      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}`,
-      'Confirm email',
+      'Bem vindo!',
+      'Por favor confirme seu email clicando no link abaixo:',
+      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.type}`,
+      'Confirmar email',
     );
     notify(email, subject, htmlMessage);
     return user;
@@ -54,10 +54,10 @@ const commonService = {
     await user.save();
     const subject = 'TalentSourcery password recovery';
     const htmlMessage = await generateHtmlMessage(
-      'Greetings from TalentSourcery!',
-      'You can reset your password by clicking on the link below:',
-      `${FRONTEND_URL}/app/password-reset?email=${email}&token=${token}`,
-      'Reset password',
+      'Saudações do ENPCV!',
+      'Você pode resetar sua senha através do link abaixo:',
+      `${FRONTEND_URL}/app/password-reset?email=${email}&userType=${user.type}&token=${token}`,
+      'Resetar senha',
     );
     notify(email, subject, htmlMessage);
   },
