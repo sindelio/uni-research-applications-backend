@@ -38,8 +38,8 @@ const validator = {
     body: Joi.object({
       password: formats.password,
       phone: formats.phone,
-      institution: formats.requiredInstitution,
-      name: formats.requiredName,
+      institution: formats.institution,
+      name: formats.name,
     }),
   }),
   stats: celebrate({

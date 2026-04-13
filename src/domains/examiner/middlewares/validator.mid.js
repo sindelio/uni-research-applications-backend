@@ -47,17 +47,15 @@ const validator = {
     body: Joi.object({
       password: formats.password,
       phone: formats.phone,
-      institution: formats.requiredInstitution,
-      name: formats.requiredName,
+      institution: formats.institution,
+      name: formats.name,
       areas: Joi.array()
         .min(1)
-        .items(Joi.string().valid(...areas))
-        .required(),
+        .items(Joi.string().valid(...areas)),
       maxProjects: Joi.number()
         .integer()
         .min(3)
-        .max(100)
-        .required(),
+        .max(100),
     }),
   }),
   stats: celebrate({
