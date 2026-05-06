@@ -86,6 +86,14 @@ router.post(
 );
 
 router.post(
+  '/upload-receipt',
+  validator.uploadReceipt,
+  async (req, res, _next) => {
+    await controller.uploadReceipt(req, res);
+  },
+);
+
+router.post(
   '/project',
   validator.createProject,
   async (req, res, _next) => {

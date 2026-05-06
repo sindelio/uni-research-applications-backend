@@ -18,7 +18,7 @@ const userBaseFields = {
   name: String,
   institution: String,
   type: String, // Admin, Participant, Examiner
-  status: String,
+  status: String, // Pending email confirmation, Email confirmed, Payment confirmed
   passwordRecoveryToken: String,
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
@@ -38,6 +38,10 @@ const adminSchema = new Schema(userBaseFields);
 const participantSchema = new Schema({
   ...userBaseFields,
   numProjects: Number,
+  receiptFile: {
+    data: Buffer,
+    isSubmitted: Boolean,
+  },
 });
 
 const examinerSchema = new Schema({
@@ -48,10 +52,16 @@ const examinerSchema = new Schema({
 });
 
 const projectSchema = new Schema({
-  authors: [String],
   title: String,
+  institution: String,
+  authors: [String],
   areas: [String],
   description: String,
+  type: String, // Convencional or Fotográfico 
+  bannerFile: {
+    data: Buffer,
+    isSubmitted: Boolean,
+  },
   participantEmail: String,
   examinerEmail: String,
   status: String, // Waiting examiner, Pending review, Approved or Rejected

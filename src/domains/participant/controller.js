@@ -63,6 +63,12 @@ const controller = {
     const result = await service.paginatedFind(model, query, page);
     res.status(200).json(result);
   },
+  async uploadReceipt(req, res) {
+    const { email } = req.user;
+    const { receiptFile64Encoded } = req.body;
+    const result = await service.uploadReceipt(email, receiptFile64Encoded);
+    res.status(200).json(result);
+  },
   async createProject(req, res) {
     const { email } = req.user;
     const projectInfo = req.body;

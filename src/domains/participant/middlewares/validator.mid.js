@@ -58,20 +58,28 @@ const validator = {
         .positive(),
     }),
   }),
+  uploadReceipt: celebrate({
+    body: Joi.object({
+      receiptFile64Encoded: Joi.string().required(),
+    }),
+  }),
   createProject: celebrate({
     body: Joi.object({
+      title: Joi.string().max(128).required(),
+      institution: Joi.string().max(128).required(),
       authors: Joi.array()
         .items(Joi.string().max(128))
         .min(1)
         .max(20)
         .required(),
-      title: Joi.string().max(128).required(),
       areas: Joi.array()
         .items(Joi.string().valid(...areas))
         .min(1)
         .max(2)
         .required(),
       description: Joi.string().max(2048).required(),
+      type: Joi.string().valid('Convencional', 'Fotográfico'),
+      bannerFile64Encoded: Joi.string().required(),
     }),
   }),
   readProject: commonValidators.queryId,

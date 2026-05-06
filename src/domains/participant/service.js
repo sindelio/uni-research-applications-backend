@@ -13,6 +13,11 @@ import allocateExaminer from '../_common/helpers/allocate-examiner.js';
 const service = {
   async create(userInfo) {
     const user = await commonService.createUser(Participant, userInfo);
+    user.receiptFile = {
+      data: null,
+      isSubmitted: false,
+    };
+    await user.save();
     return {
       success: true,
       data: user,
@@ -52,11 +57,11 @@ const service = {
     };
   },
   async read(email) {
-    const admin = await findOne(Participant, { email });
-    admin.passwordRecoveryToken = '***';
+    const participant = await findOne(Participant, { email });
+    participant.passwordRecoveryToken = '***';
     return {
       success: true,
-      data: admin,
+      data: participant,
       error: null,
     };
   },
@@ -104,13 +109,34 @@ const service = {
       error: null,
     };
   },
+  async uploadReceipt(email, receiptFile64Encoded) {
+    const participant = await findOne(Participant, { email });
+    const cleanBase64 = receiptFile64Encoded.split(';base64,').pop();
+    const buffer = Buffer.from(cleanBase64, 'base64');
+    participant.receiptFile = {
+      data: buffer,
+      isSubmitted: true,
+    };
+    await participant.save();
+    return {
+      success: true,
+      data: participant.receiptFile,
+      error: null,
+    };
+  },
   async createProject(email, projectInfo) {
     const { title } = projectInfo;
     let project = await findOne(Project, { title }, true);
+    const { bannerFile64Encoded, ...otherInfo } = projectInfo;
+    const cleanBase64 = bannerFile64Encoded.split(';base64,').pop();
+    const buffer = Buffer.from(cleanBase64, 'base64');
     project = new Project({
-      ...projectInfo,
+      ...otherInfo,
+      bannerFile: {
+        data: buffer, 
+        isSubmitted: true,
+      },
       participantEmail: email,
-      examinerEmail: null,
       status: 'Waiting examiner',
     });
     await setDate(project, 'createdAt');
@@ -143,7 +169,7 @@ const service = {
   },
   async updateProject(email, projectId, update) {
     const project = await findOne(
-      Project,
+      Project, 
       { participantEmail: email, _id: projectId },
     );
     await setDate(update, 'lastUpdatedAt');
