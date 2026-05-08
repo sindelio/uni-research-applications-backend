@@ -328,7 +328,7 @@ collection:
         meta:
           id: req_ab7e575b95d843eca5018faf575e32f1
           created: 1773078895295
-          modified: 1774199141586
+          modified: 1774444804599
           isPrivate: false
           sortKey: -1620105948036.373
         method: POST
@@ -336,7 +336,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"model": "Participant",
+            	"model": "Project",
             	"query": {
             		
             	},
@@ -523,7 +523,7 @@ collection:
         meta:
           id: req_5639cd4f212841ff936af2dcbdabcece
           created: 1773078895315
-          modified: 1774195596232
+          modified: 1775829299836
           isPrivate: false
           sortKey: -1619790607984.75
         method: POST
@@ -533,7 +533,7 @@ collection:
             {
             	"email": "{{USER_EMAIL}}",
             	"password": "{{USER_PASSWORD}}",
-            	"phoneNumber": "+55 19 936180541",
+            	"phone": "19 936180541",
             	"institution": "UNESP",
             	"name": "Sid"
             }
@@ -637,7 +637,7 @@ collection:
         meta:
           id: req_9db62e7f6bfa427baef36d9dfee7319a
           created: 1773583904378
-          modified: 1774207595543
+          modified: 1778092191287
           isPrivate: false
           sortKey: -1619790607801.9375
         method: POST
@@ -645,16 +645,18 @@ collection:
           mimeType: application/json
           text: |-
             {
+            	"title": "title",
+            	"institution": "USP",
             	"authors": [
             		"Sid",
             		"Giovanna"
             	],
-            	"title": "title",
             	"areas": [
-            		"Hematologia",
-            		"Citopatologia"
+            		"Hematologia"
             	],
-            	"description": "description"
+            	"description": "description",
+            	"type": "Convencional",
+            	"bannerFile64Encoded": "ab04"
             }
         headers:
           - name: Content-Type
@@ -677,7 +679,7 @@ collection:
         meta:
           id: req_fbe7fdbbb0f34f2fa88cf2d13f8d8fda
           created: 1773584286659
-          modified: 1774207686776
+          modified: 1774444351958
           isPrivate: false
           sortKey: -1619790607701.9375
         method: GET
@@ -748,7 +750,7 @@ collection:
         meta:
           id: req_d67f6127aada45b69d9852f7a49a8222
           created: 1773789298780
-          modified: 1774207681103
+          modified: 1778092153070
           isPrivate: false
           sortKey: -1619790607551.9375
         method: DELETE
@@ -807,7 +809,7 @@ collection:
         meta:
           id: req_39eac26715a2462dbdcea90c6fcd200f
           created: 1774198054724
-          modified: 1774207245859
+          modified: 1774444592000
           isPrivate: false
           sortKey: -1619790607851.9375
         method: POST
@@ -815,7 +817,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"model": "Project",
+            	"model": "Examiner",
             	"query": {
             		
             	},
@@ -861,6 +863,36 @@ collection:
         headers:
           - id: pair_bd473bfb925c48c2a97353a4c1fbee35
             name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_7b96a575618f48fea3b6466d7104bf8f',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/participant/upload-receipt"
+        name: Upload receipt
+        meta:
+          id: req_05c7956fe190485391c5c72703c72f21
+          created: 1778000929881
+          modified: 1778108509242
+          isPrivate: false
+          sortKey: -1619790607826.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"receiptFile64Encoded": "0ab5"
+            }
+        headers:
+          - name: Content-Type
             value: application/json
         authentication:
           type: bearer
@@ -1421,19 +1453,18 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ BACKEND_URL }}/project"
+      - url: "{{ BACKEND_URL }}/examiner/project"
         name: Project
         meta:
           id: req_56d03b4f21c248109fa4c14be6b51032
           created: 1774198519381
-          modified: 1774198950746
+          modified: 1774446259329
           isPrivate: false
           sortKey: -1619790607701.9375
         method: GET
         parameters:
           - id: pair_cf8267b34a9146198f0df08d77d71b32
             name: id
-            value: 69b9e096bfe88283de1dd1fc
             disabled: false
         headers:
           - id: pair_bd473bfb925c48c2a97353a4c1fbee35
@@ -1456,7 +1487,7 @@ collection:
         meta:
           id: req_04a32b66355f4b74a8e196c1d71682ea
           created: 1774198519382
-          modified: 1774198944572
+          modified: 1774444827185
           isPrivate: false
           sortKey: -1619790607851.9375
         method: POST
@@ -1464,7 +1495,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"model": "Examiner",
+            	"model": "Project",
             	"query": {
             		
             	},
@@ -1517,6 +1548,41 @@ collection:
           token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
             'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
           disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ BACKEND_URL }}/examiner/review-project"
+        name: Review Project
+        meta:
+          id: req_8c743704aa9e43379cb26c64dd53ae9c
+          created: 1774445036537
+          modified: 1774446187885
+          isPrivate: false
+          sortKey: -1619790607676.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"acceptance": "Accepted"
+            }
+        parameters:
+          - id: pair_cf8267b34a9146198f0df08d77d71b32
+            name: id
+            value: 69c3df348133441bca3e6e42
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_e97ef39012b3432a97219852cdad69a3',
+            'b64::JC5kYXRhLmp3dA==::46b', 'never', 60 %}"
         settings:
           renderRequestBody: true
           encodeUrl: true

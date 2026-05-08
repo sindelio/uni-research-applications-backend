@@ -5,6 +5,7 @@ import notify from '../../../functions/notify.js';
 
 const {
   FRONTEND_URL,
+  PROJECT_PENDING_REVIEW,
 } = process.env;
 
 async function allocateExaminer(project) {
@@ -40,7 +41,7 @@ async function allocateExaminer(project) {
 
     // Update project
     project.examinerEmail = allocatedExaminer.email;
-    project.status = 'Pending review';
+    project.status = PROJECT_PENDING_REVIEW;
     await project.save();
 
     // Notify

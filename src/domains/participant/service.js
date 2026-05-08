@@ -10,6 +10,8 @@ import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 import allocateExaminer from '../_common/helpers/allocate-examiner.js';
 
+const { PROJECT_WAITING_EXAMINER } = process.env;
+
 const service = {
   async create(userInfo) {
     const user = await commonService.createUser(Participant, userInfo);
@@ -92,14 +94,11 @@ const service = {
   },
   async paginatedFind(model, query, page = 1) {
     const Model = await getModel(model);
-    const { 
-      numberOfItems,
-      itemsInPage,
-    } = await paginatedFind(
-      Model,
-      query,
-      page,
-    );
+    if (Model === Project) {
+      query.participantEmail = query.email;
+      delete query.email;
+    }
+    const { numberOfItems, itemsInPage } = await paginatedFind(Model, query, page);
     return {
       success: true,
       data: {
@@ -137,7 +136,7 @@ const service = {
         isSubmitted: true,
       },
       participantEmail: email,
-      status: 'Waiting examiner',
+      status: PROJECT_WAITING_EXAMINER,
     });
     await setDate(project, 'createdAt');
     await allocateExaminer(project);

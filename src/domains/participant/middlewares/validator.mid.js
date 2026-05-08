@@ -48,7 +48,7 @@ const validator = {
   paginatedFind: celebrate({
     body: Joi.object({
       model: Joi.string()
-        .valid('Examiner'),
+        .valid('Examiner', 'Project'),
       query: Joi.object({
         email: Joi.string()
           .forbidden(),

@@ -1,10 +1,12 @@
 TODO:
-- Add file to project
-- Add images to emails
-- Reuse validators
-- Reuse project/user statuses
-- Decrement examiner numProjects when a participant is deleted
+- All users
+  - Add images to emails
+  - Reuse validators
+  - Reuse project/user statuses
+- Participant
+  - Show projects already created
 - Admin
+  - Toggle project submissions
   - Allocate examiner to project
   - Delete participants, examiners, projects
   - Stats
