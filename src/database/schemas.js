@@ -53,8 +53,10 @@ const examinerSchema = new Schema({
 
 const projectSchema = new Schema({
   title: String,
-  institution: String,
-  authors: [String],
+  authors: [{
+    name: String,
+    institution: String,
+  }],
   areas: [String],
   description: String,
   type: String, // Convencional or Fotográfico 

@@ -66,11 +66,13 @@ const validator = {
   createProject: celebrate({
     body: Joi.object({
       title: Joi.string().max(128).required(),
-      institution: Joi.string().max(128).required(),
       authors: Joi.array()
-        .items(Joi.string().max(128))
+        .items(Joi.object({
+          name: Joi.string().max(256).required(),
+          institution: Joi.string().max(256).required(),
+        }))
         .min(1)
-        .max(20)
+        .max(50)
         .required(),
       areas: Joi.array()
         .items(Joi.string().valid(...areas))
