@@ -58,7 +58,9 @@ const projectSchema = new Schema({
     institution: String,
   }],
   areas: [String],
-  description: String,
+  summary: String,
+  keywords: [String],
+  references: [String],
   type: String, // Convencional or Fotográfico 
   bannerFile: {
     data: Buffer,

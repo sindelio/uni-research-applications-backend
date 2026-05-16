@@ -79,7 +79,13 @@ const validator = {
         .min(1)
         .max(2)
         .required(),
-      description: Joi.string().max(2048).required(),
+      summary: Joi.string().max(2048).required(),
+      keywords: Joi.array()
+        .items(Joi.string().min(3).max(256))
+        .required(),
+      references: Joi.array()
+        .items(Joi.string().min(3).max(256))
+        .required(),
       type: Joi.string().valid('Convencional', 'Fotográfico'),
       bannerFile64Encoded: Joi.string().required(),
     }),
@@ -90,18 +96,23 @@ const validator = {
       id: formats.requiredId,
     }),
     body: Joi.object({
+      title: Joi.string().max(128).forbidden(),
       authors: Joi.array()
-        .items(Joi.string().max(128))
+        .items(Joi.object({
+          name: Joi.string().max(256).required(),
+          institution: Joi.string().max(256).required(),
+        }))
         .min(1)
-        .max(20)
-        .required(),
-      title: Joi.string().max(128).required(),
+        .max(50),
       areas: Joi.array()
         .items(Joi.string().valid(...areas))
         .min(1)
-        .max(2)
-        .required(),
-      description: Joi.string().max(2048).required(),
+        .max(2),
+      summary: Joi.string().max(512),
+      keywords: Joi.array().items(Joi.string().min(3).max(256)),
+      references: Joi.array().items(Joi.string().min(3).max(256)),
+      type: Joi.string().valid('Convencional', 'Fotográfico'),
+      bannerFile64Encoded: Joi.string(),
     }),
   }),
   deleteProject: commonValidators.queryId,

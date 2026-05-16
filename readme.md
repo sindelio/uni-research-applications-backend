@@ -4,7 +4,7 @@ TODO:
   - Reuse validators
   - Reuse project/user statuses
 - Participant
-  - Show projects already created
+  - Allow reproved projects resubmission
 - Admin
   - Toggle project submissions
   - Allocate examiner to project
