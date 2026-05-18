@@ -52,8 +52,7 @@ const controller = {
   },
   async stats(req, res) {
     const { email } = req.user;
-    const { year, month, day } = req.body;
-    const result = await service.stats(email, year, month, day);
+    const result = await service.stats(email);
     res.status(200).json(result);
   },
   async paginatedFind(req, res) {

@@ -1,5 +1,4 @@
 import {
-  Participant,
   Examiner,
   Project,
 } from '../../database/models.js';
@@ -8,12 +7,17 @@ import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 
+const {
+  PROJECT_PENDING_REVIEW,
+  PROJECT_APPROVED,
+  PROJECT_REJECTED,
+} = process.env;
+
 const service = {
   async create(userInfo) {
     const user = await commonService.createUser(Examiner, userInfo);
-    const { areas, maxProjects } = userInfo;
-    user.areas = areas;
-    user.maxProjects = maxProjects;
+    user.areas = [];
+    user.maxProjects = 0;
     user.numProjects = 0;
     await user.save();
     return {
@@ -80,10 +84,34 @@ const service = {
       error: null,
     };
   },
-  async stats(email, year, month, day) {
+  async stats(email) {
+    const projects = await Project.find({ examinerEmail: email });
+    const projectsPendingReview = projects.filter((project) => {
+      if (project.status == PROJECT_PENDING_REVIEW) {
+        return true;
+      }
+      return false;
+    });
+    const projectsApproved = projects.filter((project) => {
+      if (project.status == PROJECT_APPROVED) {
+        return true;
+      }
+      return false;
+    });
+    const projectsRejected = projects.filter((project) => {
+      if (project.status == PROJECT_REJECTED) {
+        return true;
+      }
+      return false;
+    });
+    const stats = {
+      projectsPendingReview: projectsPendingReview.length,
+      projectsApproved: projectsApproved.length,
+      projectsRejected: projectsRejected.length,
+    };
     return {
       success: true,
-      data: null,
+      data: stats,
       error: null,
     };
   },

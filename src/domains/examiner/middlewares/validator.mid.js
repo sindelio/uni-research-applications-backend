@@ -11,15 +11,6 @@ const validator = {
       phone: formats.requiredPhone,
       institution: formats.requiredInstitution,
       name: formats.requiredName,
-      areas: Joi.array()
-        .min(1)
-        .items(Joi.string().valid(...areas))
-        .required(),
-      maxProjects: Joi.number()
-        .integer()
-        .min(3)
-        .max(100)
-        .required(),
     }),
   }),
   confirmEmail: celebrate({
@@ -65,10 +56,7 @@ const validator = {
     body: Joi.object({
       model: Joi.string()
         .valid('Examiner', 'Project'),
-      query: Joi.object({
-        email: Joi.string()
-          .forbidden(),
-      }),
+      query: Joi.object(),
       page: Joi.number()
         .integer()
         .positive(),
