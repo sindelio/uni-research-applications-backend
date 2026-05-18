@@ -16,8 +16,9 @@ const {
 const service = {
   async create(userInfo) {
     const user = await commonService.createUser(Examiner, userInfo);
+    user.hasAdminAuthorization = true;
     user.areas = [];
-    user.maxProjects = 0;
+    user.maxProjects = 5;
     user.numProjects = 0;
     await user.save();
     return {
@@ -137,13 +138,11 @@ const service = {
   async readProject(email, projectId) {
     const project = await findOne(
       Project,
-      { participantEmail: email, _id: projectId },
+      { examinerEmail: email, _id: projectId },
     );
     return {
       success: true,
-      data: {
-        project,
-      },
+      data: project,
       error: null,
     };
   },

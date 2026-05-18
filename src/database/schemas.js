@@ -46,6 +46,7 @@ const participantSchema = new Schema({
 
 const examinerSchema = new Schema({
   ...userBaseFields,
+  hasAdminAuthorization: Boolean,
   areas: [String],
   numProjects: Number,
   maxProjects: Number, // Minimum 3

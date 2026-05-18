@@ -85,14 +85,6 @@ router.post(
   },
 );
 
-router.post(
-  '/specify-areas',
-  validator.specifyAreas,
-  async (req, res, _next) => {
-    await controller.specifyAreas(req, res);
-  },
-);
-
 router.get(
   '/project',
   validator.readProject,
