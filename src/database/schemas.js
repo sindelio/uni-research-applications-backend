@@ -17,7 +17,7 @@ const userBaseFields = {
   phone: String,
   name: String,
   institution: String,
-  type: String, // Admin, Participant, Examiner
+  userType: String, // Admin, Participant, Examiner
   status: String, // Pending email confirmation, Email confirmed, Payment confirmed
   passwordRecoveryToken: String,
   createdAt: dateFields,
@@ -62,7 +62,7 @@ const projectSchema = new Schema({
   summary: String,
   keywords: [String],
   references: [String],
-  type: String, // Convencional or Fotográfico 
+  projectType: String, // Convencional or Fotográfico 
   bannerFile: {
     data: Buffer,
     isSubmitted: Boolean,
@@ -72,6 +72,18 @@ const projectSchema = new Schema({
   status: String, // Waiting examiner, Pending review, Approved or Rejected
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
+  evaluation: {
+    title: Boolean,
+    authors: Boolean,
+    areas: Boolean,
+    summary: Boolean,
+    keywords: Boolean,
+    references: Boolean,
+    projectType: Boolean,
+    banner: Boolean,
+    commentaries: String,
+    caveats: String,
+  },
 });
 
 const errorLogSchema = new Schema({

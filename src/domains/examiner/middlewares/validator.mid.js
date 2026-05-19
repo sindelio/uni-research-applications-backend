@@ -62,13 +62,27 @@ const validator = {
         .positive(),
     }),
   }),
-  readProject: commonValidators.queryId,
-  reviewProject: celebrate({
+  readProject: celebrate({
     query: Joi.object({
-      id: formats.requiredId,
+      projectId: formats.requiredId,
+    }),
+  }),
+  evaluateProject: celebrate({
+    query: Joi.object({
+      projectId: formats.requiredId,
     }),
     body: Joi.object({
-      acceptance: Joi.string().valid('Approved', 'Rejected'),
+      status: Joi.string().valid('Approved', 'Rejected').required(),
+      title: Joi.boolean().required(),
+      authors: Joi.boolean().required(),
+      areas: Joi.boolean().required(),
+      summary: Joi.boolean().required(),
+      keywords: Joi.boolean().required(),
+      references: Joi.boolean().required(),
+      projectType: Joi.boolean().required(),
+      banner: Joi.boolean().required(),
+      commentaries: Joi.string().required(),
+      caveats: Joi.string().required(),
     }),
   }),
 };

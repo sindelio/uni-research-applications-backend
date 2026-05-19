@@ -5,8 +5,12 @@ TODO:
   - Reuse validators
   - Reuse project/user statuses
 - Participant
+  - Check receipt format
   - Allow reproved projects resubmission
+- Examiner
+  - 
 - Admin
+  - Authorize examiner
   - Toggle project submissions
   - Allocate examiner to project
   - Delete participants, examiners, projects

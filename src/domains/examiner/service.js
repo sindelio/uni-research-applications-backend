@@ -6,6 +6,7 @@ import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
+import BadRequest from '../../errors/bad-request.js';
 
 const {
   PROJECT_PENDING_REVIEW,
@@ -146,16 +147,21 @@ const service = {
       error: null,
     };
   },
-  async reviewProject(email, projectId, acceptance) {
+  async evaluateProject(email, projectId, evaluation) {
     const project = await findOne(
       Project,
       { examinerEmail: email, _id: projectId },
     );
-    project.status = acceptance;
+    if (project.status !== PROJECT_PENDING_REVIEW) {
+      throw new BadRequest(`Project status is not ${PROJECT_PENDING_REVIEW}`);
+    }
+    project.status = evaluation.status;
+    delete evaluation.status;
+    project.evaluation = evaluation;
     await project.save();
     return {
       success: true,
-      data: null,
+      data: project,
       error: null,
     };
   },

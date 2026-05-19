@@ -94,10 +94,10 @@ router.get(
 );
 
 router.post(
-  '/review-project',
-  validator.reviewProject,
+  '/evaluate-project',
+  validator.evaluateProject,
   async (req, res, _next) => {
-    await controller.reviewProject(req, res);
+    await controller.evaluateProject(req, res);
   },
 );
 

@@ -86,14 +86,18 @@ const validator = {
       references: Joi.array()
         .items(Joi.string().min(3).max(256))
         .required(),
-      type: Joi.string().valid('Convencional', 'Fotográfico'),
+      projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       bannerFile64Encoded: Joi.string().required(),
     }),
   }),
-  readProject: commonValidators.queryId,
+  readProject: celebrate({
+    query: Joi.object({
+      projectId: formats.requiredId,
+    }),
+  }),
   updateProject: celebrate({
     query: Joi.object({
-      id: formats.requiredId,
+      projectId: formats.requiredId,
     }),
     body: Joi.object({
       title: Joi.string().max(128).forbidden(),
@@ -111,11 +115,15 @@ const validator = {
       summary: Joi.string().max(512),
       keywords: Joi.array().items(Joi.string().min(3).max(256)),
       references: Joi.array().items(Joi.string().min(3).max(256)),
-      type: Joi.string().valid('Convencional', 'Fotográfico'),
+      projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       bannerFile64Encoded: Joi.string(),
     }),
   }),
-  deleteProject: commonValidators.queryId,
+  deleteProject: celebrate({
+    query: Joi.object({
+      projectId: formats.requiredId,
+    }),
+  }),
 };
 
 export default validator;

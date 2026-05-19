@@ -62,15 +62,15 @@ const controller = {
   },
   async readProject(req, res) {
     const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.readProject(email, id);
+    const { projectId } = req.query;
+    const result = await service.readProject(email, projectId);
     res.status(200).json(result);
   },
-  async reviewProject(req, res) {
+  async evaluateProject(req, res) {
     const { email } = req.user;
-    const { id } = req.query;
-    const { acceptance } = req.body;
-    const result = await service.reviewProject(email, id, acceptance);
+    const { projectId } = req.query;
+    const evaluation = req.body;
+    const result = await service.evaluateProject(email, projectId, evaluation);
     res.status(200).json(result);
   },
 };

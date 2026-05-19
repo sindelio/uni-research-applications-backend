@@ -85,7 +85,7 @@ const service = {
       error: null,
     };
   },
-  async stats(email, year, month, day) {
+  async stats(email) {
     return {
       success: true,
       data: null,

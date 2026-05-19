@@ -20,7 +20,7 @@ const commonService = {
     const { email, password, phone, institution, name } = userInfo;
     let user = await findOne(Model, { email }, true);
     user = new Model({ email, password, phone, institution, name });
-    user.type = `${Model?.modelName}`;
+    user.userType = `${Model?.modelName}`;
     user.status = 'Pending email confirmation';
     await setDate(user, 'createdAt');
     await user.save();

@@ -77,8 +77,8 @@ const controller = {
   },
   async readProject(req, res) {
     const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.readProject(email, id);
+    const { projectId } = req.query;
+    const result = await service.readProject(email, projectId);
     res.status(200).json(result);
   },
   async readProjects(req, res) {
@@ -88,15 +88,15 @@ const controller = {
   },
   async updateProject(req, res) {
     const { email } = req.user;
-    const { id } = req.query;
+    const { projectId } = req.query;
     const update = req.body;
-    const result = await service.updateProject(email, id, update);
+    const result = await service.updateProject(email, projectId, update);
     res.status(200).json(result);
   },
   async deleteProject(req, res) {
     const { email } = req.user;
-    const { id } = req.query;
-    const result = await service.deleteProject(email, id);
+    const { projectId } = req.query;
+    const result = await service.deleteProject(email, projectId);
     res.status(200).json(result);
   },
 };
