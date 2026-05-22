@@ -6,7 +6,6 @@ TODO:
   - Reuse project/user statuses
 - Participant
   - Check receipt format
-  - Allow reproved projects resubmission
 - Examiner
   - 
 - Admin

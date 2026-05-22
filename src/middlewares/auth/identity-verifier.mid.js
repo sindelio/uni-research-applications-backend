@@ -13,7 +13,7 @@ async function identityVerifier(req, _res, next) {
   }
   const token = authHeader?.split('Bearer ')[1];
   if (token === '' || !exists(token)) {
-    throw new Unauthorized('A token must be provided in the format: "Bearer $API_KEY"');
+    throw new Unauthorized('A token must be provided in the format: "Bearer $TOKEN"');
   }
   try {
     req.user = jsonwebtoken.verify(token, JWT_SECRET);

@@ -10,7 +10,10 @@ import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 import allocateExaminer from '../_common/helpers/allocate-examiner.js';
 
-const { PROJECT_WAITING_EXAMINER } = process.env;
+const { 
+  PROJECT_WAITING_EXAMINER,
+  PROJECT_PENDING_REVIEW,
+} = process.env;
 
 const service = {
   async create(userInfo) {
@@ -171,6 +174,7 @@ const service = {
       Project, 
       { participantEmail: email, _id: projectId },
     );
+    update.status = PROJECT_PENDING_REVIEW;
     await setDate(update, 'lastUpdatedAt');
     const dotifiedUpdate = await dotifyObject(update);
     await project.updateOne(dotifiedUpdate);
