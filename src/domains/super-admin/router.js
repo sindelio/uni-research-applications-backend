@@ -59,34 +59,106 @@ router.post(
 );
 
 router.post(
-  '/user',
+  '/admin',
   validator.createUser,
   async (req, res, _next) => {
-    await controller.createUser(req, res);
+    await controller.createAdmin(req, res);
   },
 );
 
 router.get(
-  '/user',
+  '/admin',
   validator.readUser,
   async (req, res, _next) => {
-    await controller.readUser(req, res);
+    await controller.readAdmin(req, res);
   },
 );
 
 router.patch(
-  '/user',
-  validator.updateUser,
+  '/admin',
+  validator.updateAdmin,
   async (req, res, _next) => {
-    await controller.updateUser(req, res);
+    await controller.updateAdmin(req, res);
   },
 );
 
 router.delete(
-  '/user',
+  '/admin',
   validator.deleteUser,
   async (req, res, _next) => {
-    await controller.deleteUser(req, res);
+    await controller.deleteAdmin(req, res);
+  },
+);
+
+router.get(
+  '/examiner',
+  validator.readUser,
+  async (req, res, _next) => {
+    await controller.readExaminer(req, res);
+  },
+);
+
+router.patch(
+  '/examiner',
+  validator.updateExaminer,
+  async (req, res, _next) => {
+    await controller.updateExaminer(req, res);
+  },
+);
+
+router.delete(
+  '/examiner',
+  validator.deleteUser,
+  async (req, res, _next) => {
+    await controller.deleteExaminer(req, res);
+  },
+);
+
+router.get(
+  '/participant',
+  validator.readUser,
+  async (req, res, _next) => {
+    await controller.readParticipant(req, res);
+  },
+);
+
+router.patch(
+  '/participant',
+  validator.updateParticipant,
+  async (req, res, _next) => {
+    await controller.updateParticipant(req, res);
+  },
+);
+
+router.delete(
+  '/participant',
+  validator.deleteUser,
+  async (req, res, _next) => {
+    await controller.deleteParticipant(req, res);
+  },
+);
+
+router.get(
+  '/project',
+  validator.readProject,
+  async (req, res, _next) => {
+    await controller.readProject(req, res);
+  },
+);
+
+router.patch(
+  '/project',
+  validator.updateProject,
+  async (req, res, _next) => {
+    await controller.updateProject(req, res);
+  },
+);
+
+router.delete(
+  '/project',
+  validator.deleteProject,
+  async (req, res, _next) => {
+    await controller.deleteProject(req, res);
   },
 );
 

@@ -100,6 +100,7 @@ const validator = {
       projectId: formats.requiredId,
     }),
     body: Joi.object({
+      title: Joi.string().max(128),
       authors: Joi.array()
         .items(Joi.object({
           name: Joi.string().max(256).required(),

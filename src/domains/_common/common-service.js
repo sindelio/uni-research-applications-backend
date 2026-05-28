@@ -28,7 +28,7 @@ const commonService = {
     const htmlMessage = await generateHtmlMessage(
       'Bem vindo!',
       'Por favor confirme seu email clicando no link abaixo:',
-      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.type}`,
+      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
       'Confirmar email',
     );
     notify(email, subject, htmlMessage);

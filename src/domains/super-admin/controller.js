@@ -31,26 +31,73 @@ const controller = {
     const result = await service.paginatedFind(model, query, page);
     res.status(200).json(result);
   },
-  async createUser(req, res) {
-    const { model } = req.query;
+  async createAdmin(req, res) {
     const userInfo = req.body;
-    const result = await service.createUser(model, userInfo);
+    const result = await service.createAdmin(userInfo);
     res.status(200).json(result);
   },
-  async readUser(req, res) {
-    const { model, email } = req.query;
-    const result = await service.readUser(model, email);
+  async readAdmin(req, res) {
+    const { email } = req.query;
+    const result = await service.readAdmin(email);
     res.status(200).json(result);
   },
-  async updateUser(req, res) {
-    const { model, email } = req.query;
+  async updateAdmin(req, res) {
+    const { email } = req.query;
     const update = req.body;
-    const result = await service.updateUser(model, email, update);
+    const result = await service.updateAdmin(email, update);
     res.status(200).json(result);
   },
-  async deleteUser(req, res) {
-    const { model, email } = req.query;
-    const result = await service.deleteUser(model, email);
+  async deleteAdmin(req, res) {
+    const { email } = req.query;
+    const result = await service.deleteAdmin(email);
+    res.status(200).json(result);
+  },
+  async readExaminer(req, res) {
+    const { email } = req.query;
+    const result = await service.readExaminer(email);
+    res.status(200).json(result);
+  },
+  async updateExaminer(req, res) {
+    const { email } = req.query;
+    const update = req.body;
+    const result = await service.updateExaminer(email, update);
+    res.status(200).json(result);
+  },
+  async deleteExaminer(req, res) {
+    const { email } = req.query;
+    const result = await service.deleteExaminer(email);
+    res.status(200).json(result);
+  },
+  async readParticipant(req, res) {
+    const { email } = req.query;
+    const result = await service.readParticipant(email);
+    res.status(200).json(result);
+  },
+  async updateParticipant(req, res) {
+    const { email } = req.query;
+    const update = req.body;
+    const result = await service.updateParticipant(email, update);
+    res.status(200).json(result);
+  },
+  async deleteParticipant(req, res) {
+    const { email } = req.query;
+    const result = await service.deleteParticipant(email);
+    res.status(200).json(result);
+  },
+  async readProject(req, res) {
+    const { projectId } = req.query;
+    const result = await service.readProject(projectId);
+    res.status(200).json(result);
+  },
+  async updateProject(req, res) {
+    const { projectId } = req.query;
+    const update = req.body;
+    const result = await service.updateProject(projectId, update);
+    res.status(200).json(result);
+  },
+  async deleteProject(req, res) {
+    const { projectId } = req.query;
+    const result = await service.deleteProject(projectId);
     res.status(200).json(result);
   },
 };

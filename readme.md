@@ -3,17 +3,19 @@ TODO:
   - Use stats in dashboard
   - Add images to emails
   - Reuse validators
-  - Reuse project/user statuses
+  - Reuse user statuses
 - Participant
-  - Check receipt format
+  - Improve dashboard UI
+  - Review UI
 - Examiner
   - 
 - Admin
-  - Authorize examiner
+  - Stats
   - Toggle project submissions
   - Allocate examiner to project
   - Delete participants, examiners, projects
-  - Stats
+- Super Admin
+  - Purge
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

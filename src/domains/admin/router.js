@@ -62,7 +62,7 @@ router.delete(
   },
 );
 
-router.post(
+router.get(
   '/stats',
   validator.stats,
   async (req, res, _next) => {
@@ -78,11 +78,51 @@ router.post(
   },
 );
 
-router.post(
-  '/project',
-  validator.createProject,
+router.get(
+  '/examiner',
+  validator.readUser,
   async (req, res, _next) => {
-    await controller.createProject(req, res);
+    await controller.readExaminer(req, res);
+  },
+);
+
+router.patch(
+  '/examiner',
+  validator.updateExaminer,
+  async (req, res, _next) => {
+    await controller.updateExaminer(req, res);
+  },
+);
+
+router.delete(
+  '/examiner',
+  validator.deleteUser,
+  async (req, res, _next) => {
+    await controller.deleteExaminer(req, res);
+  },
+);
+
+router.get(
+  '/participant',
+  validator.readUser,
+  async (req, res, _next) => {
+    await controller.readParticipant(req, res);
+  },
+);
+
+router.patch(
+  '/participant',
+  validator.updateParticipant,
+  async (req, res, _next) => {
+    await controller.updateParticipant(req, res);
+  },
+);
+
+router.delete(
+  '/participant',
+  validator.deleteUser,
+  async (req, res, _next) => {
+    await controller.deleteParticipant(req, res);
   },
 );
 

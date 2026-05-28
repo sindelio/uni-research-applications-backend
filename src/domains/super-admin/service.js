@@ -7,7 +7,6 @@ import {
   ErrorLog,
 } from '../../database/models.js';
 import jsonWebToken from 'jsonwebtoken';
-import getModel from '../_common/helpers/get-model.js';
 import setDate from '../../helpers/set-date.js';
 import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
@@ -103,38 +102,112 @@ const service = {
       error: null,
     };
   },
-  async createUser(model, userInfo) {
-    const Model = await getModel(model);
-    const user = await commonService.createUser(Model, userInfo);
+  async createAdmin(userInfo) {
+    const user = await commonService.createUser(Admin, userInfo);
     return {
       success: true,
       data: user,
       error: null,
     };
   },
-  async readUser(model, email) {
-    const Model = await getModel(model);
-    const user = await findOne(Model, { email });
+  async readAdmin(email) {
+    const user = await findOne(Admin, { email });
     return {
       success: true,
       data: user,
       error: null,
     };
   },
-  async updateUser(model, email, update) {
-    const Model = await getModel(model);
-    await commonService.updateUser(Model, email, update);
+  async updateAdmin(email, update) {
+    await commonService.updateUser(Admin, email, update);
     return {
       success: true,
       data: null,
       error: null,
     };
   },
-  async deleteUser(model, email) {
-    const Model = await getModel(model);
-    await findOne(Model, { email });
-    await Model.deleteOne({ email });
+  async deleteAdmin(email) {
+    await findOne(Admin, { email });
+    await Admin.deleteOne({ email });
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async readExaminer(email) {
+    const user = await findOne(Examiner, { email });
+    return {
+      success: true,
+      data: user,
+      error: null,
+    };
+  },
+  async updateExaminer(email, update) {
+    await commonService.updateUser(Examiner, email, update);
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async deleteExaminer(email) {
+    await findOne(Examiner, { email });
+    await Examiner.deleteOne({ email });
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async readParticipant(email) {
+    const user = await findOne(Participant, { email });
+    return {
+      success: true,
+      data: user,
+      error: null,
+    };
+  },
+  async updateParticipant(email, update) {
+    await commonService.updateUser(Participant, email, update);
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async deleteParticipant(email) {
+    await findOne(Participant, { email });
+    await Participant.deleteOne({ email });
     await Project.deleteMany({ participantEmail: email });
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async readProject(projectId) {
+    const project = await findOne(Project, { _id: projectId });
+    return {
+      success: true,
+      data: project,
+      error: null,
+    };
+  },
+  async updateProject(projectId, update) {
+    const project = await findOne(Project, { _id: projectId });
+    await setDate(update, 'lastUpdatedAt');
+    const dotifiedUpdate = await dotifyObject(update);
+    await project.updateOne(dotifiedUpdate);
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async deleteProject(projectId) {
+    const project = await findOne(Project, { _id: projectId });
+    await project.deleteOne();
     return {
       success: true,
       data: null,
