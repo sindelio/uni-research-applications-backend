@@ -5,14 +5,19 @@ import {
 import setDate from '../../helpers/set-date.js';
 import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
+import find from '../../helpers/find.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 import allocateExaminer from '../_common/helpers/allocate-examiner.js';
+import BadRequest from '../../errors/bad-request.js';
 
 const { 
   PROJECT_WAITING_EXAMINER,
   PROJECT_PENDING_REVIEW,
+  PROJECT_PARTIALLY_APPROVED,
+  PROJECT_APPROVED,
+  PROJECT_REJECTED,
 } = process.env;
 
 const service = {
@@ -89,9 +94,61 @@ const service = {
     };
   },
   async stats(email) {
+    // Projects
+    const projects = await Project.find({});
+
+    // Projects waiting examiner
+    const projectsWaitingExaminer = projects.filter((project) => {
+      if (project.status == PROJECT_WAITING_EXAMINER) {
+        return true;
+      }
+      return false;
+    });
+
+    // Projects pending review
+    const projectsPendingReview = projects.filter((project) => {
+      if (project.status == PROJECT_PENDING_REVIEW) {
+        return true;
+      }
+      return false;
+    });
+
+    // Projects partially approved
+    const projectsPartiallyApproved = projects.filter((project) => {
+      if (project.status == PROJECT_PARTIALLY_APPROVED) {
+        return true;
+      }
+      return false;
+    });
+
+    // Projects approved
+    const projectsApproved = projects.filter((project) => {
+      if (project.status == PROJECT_APPROVED) {
+        return true;
+      }
+      return false;
+    });
+
+    // Projects rejected
+    const projectsRejected = projects.filter((project) => {
+      if (project.status == PROJECT_REJECTED) {
+        return true;
+      }
+      return false;
+    });
+
+    // Stats
+    const stats = {
+      projectsWaitingExaminer: projectsWaitingExaminer.length,
+      projectsPendingReview: projectsPendingReview.length,
+      projectsPartiallyApproved: projectsPartiallyApproved.length,
+      projectsApproved: projectsApproved.length,
+      projectsRejected: projectsRejected.length,
+    };
+
     return {
       success: true,
-      data: null,
+      data: stats,
       error: null,
     };
   },
@@ -111,13 +168,25 @@ const service = {
       error: null,
     };
   },
-  async uploadReceipt(email, receiptFile64Encoded) {
+  async uploadReceipt(email, receiptFile64Encoded, nameOnFile) {
     const participant = await findOne(Participant, { email });
+
+    // Check if the receipt file was used by another user
+    const participants = await find(Participant, {});
+    for (let i = 0; i < participants.length; i++) {
+      const currentParticipant = participants[i];
+      const currentNameOnFile = currentParticipant.receiptFile.nameOnFile;
+      if (currentNameOnFile === nameOnFile) {
+        throw new BadRequest('Comprovante de inscrição utilizado por outro participante');
+      }
+    }
+
     const cleanBase64 = receiptFile64Encoded.split(';base64,').pop();
     const buffer = Buffer.from(cleanBase64, 'base64');
     participant.receiptFile = {
       data: buffer,
       isSubmitted: true,
+      nameOnFile,
     };
     await participant.save();
     return {
@@ -158,14 +227,6 @@ const service = {
     return {
       success: true,
       data: project,
-      error: null,
-    };
-  },
-  async readProjects(email) {
-    const projects = await Project.find({ participantEmail: email });
-    return {
-      success: true,
-      data: projects,
       error: null,
     };
   },

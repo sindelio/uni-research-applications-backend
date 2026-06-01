@@ -41,6 +41,7 @@ const participantSchema = new Schema({
   receiptFile: {
     data: Buffer,
     isSubmitted: Boolean,
+    nameOnFile: String,
   },
 });
 

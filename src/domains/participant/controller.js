@@ -52,8 +52,7 @@ const controller = {
   },
   async stats(req, res) {
     const { email } = req.user;
-    const { year, month, day } = req.body;
-    const result = await service.stats(email, year, month, day);
+    const result = await service.stats(email);
     res.status(200).json(result);
   },
   async paginatedFind(req, res) {
@@ -65,8 +64,8 @@ const controller = {
   },
   async uploadReceipt(req, res) {
     const { email } = req.user;
-    const { receiptFile64Encoded } = req.body;
-    const result = await service.uploadReceipt(email, receiptFile64Encoded);
+    const { receiptFile64Encoded, nameOnFile } = req.body;
+    const result = await service.uploadReceipt(email, receiptFile64Encoded, nameOnFile);
     res.status(200).json(result);
   },
   async createProject(req, res) {
@@ -79,11 +78,6 @@ const controller = {
     const { email } = req.user;
     const { projectId } = req.query;
     const result = await service.readProject(email, projectId);
-    res.status(200).json(result);
-  },
-  async readProjects(req, res) {
-    const { email } = req.user;
-    const result = await service.readProjects(email);
     res.status(200).json(result);
   },
   async updateProject(req, res) {

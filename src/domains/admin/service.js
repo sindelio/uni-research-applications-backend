@@ -78,6 +78,9 @@ const service = {
     };
   },
   async stats() {
+    // Admins
+    const admins = await Admin.find({});
+
     // Examiners
     const examiners = await Examiner.find({});
 
@@ -113,6 +116,7 @@ const service = {
 
     // Stats
     const stats = {
+      admins: admins.length,
       examiners: examiners.length,
       participants: participants.length,
       projectsWaitingExaminer: projectsWaitingExaminer.length,

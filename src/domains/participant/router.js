@@ -70,7 +70,7 @@ router.delete(
   },
 );
 
-router.post(
+router.get(
   '/stats',
   async (req, res, _next) => {
     await controller.stats(req, res);
@@ -106,13 +106,6 @@ router.get(
   validator.readProject,
   async (req, res, _next) => {
     await controller.readProject(req, res);
-  },
-);
-
-router.get(
-  '/projects',
-  async (req, res, _next) => {
-    await controller.readProjects(req, res);
   },
 );
 

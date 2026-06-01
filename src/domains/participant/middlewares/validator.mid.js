@@ -42,13 +42,10 @@ const validator = {
       name: formats.name,
     }),
   }),
-  stats: celebrate({
-    body: Joi.object({}),
-  }),
   paginatedFind: celebrate({
     body: Joi.object({
       model: Joi.string()
-        .valid('Examiner', 'Project'),
+        .valid('Project'),
       query: Joi.object({
         email: Joi.string()
           .forbidden(),
@@ -61,6 +58,7 @@ const validator = {
   uploadReceipt: celebrate({
     body: Joi.object({
       receiptFile64Encoded: Joi.string().required(),
+      nameOnFile: Joi.string().required(),
     }),
   }),
   createProject: celebrate({
