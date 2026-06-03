@@ -38,7 +38,7 @@ async function generateHtmlMessage(header, body, link, linkText) {
   if (exists(link)) {
     const linkHtml = `
       <a href="${link}" target="_blank" style="color: #9333ea; text-decoration: underline;">
-        <p style="font-size: 1.25em; text-align: center;">
+        <p style="font-size: 2em; text-align: center;">
           ${linkText}
         </p>
       </a>

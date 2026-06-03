@@ -37,7 +37,8 @@ const adminSchema = new Schema(userBaseFields);
 
 const participantSchema = new Schema({
   ...userBaseFields,
-  numProjects: Number,
+  numConventionalProjects: Number,
+  numPhotoProjects: Number,
   receiptFile: {
     data: Buffer,
     isSubmitted: Boolean,
@@ -63,13 +64,14 @@ const projectSchema = new Schema({
   summary: String,
   keywords: [String],
   references: [String],
-  projectType: String, // Convencional or Fotográfico 
-  bannerFile: {
+  projectType: String, // Convencional or Fotográfico
+  photoFile: {
     data: Buffer,
     isSubmitted: Boolean,
   },
   participantEmail: String,
   examinerEmail: String,
+  suggestedExaminerEmail: String,
   status: String, // Waiting examiner, Pending review, Approved or Rejected
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
@@ -81,7 +83,7 @@ const projectSchema = new Schema({
     keywords: Boolean,
     references: Boolean,
     projectType: Boolean,
-    banner: Boolean,
+    photo: Boolean,
     commentaries: String,
     caveats: String,
   },

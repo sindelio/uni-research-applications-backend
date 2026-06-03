@@ -9,7 +9,7 @@ import find from '../../helpers/find.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
-import allocateExaminer from '../_common/helpers/allocate-examiner.js';
+import suggestExaminer from '../_common/helpers/suggest-examiner.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const { 
@@ -198,12 +198,12 @@ const service = {
   async createProject(email, projectInfo) {
     const { title } = projectInfo;
     let project = await findOne(Project, { title }, true);
-    const { bannerFile64Encoded, ...otherInfo } = projectInfo;
-    const cleanBase64 = bannerFile64Encoded.split(';base64,').pop();
+    const { photoFile64Encoded, ...otherInfo } = projectInfo;
+    const cleanBase64 = photoFile64Encoded.split(';base64,').pop();
     const buffer = Buffer.from(cleanBase64, 'base64');
     project = new Project({
       ...otherInfo,
-      bannerFile: {
+      photoFile: {
         data: buffer, 
         isSubmitted: true,
       },
@@ -211,7 +211,7 @@ const service = {
       status: PROJECT_WAITING_EXAMINER,
     });
     await setDate(project, 'createdAt');
-    await allocateExaminer(project);
+    await suggestExaminer(project);
     await project.save();
     return {
       success: true,

@@ -55,20 +55,25 @@ async function notify(
   const imagesPath = path.join(currentPath, '../utils/images');
   const attachments = [
     {
-      path: `${imagesPath}/hat.png`,
-      cid: 'hat@talentsourcery.io', // Same content id value as in the html img src
+      path: `${imagesPath}/enpcv.jpeg`,
+      cid: 'icon', // Same content id value as in the html img src
     },
-    {
-      path: `${imagesPath}/banner.png`,
-      cid: 'banner@talentsourcery.io',
-    },
+    // {
+    //   path: `${imagesPath}/hero2.jpeg`,
+    //   cid: 'banner',
+    // },
   ];
   const html = `
     <div style="font-family: Sans-serif; border: 0.20em solid; border-color: #9333ea; border-radius: 10px; padding: 3%;">
-      <img src="cid:hat@talentsourcery.io" style="display: block; margin: 0 auto; width: 64px; height: 64px;"/>
+      <img src="cid:icon" style="display: block; margin: 0 auto; width: 128px; height: 128px;"/>
       ${message}
-      <img src="cid:banner@talentsourcery.io" style="width: 100%; height: auto; border-radius: 10px;"/>
     </div>`;
+  // const html = `
+  //   <div style="font-family: Sans-serif; border: 0.20em solid; border-color: #9333ea; border-radius: 10px; padding: 3%;">
+  //     <img src="cid:icon" style="display: block; margin: 0 auto; width: 96px; height: 96px;"/>
+  //     ${message}
+  //     <img src="cid:banner" style="width: 100%; height: auto; border-radius: 10px;"/>
+  //   </div>`;
   if (exists(dataAttachment)) {
     attachments.push({
       content: dataAttachment,
