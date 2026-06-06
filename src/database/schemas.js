@@ -37,8 +37,6 @@ const adminSchema = new Schema(userBaseFields);
 
 const participantSchema = new Schema({
   ...userBaseFields,
-  numConventionalProjects: Number,
-  numPhotoProjects: Number,
   receiptFile: {
     data: Buffer,
     isSubmitted: Boolean,

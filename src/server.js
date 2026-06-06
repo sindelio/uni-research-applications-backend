@@ -28,7 +28,7 @@ const corsOptions = { origin: '*' };
 server.use(cors(corsOptions)); // Middleware to set Cross Origin Resource Sharing
 server.use(bodyParser.json({ // Middleware to parse an incoming JSON body as an object
   type: 'application/json',
-  limit: '1mb', // Default is 100kb
+  limit: '10mb', // Default is 100kb
 }));
 
 // API routing

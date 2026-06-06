@@ -4,10 +4,10 @@ import commonValidators from '../../_common/validators/validators.js';
 import areas from '../../_common/helpers/areas.js';
 
 const {
-  PROJECT_WAITING_EXAMINER,
-  PROJECT_PENDING_REVIEW,
-  PROJECT_APPROVED,
-  PROJECT_REJECTED,
+  PROJECT_STATUS_WAITING_EXAMINER,
+  PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_APPROVED,
+  PROJECT_STATUS_REJECTED,
 } = process.env;
 
 const validator = {
@@ -147,10 +147,10 @@ const validator = {
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       bannerFile64Encoded: Joi.string(),
       status: Joi.string().valid(
-        PROJECT_WAITING_EXAMINER,
-        PROJECT_PENDING_REVIEW,
-        PROJECT_APPROVED,
-        PROJECT_REJECTED,
+        PROJECT_STATUS_WAITING_EXAMINER,
+        PROJECT_STATUS_PENDING_REVIEW,
+        PROJECT_STATUS_APPROVED,
+        PROJECT_STATUS_REJECTED,
       ),
       evaluation: Joi.object({
         title: Joi.boolean().required(),

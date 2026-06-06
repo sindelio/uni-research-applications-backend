@@ -12,10 +12,10 @@ import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 
 const {
-  PROJECT_WAITING_EXAMINER,
-  PROJECT_PENDING_REVIEW,
-  PROJECT_APPROVED,
-  PROJECT_REJECTED,
+  PROJECT_STATUS_WAITING_EXAMINER,
+  PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_APPROVED,
+  PROJECT_STATUS_REJECTED,
 } = process.env;
 
 const service = {
@@ -90,25 +90,25 @@ const service = {
     // Projects
     const projects = await Project.find({});
     const projectsWaitingExaminer = projects.filter((project) => {
-      if (project.status == PROJECT_WAITING_EXAMINER) {
+      if (project.status == PROJECT_STATUS_WAITING_EXAMINER) {
         return true;
       }
       return false;
     });
     const projectsPendingReview = projects.filter((project) => {
-      if (project.status == PROJECT_PENDING_REVIEW) {
+      if (project.status == PROJECT_STATUS_PENDING_REVIEW) {
         return true;
       }
       return false;
     });
     const projectsApproved = projects.filter((project) => {
-      if (project.status == PROJECT_APPROVED) {
+      if (project.status == PROJECT_STATUS_APPROVED) {
         return true;
       }
       return false;
     });
     const projectsRejected = projects.filter((project) => {
-      if (project.status == PROJECT_REJECTED) {
+      if (project.status == PROJECT_STATUS_REJECTED) {
         return true;
       }
       return false;

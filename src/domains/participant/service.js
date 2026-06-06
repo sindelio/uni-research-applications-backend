@@ -12,12 +12,16 @@ import commonService from '../_common/common-service.js';
 import suggestExaminer from '../_common/helpers/suggest-examiner.js';
 import BadRequest from '../../errors/bad-request.js';
 
-const { 
-  PROJECT_WAITING_EXAMINER,
-  PROJECT_PENDING_REVIEW,
-  PROJECT_PARTIALLY_APPROVED,
-  PROJECT_APPROVED,
-  PROJECT_REJECTED,
+const {
+  MAX_CONVENTIONAL_PROJECTS,
+  MAX_PHOTO_PROJECTS,
+  PROJECT_TYPE_CONVENTIONAL,
+  PROJECT_TYPE_PHOTO,
+  PROJECT_STATUS_WAITING_EXAMINER,
+  PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_PARTIALLY_APPROVED,
+  PROJECT_STATUS_APPROVED,
+  PROJECT_STATUS_REJECTED,
 } = process.env;
 
 const service = {
@@ -99,7 +103,7 @@ const service = {
 
     // Projects waiting examiner
     const projectsWaitingExaminer = projects.filter((project) => {
-      if (project.status == PROJECT_WAITING_EXAMINER) {
+      if (project.status == PROJECT_STATUS_WAITING_EXAMINER) {
         return true;
       }
       return false;
@@ -107,7 +111,7 @@ const service = {
 
     // Projects pending review
     const projectsPendingReview = projects.filter((project) => {
-      if (project.status == PROJECT_PENDING_REVIEW) {
+      if (project.status == PROJECT_STATUS_PENDING_REVIEW) {
         return true;
       }
       return false;
@@ -115,7 +119,7 @@ const service = {
 
     // Projects partially approved
     const projectsPartiallyApproved = projects.filter((project) => {
-      if (project.status == PROJECT_PARTIALLY_APPROVED) {
+      if (project.status == PROJECT_STATUS_PARTIALLY_APPROVED) {
         return true;
       }
       return false;
@@ -123,7 +127,7 @@ const service = {
 
     // Projects approved
     const projectsApproved = projects.filter((project) => {
-      if (project.status == PROJECT_APPROVED) {
+      if (project.status == PROJECT_STATUS_APPROVED) {
         return true;
       }
       return false;
@@ -131,7 +135,7 @@ const service = {
 
     // Projects rejected
     const projectsRejected = projects.filter((project) => {
-      if (project.status == PROJECT_REJECTED) {
+      if (project.status == PROJECT_STATUS_REJECTED) {
         return true;
       }
       return false;
@@ -177,7 +181,7 @@ const service = {
       const currentParticipant = participants[i];
       const currentNameOnFile = currentParticipant.receiptFile.nameOnFile;
       if (currentNameOnFile === nameOnFile) {
-        throw new BadRequest('Comprovante de inscrição utilizado por outro participante');
+        throw new BadRequest('Comprovante de inscrição utilizado previamente por outro participante');
       }
     }
 
@@ -196,8 +200,39 @@ const service = {
     };
   },
   async createProject(email, projectInfo) {
+    // Check project limits
+    const { projectType } = projectInfo;
+    const projects = await find(Project, { participantEmail: email });
+    if (projectType === PROJECT_TYPE_CONVENTIONAL) {
+      const conventionalProjects = projects.filter((project) => {
+        if (project.projectType === PROJECT_TYPE_CONVENTIONAL) {
+          return true;
+        }
+        return false;
+      });
+      const numConventionalProjects = conventionalProjects.length;
+      if (numConventionalProjects >= MAX_CONVENTIONAL_PROJECTS) {
+        throw new BadRequest('O número máximo de projetos convencionais é 2');
+      }
+    }
+    if (projectType === PROJECT_TYPE_PHOTO) {
+      const photoProjects = projects.filter((project) => {
+        if (project.projectType === PROJECT_TYPE_PHOTO) {
+          return true;
+        }
+        return false;
+      });
+      const numPhotoProjects = photoProjects.length;
+      if (numPhotoProjects >= MAX_PHOTO_PROJECTS) {
+        throw new BadRequest('O número máximo de projetos fotográficos é 1');
+      }
+    }
+
+    // Check project existence
     const { title } = projectInfo;
     let project = await findOne(Project, { title }, true);
+
+    // Create project
     const { photoFile64Encoded, ...otherInfo } = projectInfo;
     const cleanBase64 = photoFile64Encoded.split(';base64,').pop();
     const buffer = Buffer.from(cleanBase64, 'base64');
@@ -208,7 +243,7 @@ const service = {
         isSubmitted: true,
       },
       participantEmail: email,
-      status: PROJECT_WAITING_EXAMINER,
+      status: PROJECT_STATUS_WAITING_EXAMINER,
     });
     await setDate(project, 'createdAt');
     await suggestExaminer(project);
@@ -235,7 +270,7 @@ const service = {
       Project, 
       { participantEmail: email, _id: projectId },
     );
-    update.status = PROJECT_PENDING_REVIEW;
+    update.status = PROJECT_STATUS_PENDING_REVIEW;
     await setDate(update, 'lastUpdatedAt');
     const dotifiedUpdate = await dotifyObject(update);
     await project.updateOne(dotifiedUpdate);

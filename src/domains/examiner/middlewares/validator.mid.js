@@ -4,8 +4,8 @@ import commonValidators from '../../_common/validators/validators.js';
 import areas from '../../_common/helpers/areas.js';
 
 const {
-  PROJECT_APPROVED,
-  PROJECT_REJECTED,
+  PROJECT_STATUS_APPROVED,
+  PROJECT_STATUS_REJECTED,
 } = process.env;
 
 const validator = {
@@ -78,7 +78,7 @@ const validator = {
     }),
     body: Joi.object({
       status: Joi.string()
-        .valid(PROJECT_APPROVED, PROJECT_REJECTED)
+        .valid(PROJECT_STATUS_APPROVED, PROJECT_STATUS_REJECTED)
         .required(),
       title: Joi.boolean().required(),
       authors: Joi.boolean().required(),

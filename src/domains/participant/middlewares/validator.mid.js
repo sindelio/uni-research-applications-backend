@@ -85,7 +85,7 @@ const validator = {
         .items(Joi.string().min(3).max(256))
         .required(),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
-      photoFile64Encoded: Joi.string(),
+      photoFile64Encoded: Joi.string().allow(''),
     }),
   }),
   readProject: celebrate({

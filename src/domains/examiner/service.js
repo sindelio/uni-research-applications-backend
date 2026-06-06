@@ -9,9 +9,9 @@ import commonService from '../_common/common-service.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const {
-  PROJECT_PENDING_REVIEW,
-  PROJECT_APPROVED,
-  PROJECT_REJECTED,
+  PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_APPROVED,
+  PROJECT_STATUS_REJECTED,
 } = process.env;
 
 const service = {
@@ -89,19 +89,19 @@ const service = {
   async stats(email) {
     const projects = await Project.find({ examinerEmail: email });
     const projectsPendingReview = projects.filter((project) => {
-      if (project.status == PROJECT_PENDING_REVIEW) {
+      if (project.status == PROJECT_STATUS_PENDING_REVIEW) {
         return true;
       }
       return false;
     });
     const projectsApproved = projects.filter((project) => {
-      if (project.status == PROJECT_APPROVED) {
+      if (project.status == PROJECT_STATUS_APPROVED) {
         return true;
       }
       return false;
     });
     const projectsRejected = projects.filter((project) => {
-      if (project.status == PROJECT_REJECTED) {
+      if (project.status == PROJECT_STATUS_REJECTED) {
         return true;
       }
       return false;
@@ -152,8 +152,8 @@ const service = {
       Project,
       { examinerEmail: email, _id: projectId },
     );
-    if (project.status !== PROJECT_PENDING_REVIEW) {
-      throw new BadRequest(`Project status is not ${PROJECT_PENDING_REVIEW}`);
+    if (project.status !== PROJECT_STATUS_PENDING_REVIEW) {
+      throw new BadRequest(`Project status is not ${PROJECT_STATUS_PENDING_REVIEW}`);
     }
     project.status = evaluation.status;
     delete evaluation.status;
