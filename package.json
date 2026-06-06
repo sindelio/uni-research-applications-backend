@@ -9,9 +9,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "bun --watch index.js",
-    "start": "pm2 start bun --name \"backend\" -- index.js",
-    "restart": "pm2 restart index.js --update-env",
-    "stop": "pm2 stop index.js",
+    "start": "pm2 start bun --name backend -- index.js",
+    "restart": "pm2 restart backend --update-env",
+    "stop": "pm2 stop backend",
     "checkUpdates": "bunx taze -w",
     "lint": "bun run eslint .",
     "lint:fix": "bun run eslint . --fix",
