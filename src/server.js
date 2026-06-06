@@ -32,11 +32,11 @@ server.use(bodyParser.json({ // Middleware to parse an incoming JSON body as an 
 }));
 
 // API routing
-server.use('/v1/health', healthRouter);
-server.use('/v1/super-admin', superAdminRouter);
-server.use('/v1/admin', adminRouter);
-server.use('/v1/participant', participantRouter);
-server.use('/v1/examiner', examinerRouter);
+server.use('api/health', healthRouter);
+server.use('api/super-admin', superAdminRouter);
+server.use('api/admin', adminRouter);
+server.use('api/participant', participantRouter);
+server.use('api/examiner', examinerRouter);
 
 // Set global error handler
 server.use(globalErrorHandler);
