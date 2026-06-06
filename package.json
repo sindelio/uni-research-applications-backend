@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "bun --watch index.js",
-    "start": "pm2 start --interpreter ~/.bun/bin/bun index.js",
+    "start": "pm2 start bun --name \"uni-backend\" -- index.js",
     "restart": "pm2 restart index.js --update-env",
     "stop": "pm2 stop index.js",
     "checkUpdates": "bunx taze -w",
