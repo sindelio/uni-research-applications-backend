@@ -26,7 +26,7 @@ const commonService = {
     await user.save();
     const subject = 'Confirmação de email';
     const htmlMessage = await generateHtmlMessage(
-      'Bem vindo!',
+      'Bem vindo(a)!',
       'Por favor confirme seu email clicando no link abaixo:',
       `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
       'Confirmar email',

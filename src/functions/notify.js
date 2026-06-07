@@ -55,7 +55,7 @@ async function notify(
   const imagesPath = path.join(currentPath, '../utils/images');
   const attachments = [
     {
-      path: `${imagesPath}/enpcv.jpeg`,
+      path: `${imagesPath}/icon.png`,
       cid: 'icon', // Same content id value as in the html img src
     },
     // {
