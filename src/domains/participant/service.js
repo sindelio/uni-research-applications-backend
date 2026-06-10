@@ -101,7 +101,7 @@ const service = {
     // Projects
     const projects = await Project.find({});
 
-    // Projects waiting examiner
+    // Status waiting examiner
     const projectsWaitingExaminer = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_WAITING_EXAMINER) {
         return true;
@@ -109,7 +109,7 @@ const service = {
       return false;
     });
 
-    // Projects pending review
+    // Status pending review
     const projectsPendingReview = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_PENDING_REVIEW) {
         return true;
@@ -117,7 +117,7 @@ const service = {
       return false;
     });
 
-    // Projects partially approved
+    // Status partially approved
     const projectsPartiallyApproved = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_PARTIALLY_APPROVED) {
         return true;
@@ -125,7 +125,7 @@ const service = {
       return false;
     });
 
-    // Projects approved
+    // Status approved
     const projectsApproved = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_APPROVED) {
         return true;
@@ -133,7 +133,7 @@ const service = {
       return false;
     });
 
-    // Projects rejected
+    // Status rejected
     const projectsRejected = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_REJECTED) {
         return true;
@@ -141,13 +141,35 @@ const service = {
       return false;
     });
 
+    // Type conventional
+    const projectsTypeConventional = projects.filter((project) => {
+      if (project.projectType === PROJECT_TYPE_CONVENTIONAL) {
+        return true;
+      }
+      return false;
+    });
+
+    // Type photo
+    const projectsTypePhoto = projects.filter((project) => {
+      if (project.projectType === PROJECT_TYPE_PHOTO) {
+        return true;
+      }
+      return false;
+    });
+
     // Stats
     const stats = {
-      projectsWaitingExaminer: projectsWaitingExaminer.length,
-      projectsPendingReview: projectsPendingReview.length,
-      projectsPartiallyApproved: projectsPartiallyApproved.length,
-      projectsApproved: projectsApproved.length,
-      projectsRejected: projectsRejected.length,
+      projectsByStatus: {
+        waitingExaminer: projectsWaitingExaminer.length,
+        pendingReview: projectsPendingReview.length,
+        partiallyApproved: projectsPartiallyApproved.length,
+        approved: projectsApproved.length,
+        rejected: projectsRejected.length,
+      },
+      projectsByType: {
+        conventional: projectsTypeConventional.length,
+        photo: projectsTypePhoto.length,
+      },
     };
 
     return {

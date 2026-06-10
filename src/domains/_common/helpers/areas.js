@@ -10,6 +10,11 @@ const areas = [
   'Derrame cavitário',
   'Medula óssea',
   'Líquido sinovial e cefalorraquidiano',
+  'Gestão laboratorial',
+  'Hemogasometria',
+  'Histopatologia',
+  'Imunologia',
+  'Microbiologia',
 ];
 
 export default areas;
