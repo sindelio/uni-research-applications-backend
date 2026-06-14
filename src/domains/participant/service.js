@@ -7,6 +7,8 @@ import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
 import find from '../../helpers/find.js';
 import paginatedFind from '../../helpers/paginated-find.js';
+import generateHtmlMessage from '../../helpers/generate-html-message.js';
+import notify from '../../functions/notify.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
 import suggestExaminer from '../_common/helpers/suggest-examiner.js';
@@ -222,6 +224,10 @@ const service = {
     };
   },
   async createProject(email, projectInfo) {
+    // Check project existence
+    const { title } = projectInfo;
+    let project = await findOne(Project, { title }, true);
+
     // Check project limits
     const { projectType } = projectInfo;
     const projects = await find(Project, { participantEmail: email });
@@ -250,10 +256,6 @@ const service = {
       }
     }
 
-    // Check project existence
-    const { title } = projectInfo;
-    let project = await findOne(Project, { title }, true);
-
     // Create project
     const { photoFile64Encoded, ...otherInfo } = projectInfo;
     const cleanBase64 = photoFile64Encoded.split(';base64,').pop();
@@ -270,6 +272,14 @@ const service = {
     await setDate(project, 'createdAt');
     await suggestExaminer(project);
     await project.save();
+
+    const subject = 'Projeto criado';
+    const htmlMessage = await generateHtmlMessage(
+      'Olá!',
+      `O projeto - ${title} - foi criado com sucesso. Aguarde enquanto um avaliador é selecionado para avaliá-lo`,
+    );
+    notify(email, subject, htmlMessage);
+
     return {
       success: true,
       data:  project,

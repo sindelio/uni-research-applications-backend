@@ -68,6 +68,8 @@ const validator = {
         .items(Joi.object({
           name: Joi.string().max(256).required(),
           institution: Joi.string().max(256).required(),
+          city: Joi.string().max(256).required(),
+          state: Joi.string().min(2).max(2).required(),
         }))
         .min(1)
         .max(50)

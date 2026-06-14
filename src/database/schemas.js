@@ -57,6 +57,8 @@ const projectSchema = new Schema({
   authors: [{
     name: String,
     institution: String,
+    city: String,
+    state: String,
   }],
   areas: [String],
   summary: String,

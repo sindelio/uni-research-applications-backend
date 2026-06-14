@@ -1,6 +1,6 @@
 TODO:
 - Participant
-  - Limit number of conventional projects to 2 and photo to 1
+  - Add dropdown for states in project creation
 - Examiner
   - TBD
 - Admin
