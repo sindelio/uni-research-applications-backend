@@ -101,7 +101,7 @@ const service = {
   },
   async stats(email) {
     // Projects
-    const projects = await Project.find({});
+    const projects = await Project.find({ participantEmail: email });
 
     // Status waiting examiner
     const projectsWaitingExaminer = projects.filter((project) => {
