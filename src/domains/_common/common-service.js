@@ -13,6 +13,8 @@ import BadRequest from '../../errors/bad-request.js';
 const {
   FRONTEND_URL,
   JWT_SECRET,
+  USER_STATUS_PENDING_EMAIL_CONFIRMATION,
+  USER_STATUS_EMAIL_CONFIRMED,
 } = process.env;
 
 const commonService = {
@@ -21,17 +23,18 @@ const commonService = {
     let user = await findOne(Model, { email }, true);
     user = new Model({ email, password, phone, institution, name });
     user.userType = `${Model?.modelName}`;
-    user.status = 'Pending email confirmation';
+    // user.status = USER_STATUS_PENDING_EMAIL_CONFIRMATION;
+    user.status = USER_STATUS_EMAIL_CONFIRMED;
     await setDate(user, 'createdAt');
     await user.save();
-    const subject = 'Confirmação de email';
-    const htmlMessage = await generateHtmlMessage(
-      'Bem vindo(a)!',
-      'Por favor confirme seu email clicando no link abaixo:',
-      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
-      'Confirmar email',
-    );
-    notify(email, subject, htmlMessage);
+    // const subject = 'Confirmação de email';
+    // const htmlMessage = await generateHtmlMessage(
+    //   'Bem vindo(a)!',
+    //   'Por favor confirme seu email clicando no link abaixo:',
+    //   `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
+    //   'Confirmar email',
+    // );
+    // notify(email, subject, htmlMessage);
     return user;
   },
   async confirmEmail(Model, email) {
