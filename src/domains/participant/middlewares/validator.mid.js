@@ -63,16 +63,16 @@ const validator = {
   }),
   createProject: celebrate({
     body: Joi.object({
-      title: Joi.string().max(128).required(),
+      title: Joi.string().max(500).required(),
       authors: Joi.array()
         .items(Joi.object({
-          name: Joi.string().max(256).required(),
-          institution: Joi.string().max(256).required(),
-          city: Joi.string().max(256).required(),
+          name: Joi.string().max(500).required(),
+          institution: Joi.string().max(500).required(),
+          city: Joi.string().max(500).required(),
           state: Joi.string().min(2).max(2).required(),
         }))
         .min(1)
-        .max(50)
+        .max(100)
         .required(),
       areas: Joi.array()
         .items(Joi.string().valid(...areas))
@@ -81,10 +81,10 @@ const validator = {
         .required(),
       summary: Joi.string().max(2450).required(),
       keywords: Joi.array()
-        .items(Joi.string().min(3).max(256))
+        .items(Joi.string().min(2).max(500))
         .required(),
       references: Joi.array()
-        .items(Joi.string().min(3).max(256))
+        .items(Joi.string().min(3).max(500))
         .required(),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       photoFile64Encoded: Joi.string().allow(''),
