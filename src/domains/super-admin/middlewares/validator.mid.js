@@ -6,6 +6,7 @@ import areas from '../../_common/helpers/areas.js';
 const {
   PROJECT_STATUS_WAITING_EXAMINER,
   PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_PARTIALLY_APPROVED,
   PROJECT_STATUS_APPROVED,
   PROJECT_STATUS_REJECTED,
 } = process.env;
@@ -106,6 +107,7 @@ const validator = {
       projectId: formats.requiredId,
     }),
     body: Joi.object({
+      examinerEmail: formats.email,
       title: Joi.string().max(128),
       authors: Joi.array()
         .items(Joi.object({
@@ -126,6 +128,7 @@ const validator = {
       status: Joi.string().valid(
         PROJECT_STATUS_WAITING_EXAMINER,
         PROJECT_STATUS_PENDING_REVIEW,
+        PROJECT_STATUS_PARTIALLY_APPROVED,
         PROJECT_STATUS_APPROVED,
         PROJECT_STATUS_REJECTED,
       ),

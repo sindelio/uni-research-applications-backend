@@ -10,6 +10,7 @@ import BadRequest from '../../errors/bad-request.js';
 
 const {
   PROJECT_STATUS_PENDING_REVIEW,
+  PROJECT_STATUS_PARTIALLY_APPROVED,
   PROJECT_STATUS_APPROVED,
   PROJECT_STATUS_REJECTED,
 } = process.env;
@@ -94,6 +95,12 @@ const service = {
       }
       return false;
     });
+    const projectsPartiallyApproved = projects.filter((project) => {
+      if (project.status == PROJECT_STATUS_PARTIALLY_APPROVED) {
+        return true;
+      }
+      return false;
+    });
     const projectsApproved = projects.filter((project) => {
       if (project.status == PROJECT_STATUS_APPROVED) {
         return true;
@@ -108,6 +115,7 @@ const service = {
     });
     const stats = {
       projectsPendingReview: projectsPendingReview.length,
+      projectsPartiallyApproved: projectsPartiallyApproved.length,
       projectsApproved: projectsApproved.length,
       projectsRejected: projectsRejected.length,
     };
@@ -117,8 +125,11 @@ const service = {
       error: null,
     };
   },
-  async paginatedFind(model, query, page = 1) {
+  async paginatedFind(email, model, query, page = 1) {
     const Model = await getModel(model);
+    if (Model === Project) {
+      query.examinerEmail = email;
+    }
     const { 
       numberOfItems,
       itemsInPage,

@@ -85,6 +85,7 @@ const validator = {
         .required(),
       references: Joi.array()
         .items(Joi.string().min(3).max(500))
+        .max(50)
         .required(),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       photoFile64Encoded: Joi.string().allow(''),
@@ -100,11 +101,13 @@ const validator = {
       projectId: formats.requiredId,
     }),
     body: Joi.object({
-      title: Joi.string().max(128),
+      title: Joi.string().max(500),
       authors: Joi.array()
         .items(Joi.object({
-          name: Joi.string().max(256).required(),
-          institution: Joi.string().max(256).required(),
+          name: Joi.string().max(500).required(),
+          institution: Joi.string().max(500).required(),
+          city: Joi.string().max(500).required(),
+          state: Joi.string().min(2).max(2).required(),
         }))
         .min(1)
         .max(50),
@@ -112,11 +115,11 @@ const validator = {
         .items(Joi.string().valid(...areas))
         .min(1)
         .max(2),
-      summary: Joi.string().max(512),
-      keywords: Joi.array().items(Joi.string().min(3).max(256)),
-      references: Joi.array().items(Joi.string().min(3).max(256)),
+      summary: Joi.string().max(2450),
+      keywords: Joi.array().items(Joi.string().min(3).max(500)),
+      references: Joi.array().items(Joi.string().min(3).max(500)),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
-      photoFile64Encoded: Joi.string(),
+      photoFile64Encoded: Joi.string().allow(''),
     }),
   }),
   deleteProject: celebrate({

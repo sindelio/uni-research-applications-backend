@@ -56,8 +56,9 @@ const controller = {
     res.status(200).json(result);
   },
   async paginatedFind(req, res) {
+    const { email } = req.user;
     const { model, query, page } = req.body;
-    const result = await service.paginatedFind(model, query, page);
+    const result = await service.paginatedFind(email, model, query, page);
     res.status(200).json(result);
   },
   async readProject(req, res) {

@@ -4,6 +4,7 @@ import commonValidators from '../../_common/validators/validators.js';
 import areas from '../../_common/helpers/areas.js';
 
 const {
+  PROJECT_STATUS_PARTIALLY_APPROVED,
   PROJECT_STATUS_APPROVED,
   PROJECT_STATUS_REJECTED,
 } = process.env;
@@ -60,7 +61,7 @@ const validator = {
   paginatedFind: celebrate({
     body: Joi.object({
       model: Joi.string()
-        .valid('Examiner', 'Project'),
+        .valid('Project'),
       query: Joi.object(),
       page: Joi.number()
         .integer()
@@ -78,7 +79,10 @@ const validator = {
     }),
     body: Joi.object({
       status: Joi.string()
-        .valid(PROJECT_STATUS_APPROVED, PROJECT_STATUS_REJECTED)
+        .valid(
+          PROJECT_STATUS_PARTIALLY_APPROVED,
+          PROJECT_STATUS_APPROVED,
+          PROJECT_STATUS_REJECTED)
         .required(),
       title: Joi.boolean().required(),
       authors: Joi.boolean().required(),

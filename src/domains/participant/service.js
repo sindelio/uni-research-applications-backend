@@ -180,11 +180,10 @@ const service = {
       error: null,
     };
   },
-  async paginatedFind(model, query, page = 1) {
+  async paginatedFind(email, model, query, page = 1) {
     const Model = await getModel(model);
     if (Model === Project) {
-      query.participantEmail = query.email;
-      delete query.email;
+      query.participantEmail = email;
     }
     const { numberOfItems, itemsInPage } = await paginatedFind(Model, query, page);
     return {

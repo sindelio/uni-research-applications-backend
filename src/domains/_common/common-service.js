@@ -98,6 +98,13 @@ const commonService = {
   async updateUser(Model, email, update) {
     const user = await findOne(Model, { email });
     await setDate(update, 'lastUpdatedAt');
+
+    // Fix for array fields
+    if (update?.areas) {
+      user.areas = [];
+      await user.save();
+    }
+    
     const dotifiedUpdate = await dotifyObject(update);
     await user.updateOne(dotifiedUpdate);
   },
