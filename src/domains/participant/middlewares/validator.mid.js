@@ -3,6 +3,10 @@ import formats from '../../_common/validators/formats.js';
 import commonValidators from '../../_common/validators/validators.js';
 import areas from '../../_common/helpers/areas.js';
 
+const {
+  PROJECT_STATUS_PENDING_REVIEW,
+} = process.env;
+
 const validator = {
   create: celebrate({
     body: Joi.object({
@@ -101,6 +105,7 @@ const validator = {
       projectId: formats.requiredId,
     }),
     body: Joi.object({
+      status: Joi.string().valid(PROJECT_STATUS_PENDING_REVIEW),
       title: Joi.string().max(500),
       authors: Joi.array()
         .items(Joi.object({
