@@ -171,6 +171,14 @@ const validator = {
       projectId: formats.requiredId,
     }),
   }),
+  allocateExaminerToProject: celebrate({
+    query: Joi.object({
+      projectId: formats.requiredId,
+    }),
+    body: Joi.object({
+      examinerEmail: formats.requiredEmail,
+    }),
+  }),
 };
 
 export default validator;

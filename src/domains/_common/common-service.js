@@ -6,8 +6,8 @@ import exists from '../../helpers/exists.js';
 import findOne from '../../helpers/find-one.js';
 import setDate from '../../helpers/set-date.js';
 import generateHtmlMessage from '../../helpers/generate-html-message.js';
-import notify from '../../functions/notify.js';
 import dotifyObject from '../../helpers/dotify.js';
+import notify from '../../functions/notify.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const {
@@ -23,18 +23,17 @@ const commonService = {
     let user = await findOne(Model, { email }, true);
     user = new Model({ email, password, phone, institution, name });
     user.userType = `${Model?.modelName}`;
-    // user.status = USER_STATUS_PENDING_EMAIL_CONFIRMATION;
-    user.status = USER_STATUS_EMAIL_CONFIRMED;
+    user.status = USER_STATUS_PENDING_EMAIL_CONFIRMATION;
     await setDate(user, 'createdAt');
     await user.save();
-    // const subject = 'Confirmação de email';
-    // const htmlMessage = await generateHtmlMessage(
-    //   'Bem vindo(a)!',
-    //   'Por favor confirme seu email clicando no link abaixo:',
-    //   `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
-    //   'Confirmar email',
-    // );
-    // notify(email, subject, htmlMessage);
+    const subject = 'Confirmação de email';
+    const htmlMessage = await generateHtmlMessage(
+      'Bem vindo(a)!',
+      'Por favor confirme seu email clicando no link abaixo:',
+      `${FRONTEND_URL}/app/email-confirmation?email=${user.email}&userType=${user.userType}`,
+      'Confirmar email',
+    );
+    notify(email, subject, htmlMessage);
     return user;
   },
   async confirmEmail(Model, email) {

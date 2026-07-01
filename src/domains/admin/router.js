@@ -78,6 +78,14 @@ router.post(
   },
 );
 
+router.post(
+  '/allocate-examiner-to-project',
+  validator.allocateExaminerToProject,
+  async (req, res, _next) => {
+    await controller.allocateExaminerToProject(req, res);
+  },
+);
+
 router.get(
   '/examiner',
   validator.readUser,

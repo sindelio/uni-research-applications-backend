@@ -8,10 +8,14 @@ import setDate from '../../helpers/set-date.js';
 import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
+import generateHtmlMessage from '../../helpers/generate-html-message.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
+import notify from '../../functions/notify.js';
+import BadRequest from '../../errors/bad-request.js';
 
 const {
+  FRONTEND_URL,
   PROJECT_STATUS_WAITING_EXAMINER,
   PROJECT_STATUS_PENDING_REVIEW,
   PROJECT_STATUS_PARTIALLY_APPROVED,
@@ -154,6 +158,36 @@ const service = {
         numberOfItems,
         itemsInPage,
       },
+      error: null,
+    };
+  },
+  async allocateExaminerToProject(projectId, examinerEmail) {
+    const project = await findOne(
+      Project,
+      { _id: projectId },
+    );
+
+    if (project.status !== PROJECT_STATUS_WAITING_EXAMINER) {
+      throw new BadRequest(`Project status is not ${PROJECT_STATUS_WAITING_EXAMINER}`);
+    }
+
+    // Update project
+    project.examinerEmail = examinerEmail;
+    project.status = PROJECT_STATUS_PENDING_REVIEW;
+    await project.save();
+
+    // Notification
+    const subject = 'Projeto recebido para avaliação';
+    const htmlMessage = await generateHtmlMessage(
+      'Olá!',
+      'Você recebeu um projeto para avaliação! Acesse a plataforma do ENPCV para avaliá-lo:',
+      `${FRONTEND_URL}/app/signin`,
+      'Plataforma',
+    );
+    notify(examinerEmail, subject, htmlMessage);
+    return {
+      success: true,
+      data: project,
       error: null,
     };
   },

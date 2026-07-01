@@ -4,11 +4,14 @@ import {
 } from '../../database/models.js';
 import findOne from '../../helpers/find-one.js';
 import paginatedFind from '../../helpers/paginated-find.js';
+import generateHtmlMessage from '../../helpers/generate-html-message.js';
 import getModel from '../_common/helpers/get-model.js';
 import commonService from '../_common/common-service.js';
+import notify from '../../functions/notify.js';
 import BadRequest from '../../errors/bad-request.js';
 
 const {
+  FRONTEND_URL,
   PROJECT_STATUS_PENDING_REVIEW,
   PROJECT_STATUS_PARTIALLY_APPROVED,
   PROJECT_STATUS_APPROVED,
@@ -163,13 +166,27 @@ const service = {
       Project,
       { examinerEmail: email, _id: projectId },
     );
-    if (project.status !== PROJECT_STATUS_PENDING_REVIEW) {
+
+    const { title, status, participantEmail } = project;
+
+    if (status !== PROJECT_STATUS_PENDING_REVIEW) {
       throw new BadRequest(`Project status is not ${PROJECT_STATUS_PENDING_REVIEW}`);
     }
     project.status = evaluation.status;
     delete evaluation.status;
     project.evaluation = evaluation;
     await project.save();
+
+    // Notification
+    const subject = 'Projeto avaliado';
+    const htmlMessage = await generateHtmlMessage(
+      'Olá!',
+      `Seu projeto - ${title} - foi avaliado! Entre na plataforma para acessar a avaliação:`,
+      `${FRONTEND_URL}/app/signin`,
+      'Plataforma',
+    );
+    notify(participantEmail, subject, htmlMessage);
+
     return {
       success: true,
       data: project,

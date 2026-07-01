@@ -54,6 +54,12 @@ const controller = {
     const result = await service.paginatedFind(model, query, page);
     res.status(200).json(result);
   },
+  async allocateExaminerToProject(req, res) {
+    const { projectId } = req.query;
+    const { examinerEmail } = req.body;
+    const result = await service.allocateExaminerToProject(projectId, examinerEmail);
+    res.status(200).json(result);
+  },
   async readExaminer(req, res) {
     const { email } = req.query;
     const result = await service.readExaminer(email);
