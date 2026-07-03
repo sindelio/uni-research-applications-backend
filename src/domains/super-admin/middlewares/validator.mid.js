@@ -90,6 +90,10 @@ const validator = {
       institution: formats.institution,
       name: formats.name,
       status: formats.status,
+      receiptFile: Joi.object({
+        data: Joi.binary(),
+        isSubmitted: Joi.boolean(),
+      }),
     }),
   }),
   deleteUser: celebrate({
