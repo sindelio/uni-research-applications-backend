@@ -54,11 +54,12 @@ const commonService = {
     const token = crypto.randomBytes(8).toString('hex');
     user.passwordRecoveryToken = token;
     await user.save();
+    const { userType } = user;
     const subject = 'TalentSourcery password recovery';
     const htmlMessage = await generateHtmlMessage(
       'Saudações do ENPCV!',
       'Você pode resetar sua senha através do link abaixo:',
-      `${FRONTEND_URL}/app/password-reset?email=${email}&userType=${user.type}&token=${token}`,
+      `${FRONTEND_URL}/app/password-reset?email=${email}&userType=${userType}&token=${token}`,
       'Resetar senha',
     );
     notify(email, subject, htmlMessage);
