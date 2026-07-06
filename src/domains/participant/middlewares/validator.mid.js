@@ -83,7 +83,7 @@ const validator = {
         .min(1)
         .max(2)
         .required(),
-      summary: Joi.string().max(2450).required(),
+      summary: Joi.string().min(1500).max(2450).required(),
       keywords: Joi.array()
         .items(Joi.string().min(2).max(500))
         .required(),

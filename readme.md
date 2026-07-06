@@ -2,17 +2,9 @@ TODO:
 - Participant
   - Add dropdown for states in project creation
 - Examiner
-  - TBD
+  - 
 - Admin
-  - Stats
   - Toggle project submissions
-  - Allocate examiner to project
-  - Delete participants, examiners, projects
-- Super Admin
-  - Purge
-- All users
-  - Use stats in dashboard
-  - Reuse user statuses
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
