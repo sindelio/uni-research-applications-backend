@@ -162,11 +162,16 @@ const service = {
     };
   },
   async allocateExaminerToProject(projectId, examinerEmail) {
+    // Get project
     const project = await findOne(
       Project,
       { _id: projectId },
     );
 
+    // Check examiner existence
+    await findOne(Examiner, { email: examinerEmail });
+
+    // Check status
     if (project.status !== PROJECT_STATUS_WAITING_EXAMINER) {
       throw new BadRequest(`Project status is not ${PROJECT_STATUS_WAITING_EXAMINER}`);
     }

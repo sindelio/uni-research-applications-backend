@@ -145,7 +145,7 @@ const validator = {
       keywords: Joi.array().items(Joi.string().min(3).max(256)),
       references: Joi.array().items(Joi.string().min(3).max(256)),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
-      bannerFile64Encoded: Joi.string(),
+      photoFile64Encoded: Joi.string(),
       status: Joi.string().valid(
         PROJECT_STATUS_WAITING_EXAMINER,
         PROJECT_STATUS_PENDING_REVIEW,
