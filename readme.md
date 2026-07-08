@@ -1,10 +1,21 @@
+Connect to instance:
+
+gcloud compute ssh root@instance-enpcv
+
 TODO:
-- Participant
-  - Add dropdown for states in project creation
-- Examiner
-  - 
+- Translate error messages
 - Admin
   - Toggle project submissions
+  - Download participant receipt
+- Participant
+  - Add dropdown for states in project creation
+- Website
+  - Home button not scrolling top
+
+Dates:
+- Submissions 17/7
+- Evaluations 31/7
+- Final 21/8
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
