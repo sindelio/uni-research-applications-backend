@@ -67,6 +67,10 @@ const controller = {
     const result = await service.uploadReceipt(email, receiptFile64Encoded, nameOnFile);
     res.status(200).json(result);
   },
+  async readSettings(req, res) {
+    const result = await service.readSettings();
+    res.status(200).json(result);
+  },
   async createProject(req, res) {
     const { email } = req.user;
     const projectInfo = req.body;

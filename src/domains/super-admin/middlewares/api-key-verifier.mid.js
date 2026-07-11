@@ -9,7 +9,7 @@ function apiKeyVerifier(req, _res, next) {
   if (superAdminApiKey === SUPER_ADMIN_API_KEY) {
     next();
   } else {
-    throw new Unauthorized('Unauthorized API access');
+    throw new Unauthorized('Acesso de API não autorizado');
   }
 }
 

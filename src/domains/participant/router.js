@@ -93,6 +93,13 @@ router.post(
   },
 );
 
+router.get(
+  '/settings',
+  async (req, res, _next) => {
+    await controller.readSettings(req, res);
+  },
+);
+
 router.post(
   '/project',
   validator.createProject,

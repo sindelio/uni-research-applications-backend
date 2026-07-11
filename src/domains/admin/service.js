@@ -1,5 +1,6 @@
 import {
   Admin,
+  Settings,
   Examiner,
   Participant,
   Project,
@@ -173,7 +174,7 @@ const service = {
 
     // Check status
     if (project.status !== PROJECT_STATUS_WAITING_EXAMINER) {
-      throw new BadRequest(`Project status is not ${PROJECT_STATUS_WAITING_EXAMINER}`);
+      throw new BadRequest('Status do projeto não é "Aguardando avaliador"');
     }
 
     // Update project
@@ -269,6 +270,25 @@ const service = {
   async deleteProject(projectId) {
     const project = await findOne(Project, { _id: projectId });
     await project.deleteOne();
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async readSettings(projectId) {
+    const settings = await findOne(Settings, {});
+    return {
+      success: true,
+      data: settings,
+      error: null,
+    };
+  },
+  async updateSettings(update) {
+    const settings = await findOne(Settings, {});
+    await setDate(update, 'lastUpdatedAt');
+    const dotifiedUpdate = await dotifyObject(update);
+    await settings.updateOne(dotifiedUpdate);
     return {
       success: true,
       data: null,

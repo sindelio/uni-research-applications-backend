@@ -162,4 +162,32 @@ router.delete(
   },
 );
 
+router.post(
+  '/settings',
+  async (req, res, _next) => {
+    await controller.createSettings(req, res);
+  },
+);
+
+router.get(
+  '/settings',
+  async (req, res, _next) => {
+    await controller.readSettings(req, res);
+  },
+);
+
+router.patch(
+  '/settings',
+  async (req, res, _next) => {
+    await controller.updateSettings(req, res);
+  },
+);
+
+router.delete(
+  '/settings',
+  async (req, res, _next) => {
+    await controller.deleteSettings(req, res);
+  },
+);
+
 export default router;

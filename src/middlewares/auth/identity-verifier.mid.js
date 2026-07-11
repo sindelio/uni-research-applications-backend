@@ -9,11 +9,11 @@ const {
 async function identityVerifier(req, _res, next) {
   const authHeader = req?.headers?.authorization;
   if (authHeader === '' || !exists(authHeader)) {
-    throw new Unauthorized('authorization header is null, undefined or ""');
+    throw new Unauthorized('Cabeçalho de autorização é null, undefined ou ""');
   }
   const token = authHeader?.split('Bearer ')[1];
   if (token === '' || !exists(token)) {
-    throw new Unauthorized('A token must be provided in the format: "Bearer $TOKEN"');
+    throw new Unauthorized('Um token deve ser provido no formato: "Bearer $TOKEN"');
   }
   try {
     req.user = jsonwebtoken.verify(token, JWT_SECRET);

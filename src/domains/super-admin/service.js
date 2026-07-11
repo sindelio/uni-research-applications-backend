@@ -4,6 +4,7 @@ import {
   Participant,
   Examiner,
   Project,
+  Settings,
   ErrorLog,
 } from '../../database/models.js';
 import jsonWebToken from 'jsonwebtoken';
@@ -22,7 +23,7 @@ const service = {
   async authenticate(email, password) {
     const superAdmin = await findOne(SuperAdmin, { email });
     if (superAdmin?.password !== password) {
-      throw new BadRequest('Incorrect password, please try again');
+      throw new BadRequest('Senha incorreta, por favor tente novamente');
     }
     const options = {
       algorithm: 'HS256',
@@ -208,6 +209,48 @@ const service = {
   async deleteProject(projectId) {
     const project = await findOne(Project, { _id: projectId });
     await project.deleteOne();
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async createSettings() {
+    // Check if settings already exit
+    // Settings is a single document
+    await findOne(Settings, {}, true);
+
+    // Create settings
+    const settings = new Settings({});
+    await settings.save();
+    return {
+      success: true,
+      data: settings,
+      error: null,
+    };
+  },
+  async readSettings(projectId) {
+    const settings = await findOne(Settings, {});
+    return {
+      success: true,
+      data: settings,
+      error: null,
+    };
+  },
+  async updateSettings(update) {
+    const settings = await findOne(Settings, {});
+    await setDate(update, 'lastUpdatedAt');
+    const dotifiedUpdate = await dotifyObject(update);
+    await settings.updateOne(dotifiedUpdate);
+    return {
+      success: true,
+      data: null,
+      error: null,
+    };
+  },
+  async deleteSettings(projectId) {
+    const settings = await findOne(Settings, {});
+    await settings.deleteOne();
     return {
       success: true,
       data: null,

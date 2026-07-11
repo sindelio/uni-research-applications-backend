@@ -100,6 +100,23 @@ const controller = {
     const result = await service.deleteProject(projectId);
     res.status(200).json(result);
   },
+  async createSettings(req, res) {
+    const result = await service.createSettings();
+    res.status(200).json(result);
+  },
+  async readSettings(req, res) {
+    const result = await service.readSettings();
+    res.status(200).json(result);
+  },
+  async updateSettings(req, res) {
+    const update = req.body;
+    const result = await service.updateSettings(update);
+    res.status(200).json(result);
+  },
+  async deleteSettings(req, res) {
+    const result = await service.deleteSettings();
+    res.status(200).json(result);
+  },
 };
 
 export default controller;

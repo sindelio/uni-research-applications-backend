@@ -15,7 +15,7 @@ const service = {
         error: null,
       };
     }
-    throw new Error('Service is unhealthy');
+    throw new Error('Serviço não saudável');
   },
 };
 

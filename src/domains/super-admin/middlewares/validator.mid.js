@@ -93,6 +93,7 @@ const validator = {
       receiptFile: Joi.object({
         data: Joi.binary(),
         isSubmitted: Joi.boolean(),
+        nameOnFile: Joi.string().allow(''),
       }),
     }),
   }),

@@ -5,6 +5,7 @@ import {
   participantSchema,
   examinerSchema,
   projectSchema,
+  settingsSchema,
   errorLogSchema,
 } from './schemas.js';
 
@@ -13,6 +14,7 @@ const Admin = mongoose.model('Admin', adminSchema);
 const Participant = mongoose.model('Participant', participantSchema);
 const Examiner = mongoose.model('Examiner', examinerSchema);
 const Project = mongoose.model('Project', projectSchema);
+const Settings = mongoose.model('Settings', settingsSchema);
 const ErrorLog = mongoose.model('ErrorLog', errorLogSchema);
 
 export {
@@ -21,5 +23,6 @@ export {
   Participant,
   Examiner,
   Project,
+  Settings,
   ErrorLog,
 };

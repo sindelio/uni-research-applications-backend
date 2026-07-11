@@ -50,10 +50,7 @@ const validator = {
     body: Joi.object({
       model: Joi.string()
         .valid('Project'),
-      query: Joi.object({
-        email: Joi.string()
-          .forbidden(),
-      }),
+      query: Joi.object(),
       page: Joi.number()
         .integer()
         .positive(),

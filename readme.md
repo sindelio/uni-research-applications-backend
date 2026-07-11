@@ -3,14 +3,7 @@ Connect to instance:
 gcloud compute ssh root@instance-enpcv
 
 TODO:
-- Translate error messages
-- Admin
-  - Toggle project submissions
-  - Download participant receipt
-- Participant
-  - Add dropdown for states in project creation
-- Website
-  - Home button not scrolling top
+- 
 
 Dates:
 - Submissions 17/7

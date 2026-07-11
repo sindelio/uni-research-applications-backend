@@ -170,7 +170,7 @@ const service = {
     const { title, status, participantEmail } = project;
 
     if (status !== PROJECT_STATUS_PENDING_REVIEW) {
-      throw new BadRequest(`Project status is not ${PROJECT_STATUS_PENDING_REVIEW}`);
+      throw new BadRequest('Status do projeto não é "Aguardando avaliação"');
     }
     project.status = evaluation.status;
     delete evaluation.status;

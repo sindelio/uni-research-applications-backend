@@ -3,7 +3,7 @@ function notFoundHandler(_req, res, _next) {
     success: false,
     data: null,
     error: {
-      message: 'This endpoint is not available',
+      message: 'Esta rota não está disponível',
     },
   });
 }

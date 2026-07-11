@@ -1,5 +1,6 @@
 import {
   Participant,
+  Settings,
   Project,
 } from '../../database/models.js';
 import setDate from '../../helpers/set-date.js';
@@ -219,6 +220,14 @@ const service = {
     return {
       success: true,
       data: participant.receiptFile,
+      error: null,
+    };
+  },
+  async readSettings(projectId) {
+    const settings = await findOne(Settings, {});
+    return {
+      success: true,
+      data: settings,
       error: null,
     };
   },

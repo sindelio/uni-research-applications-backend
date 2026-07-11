@@ -39,10 +39,10 @@ const commonService = {
   async confirmEmail(Model, email) {
     const user = await findOne(Model, { email });
     if (user.status === 'Email confirmed') {
-      throw new BadRequest(`${Model?.modelName} ${email} already confirmed`);
+      throw new BadRequest(`${Model?.modelName} ${email} já confirmado`);
     }
     if (user.status !== 'Pending email confirmation') {
-      throw new BadRequest(`${Model?.modelName} ${email} status is not pending confirmation`);
+      throw new BadRequest(`${Model?.modelName} ${email} status não é "Aguardando confirmação de email"`);
     }
     if (user.email === email) {
       user.status = 'Email confirmed';
@@ -67,10 +67,10 @@ const commonService = {
   async resetPassword(Model, email, passwordRecoveryToken, newPassword) {
     const user = await findOne(Model, { email });
     if (!exists(user.passwordRecoveryToken)) {
-      throw new BadRequest('There is no request to recover the password');
+      throw new BadRequest('Não há pedido de recuperação de senha');
     }
     if (passwordRecoveryToken !== user.passwordRecoveryToken) {
-      throw new BadRequest('Incorrect password recovery token');
+      throw new BadRequest('Token de recuperação de senha incorreto');
     }
     user.password = newPassword;
     user.passwordRecoveryToken = undefined;
@@ -79,10 +79,10 @@ const commonService = {
   async authenticate(Model, email, password) {
     const user = await findOne(Model, { email });
     if (user.status === 'Pending email confirmation') {
-      throw new BadRequest('Please confirm your email before signing in');
+      throw new BadRequest('Por favor confirme seu e-mail antes de entrar no sistema');
     }
     if (password !== user?.password) {
-      throw new BadRequest('Incorrect password, please try again');
+      throw new BadRequest('Senha incorreta, por favor tente novamente');
     }
     const options = {
       algorithm: 'HS256',

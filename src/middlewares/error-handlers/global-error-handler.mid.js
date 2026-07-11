@@ -13,7 +13,7 @@ async function globalErrorHandler(err, req, res, _next) {
   if (err?.message === 'Validation failed') {
     statusCode = 400;
     err.details.forEach((validationErr) => {
-      message = `Validation failed: ${validationErr?.details[0]?.message}`;
+      message = `Erro de validação: ${validationErr?.details[0]?.message}`;
     });
   }
   const date = new Date();

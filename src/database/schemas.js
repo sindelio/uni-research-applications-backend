@@ -37,6 +37,8 @@ const adminSchema = new Schema(userBaseFields);
 
 const participantSchema = new Schema({
   ...userBaseFields,
+  numConventionalProjects: Number, // UNUSED
+  numPhotoProjects: Number, // UNUSED
   receiptFile: {
     data: Buffer,
     isSubmitted: Boolean,
@@ -97,6 +99,14 @@ const projectSchema = new Schema({
   },
 });
 
+const settingsSchema = new Schema({
+  projectSubmissionEnabled: {
+    type: Boolean,
+    default: true,
+  },
+  lastUpdatedAt: dateFields,
+});
+
 const errorLogSchema = new Schema({
   email: { type: String, index: true },
   errorType: String,
@@ -116,5 +126,6 @@ export {
   participantSchema,
   examinerSchema,
   projectSchema,
+  settingsSchema,
   errorLogSchema,
 };
