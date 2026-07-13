@@ -24,10 +24,10 @@ async function find(Model, query, checkExistence = false) {
   const items = await Model.find(query);
   if (checkExistence === true) {
     if (!Array.isArray(items)) {
-      throw new BadRequest('items type is not array');
+      throw new BadRequest('item não é um vetor');
     }
     if (items.length === 0) {
-      throw new BadRequest(`No ${Model.modelName}s with the criteria were found in database`);
+      throw new BadRequest(`Nenhum ${Model.modelName}s foi encontrado com os critérios na base de dados`);
     }
   }
   return items;

@@ -28,11 +28,11 @@ async function findOne(Model, query, checkExistence = false) {
   const item = await Model.findOne(query);
   if (checkExistence) {
     if (exists(item)) {
-      throw new BadRequest(`${Model?.modelName} already exists in database`);
+      throw new BadRequest(`${Model?.modelName} já existe na base de dados`);
     }
   } else {
     if (!exists(item)) {
-      throw new NotFound(`${Model?.modelName} not found in database`);
+      throw new NotFound(`${Model?.modelName} não encontrado na base de dados`);
     }
   }
   return item;
