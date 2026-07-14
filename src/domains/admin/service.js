@@ -169,18 +169,31 @@ const service = {
       { _id: projectId },
     );
 
-    // Check examiner existence
-    await findOne(Examiner, { email: examinerEmail });
-
     // Check status
     if (project.status !== PROJECT_STATUS_WAITING_EXAMINER) {
       throw new BadRequest('Status do projeto não é "Aguardando avaliador"');
+    }
+
+    // Check examiner existence
+    const examiner = await findOne(Examiner, { email: examinerEmail });
+
+    // Check max projects
+    const { numProjects, maxProjects } = examiner;
+    if (numProjects >= maxProjects) {
+      throw new BadRequest(
+        `Avaliador ${examinerEmail} já está em sua capacidade máxima de avaliação.
+        Considere alocar outro avaliador
+      `);
     }
 
     // Update project
     project.examinerEmail = examinerEmail;
     project.status = PROJECT_STATUS_PENDING_REVIEW;
     await project.save();
+
+    // Update examiner
+    examiner.numProjects += 1;
+    await examiner.save();
 
     // Notification
     const subject = 'Projeto recebido para avaliação';
