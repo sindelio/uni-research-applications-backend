@@ -3,7 +3,9 @@ Connect to instance:
 gcloud compute ssh root@instance-enpcv
 
 TODO:
-- 
+- Admin
+  - Listar avaliadores para alocação em projetos
+  - Create route for examiner suggestion
 
 Dates:
 - Submissions 17/7
