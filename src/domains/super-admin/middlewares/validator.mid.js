@@ -73,6 +73,10 @@ const validator = {
       areas: Joi.array()
         .min(1)
         .items(Joi.string().valid(...areas)),
+      numProjects: Joi.number()
+        .integer()
+        .min(0)
+        .max(100),
       maxProjects: Joi.number()
         .integer()
         .min(3)
