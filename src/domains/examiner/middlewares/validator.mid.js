@@ -85,7 +85,6 @@ const validator = {
           PROJECT_STATUS_REJECTED)
         .required(),
       title: Joi.boolean().required(),
-      authors: Joi.boolean().required(),
       areas: Joi.boolean().required(),
       summary: Joi.boolean().required(),
       keywords: Joi.boolean().required(),

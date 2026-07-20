@@ -278,7 +278,6 @@ const service = {
       status: PROJECT_STATUS_WAITING_EXAMINER,
     });
     await setDate(project, 'createdAt');
-    await suggestExaminer(project);
     await project.save();
 
     const subject = 'Projeto criado';

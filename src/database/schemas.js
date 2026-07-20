@@ -73,13 +73,11 @@ const projectSchema = new Schema({
   },
   participantEmail: String,
   examinerEmail: String,
-  suggestedExaminerEmail: String,
   status: String, // Waiting examiner, Pending review, Approved or Rejected
   createdAt: dateFields,
   lastUpdatedAt: dateFields,
   evaluation: {
     title: Boolean,
-    authors: Boolean,
     areas: Boolean,
     summary: Boolean,
     keywords: Boolean,

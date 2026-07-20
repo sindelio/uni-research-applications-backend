@@ -65,6 +65,10 @@ const controller = {
     const result = await service.readExaminer(email);
     res.status(200).json(result);
   },
+  async readExaminers(req, res) {
+    const result = await service.readExaminers();
+    res.status(200).json(result);
+  },
   async updateExaminer(req, res) {
     const { email } = req.query;
     const update = req.body;

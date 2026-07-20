@@ -94,6 +94,13 @@ router.get(
   },
 );
 
+router.get(
+  '/examiners',
+  async (req, res, _next) => {
+    await controller.readExaminers(req, res);
+  },
+);
+
 router.patch(
   '/examiner',
   validator.updateExaminer,

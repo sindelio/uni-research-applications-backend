@@ -8,6 +8,7 @@ import {
 import setDate from '../../helpers/set-date.js';
 import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
+import find from '../../helpers/find.js';
 import paginatedFind from '../../helpers/paginated-find.js';
 import generateHtmlMessage from '../../helpers/generate-html-message.js';
 import getModel from '../_common/helpers/get-model.js';
@@ -215,6 +216,14 @@ const service = {
     return {
       success: true,
       data: user,
+      error: null,
+    };
+  },
+  async readExaminers(email) {
+    const users = await find(Examiner, {});
+    return {
+      success: true,
+      data: users,
       error: null,
     };
   },
