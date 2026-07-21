@@ -1,16 +1,11 @@
 Connect to instance:
-
 gcloud compute ssh root@instance-enpcv
 
-TODO:
-- Admin
-  - Listar avaliadores para alocação em projetos
-  - Create route for examiner suggestion
+Connect to DB:
+docker exec -it db bash
 
-Dates:
-- Submissions 17/7
-- Evaluations 31/7
-- Final 21/8
+To get a JavaScript REPL terminal inside MongoDB:
+mongosh admin -u admin -p "HSd3+t4KFb7qKsY!"
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
