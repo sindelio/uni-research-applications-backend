@@ -122,6 +122,7 @@ const validator = {
       references: Joi.array().items(Joi.string().min(3).max(500)),
       projectType: Joi.string().valid('Convencional', 'Fotográfico'),
       photoFile64Encoded: Joi.string().allow(''),
+      resubmissionCommentaries: Joi.string().min(0).max(500).allow(''),
     }),
   }),
   deleteProject: celebrate({

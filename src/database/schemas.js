@@ -95,6 +95,7 @@ const projectSchema = new Schema({
     commentaries: String,
     caveats: String,
   },
+  resubmissionCommentaries: String,
 });
 
 const settingsSchema = new Schema({
