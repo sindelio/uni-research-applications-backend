@@ -7,6 +7,9 @@ docker exec -it db bash
 To get a JavaScript REPL terminal inside MongoDB:
 mongosh admin -u admin -p "HSd3+t4KFb7qKsY!"
 
+Export DB:
+gcloud compute scp root@instance-enpcv:/root/backend/projects.json .
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
