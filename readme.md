@@ -10,6 +10,12 @@ mongosh admin -u admin -p "HSd3+t4KFb7qKsY!"
 Export DB:
 gcloud compute scp root@instance-enpcv:/root/backend/projects.json .
 
+TODO:
+- Add state for project ressubmission
+- Fix server going down randomly in prod
+- Add admin change project status
+- Separate files from projects for easier and faster system load times
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 

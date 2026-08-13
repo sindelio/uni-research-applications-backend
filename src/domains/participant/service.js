@@ -3,6 +3,7 @@ import {
   Settings,
   Project,
 } from '../../database/models.js';
+import exists from '../../helpers/exists.js';
 import setDate from '../../helpers/set-date.js';
 import dotifyObject from '../../helpers/dotify.js';
 import findOne from '../../helpers/find-one.js';
@@ -309,10 +310,37 @@ const service = {
       Project, 
       { participantEmail: email, _id: projectId },
     );
+
     update.status = PROJECT_STATUS_PENDING_REVIEW;
     await setDate(update, 'lastUpdatedAt');
     const dotifiedUpdate = await dotifyObject(update);
     await project.updateOne(dotifiedUpdate);
+
+    // Photo must be handled separately
+    const { photoFile64Encoded } = update;
+    if (photoFile64Encoded) {
+      const cleanBase64 = photoFile64Encoded.split(';base64,').pop();
+      const buffer = Buffer.from(cleanBase64, 'base64');
+      project.photoFile = {
+        data: buffer, 
+        isSubmitted: true,
+      };
+      await project.save();
+    }
+
+    // // Notification
+    // const examinerEmail = project?.examinerEmail;
+    // if (exists(examinerEmail)) {
+    //   const subject = 'Projeto recebido para reavaliação';
+    //   const htmlMessage = await generateHtmlMessage(
+    //     'Olá!',
+    //     'Você recebeu um projeto para reavaliação! Acesse a plataforma do ENPCV para avaliá-lo:',
+    //     `${FRONTEND_URL}/app/signin`,
+    //     'Plataforma',
+    //   );
+    //   notify(examinerEmail, subject, htmlMessage);
+    // }
+
     return {
       success: true,
       data: project,

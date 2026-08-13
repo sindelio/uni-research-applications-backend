@@ -205,6 +205,7 @@ const service = {
       'Plataforma',
     );
     notify(examinerEmail, subject, htmlMessage);
+    
     return {
       success: true,
       data: project,
