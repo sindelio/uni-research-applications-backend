@@ -11,8 +11,9 @@ const projectObjs = projects.map((project) => {
   const projectObj = project.toObject();
   delete projectObj.photoFile;
   delete projectObj.lastUpdatedAt;
-  delete projectObj._id;
+  delete projectObj.createdAt;
   delete projectObj.__v;
+  // delete projectObj._id;
   return projectObj;
 });
 

@@ -8,7 +8,10 @@ To get a JavaScript REPL terminal inside MongoDB:
 mongosh admin -u admin -p "HSd3+t4KFb7qKsY!"
 
 Export DB:
-gcloud compute scp root@instance-enpcv:/root/backend/projects.json .
+(remote) bun src/database/scripts/export.js
+(local) gcloud compute scp root@instance-enpcv:/root/backend/projects.json .
+
+Convert to table with AI (ChatGPT), remove photoFile field.
 
 TODO:
 - Add state for project ressubmission
