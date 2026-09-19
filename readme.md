@@ -11,7 +11,7 @@ Export DB:
 (remote) bun src/database/scripts/export.js
 (local) gcloud compute scp root@instance-enpcv:/root/backend/projects.json .
 
-Convert to table with AI (ChatGPT), remove photoFile field.
+Convert to table with AI (Claude AI)
 
 TODO:
 - Add state for project ressubmission
