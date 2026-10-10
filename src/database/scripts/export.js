@@ -13,7 +13,7 @@ connectToDatabase();
 const projects = await Project.find({});
 const projectObjs = projects.map((project) => {
   const projectObj = project.toObject();
-  // delete projectObj.photoFile;
+  delete projectObj.photoFile;
   delete projectObj.lastUpdatedAt;
   delete projectObj.createdAt;
   delete projectObj.__v;
@@ -21,12 +21,12 @@ const projectObjs = projects.map((project) => {
   return projectObj;
 });
 
-const filteredProjects = projectObjs.filter((project) => {
-  if (project.status === PROJECT_STATUS_APPROVED) {
-    return true;
-  }
-  return false;
-});
+// const filteredProjects = projectObjs.filter((project) => {
+//   if (project.status === PROJECT_STATUS_APPROVED) {
+//     return true;
+//   }
+//   return false;
+// });
 
 fs.writeFileSync(
   'projects.json',
