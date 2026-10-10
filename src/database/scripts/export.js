@@ -21,16 +21,16 @@ const projectObjs = projects.map((project) => {
   return projectObj;
 });
 
-const filteredProjects = projectObjs.filter((project) => {
-  // if (project.status === PROJECT_STATUS_APPROVED) {
-  //   return true;
-  // }
-  // return false;
-});
+// const filteredProjects = projectObjs.filter((project) => {
+//   if (project.status === PROJECT_STATUS_APPROVED) {
+//     return true;
+//   }
+//   return false;
+// });
 
 fs.writeFileSync(
   'projects.json',
-  JSON.stringify(filteredProjects, null, 2)
+  JSON.stringify(projectObjs, null, 2)
 );
 
 await mongoose.disconnect();
