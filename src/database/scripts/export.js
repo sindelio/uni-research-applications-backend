@@ -21,12 +21,12 @@ const projectObjs = projects.map((project) => {
   return projectObj;
 });
 
-// const filteredProjects = projectObjs.filter((project) => {
-//   if (project.status === PROJECT_STATUS_APPROVED) {
-//     return true;
-//   }
-//   return false;
-// });
+const filteredProjects = projectObjs.filter((project) => {
+  // if (project.status === PROJECT_STATUS_APPROVED) {
+  //   return true;
+  // }
+  // return false;
+});
 
 fs.writeFileSync(
   'projects.json',
